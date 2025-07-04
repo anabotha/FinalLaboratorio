@@ -1,0 +1,1 @@
+#saca las cartas de la bd

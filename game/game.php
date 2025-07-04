@@ -1,0 +1,1 @@
+# aparecen las cartas, info de los jugadores,tiempo y modo de partida.

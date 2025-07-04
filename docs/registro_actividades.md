@@ -5,4 +5,4 @@
 
 3 - Bosquejo de funcionalidades y vistas.
 
-4 -Bosquejo Arquitectura Base utilizando patron "SCREAM".
+4 - Bosquejo Arquitectura Base utilizando arquitectura "SCREAM".
