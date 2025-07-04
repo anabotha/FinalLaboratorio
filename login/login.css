@@ -72,3 +72,33 @@ gap:20px;
 .logueado{
      display:none;
 }
+
+
+.register-box {
+     display: none;
+     background-color: #1b263b;
+     border-radius: 10px;
+     padding: 40px;
+     width: 320px;
+     text-align: center;
+     box-shadow: 0 0 20px #415a77;
+}
+.register-box h2 {
+     margin-bottom: 10px;
+}
+.register-box p {
+     margin-top: 0;
+     color: #a9bcd0;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"] {
+     width: 100%;
+     padding: 10px;
+     margin: 12px 0;
+     border: none;
+     border-radius: 5px;
+     font-size: 14px;
+}
+

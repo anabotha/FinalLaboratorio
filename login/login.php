@@ -18,7 +18,7 @@
      <div class="ingresoData">
      <p>¿Listo para dominar?</p>
      <form action="juego.php" method="post">
-          <input type="text" name="usuario1" placeholder="Nombre de usuario" required>
+          <input type="text" id="usuario1" name="usuario1" placeholder="Nombre de usuario" required>
           <input type="password" name="password1" placeholder="Contraseña" required>
           <button type="submit">ENTRAR AL JUEGO</button>
      </form>
@@ -35,7 +35,7 @@
      <div class="ingresoData">
      <p>¿Listo para dominar?</p>
      <form action="juego.php" method="post">
-          <input type="text" name="usuario2" placeholder="Nombre de usuario" required>
+          <input type="text" id="usuario2 "name="usuario2" placeholder="Nombre de usuario" required>
           <input type="password" name="password2" placeholder="Contraseña" required>
           <button type="submit">ENTRAR AL JUEGO</button>
      </form>
@@ -46,5 +46,21 @@
 
      </div>
 </section>
+
+<div class="register-box">
+     <div class="emoji">📝</div>
+     <h2>REGISTRATE</h2>
+     <p>¡Unite a la partida!</p>
+     <form action="procesar_registro.php" method="post">
+          <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+          <input type="password" name="password" placeholder="Contraseña" required>
+          <input type="date" name="fecha_nacimiento" required>
+          <input type="email" name="email" placeholder="Correo electrónico" required>
+          <button type="submit">REGISTRARME ✅</button>
+     </form>
+     <a href="login.html">¿Ya tenés cuenta? Iniciá sesión</a>
+     <p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
+     
+</div>
 </body>
 </html>
