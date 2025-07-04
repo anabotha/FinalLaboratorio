@@ -8,3 +8,5 @@ tabla Cartas:
 tablas Partidas: 
 
 tabla Contraseñas:
+
+emojis:?

@@ -52,8 +52,6 @@ El orden del turno de los jugadores, una vez que se hayan logueado y antes de co
 
 - [ ] Paradigma Orientado a Objetos: El desarrollo sigue el paradigma orientado a objetos.
 
-- [ ] Uso de Frameworks (Opcional): Si se utilizan frameworks, estos se basan en los lenguajes de programación cubiertos en la materia.
-
  - [ ] Resolución de Ambigüedades: Cualquier ambigüedad encontrada durante el desarrollo se aborda y resuelve claramente.
 
 **Entregables**

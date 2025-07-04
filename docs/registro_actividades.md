@@ -9,4 +9,8 @@
 
 5 - Mockups de bases de datos 
 
-6- Conexion a BDs.
+6 - Conexion a BDs.
+
+7 - Armado de vistas
+
+8 - Inicio de logicas simples. (ej:tirar dado,login,filtros)
