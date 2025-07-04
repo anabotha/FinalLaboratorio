@@ -6,23 +6,26 @@ if(isset($_GET['nick'])){
 
 function buscaUsuario($nick){
 
-$db=new mysqli("localhost","root","","inmobiliaria") or die ("No es posible conectarse al servidor");
+$db=new mysqli("localhost","root","","") or die ("No es posible conectarse al servidor");
 
 $motor->set_charset("utf8mb4");
      $prod = htmlspecialchars($prod); // Sanitizar el prod
           $query = ""; // Limitar a un resultado
           $result = $motor->query($query);
-     if($result->num_rows > 0){ //si existe el cliente en la bd
+     if($result->num_rows == 1){ //si existe el cliente en la bd
+
+          $json_temp=new StdClass();
           while($cliente = $result->fetch_object()){
                //$existe="true";
                //idParticiapnte
                //nombre
                //partidas Ganadas
                //
-               $myJson=json_encode();
+
+               $myJson=json_encode($json_temp);
                echo $myJson;
           }}else {//no existe el usuario
-               $existe="no";
+               $json_temp->existe = "no";
                $myJson=json_encode($existe);
                echo $myJson;
           }
