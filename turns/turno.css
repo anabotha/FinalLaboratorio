@@ -1,0 +1,89 @@
+  body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    .subtitulo {
+      color: #9eb4d1;
+      margin-bottom: 30px;
+    }
+
+    .turno-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .jugador-box {
+      background-color: #243447;
+      border-radius: 12px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 0 10px #1e90ff;
+    }
+
+    .jugador-box h2 {
+      margin: 10px 0;
+    }
+
+    .icono {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .dado {
+      font-size: 50px;
+      background-color: white;
+      color: black;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      margin: 0 auto 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .btn {
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      width: 100%;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .vs-circle {
+      background-color: #1e90ff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-weight: bold;
+      margin: 0 10px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #a0aec0;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #00ffbf;
+    }
