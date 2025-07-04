@@ -6,3 +6,7 @@
 3 - Bosquejo de funcionalidades y vistas.
 
 4 - Bosquejo Arquitectura Base utilizando arquitectura "SCREAM".
+
+5 - Mockups de bases de datos 
+
+6- Conexion a BDs.

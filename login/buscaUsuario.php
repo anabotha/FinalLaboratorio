@@ -14,13 +14,18 @@ $motor->set_charset("utf8mb4");
           $result = $motor->query($query);
      if($result->num_rows > 0){ //si existe el cliente en la bd
           while($cliente = $result->fetch_object()){
+               //$existe="true";
                //idParticiapnte
                //nombre
                //partidas Ganadas
                //
                $myJson=json_encode();
                echo $myJson;
-          }}
+          }}else {//no existe el usuario
+               $existe="no";
+               $myJson=json_encode($existe);
+               echo $myJson;
+          }
 }
 
 ?>
