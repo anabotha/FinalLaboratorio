@@ -1,8 +1,9 @@
 <?php
 if (isset($_GET['nick']) && isset($_GET['fechaNac']) && isset($_GET['json'])) {
      $nick = htmlspecialchars($_GET['nick']);
+     $fechaNac=htmlspecialchars($_GET['fechaNac']);
      if(!existeNombre($_GET['nick'])){
-          creaUsuario($nick,$_GET['json']);
+          creaUsuario($nick,$fechaNac,$_GET['json']);
      }else{
           $respuesta = ["existe" => true];//ya existe ese nombre
           echo json_encode($respuesta);
@@ -21,26 +22,39 @@ $db->set_charset("utf8mb4");
      return false;
 }}
 
-function creaUsuario($nick){
-$db=new mysqli("localhost","root","","") or die ("No es posible conectarse al servidor");
-$db->set_charset("utf8mb4");
-               $insert="INSERT INTO Usuarios (
-                    nickname, fechaNacimiento,
-                    PartidasJugadas, PartidasGanadas, email
-                    ) VALUES ('nick123', '2001-04-15',0, 0, 'nick123@example.com'
-                    );"
-               //$existe="si";
-               //idParticiapnte
-               //nombre
-               //partidas Ganadas
-               //
-          $result = $db->query($insert);
 
-     if ($result->affected_rows() > 0) {
-     echo " Usuario insertado correctamente.";
-} else {
-     echo " No se insertó ningún usuario.";
+function esMayorDe15() {
+          $fechaNacimiento = new DateTime($fechaNac);
+          $hoy = new DateTime();
+          $edad = $hoy->diff($fechaNacimiento)->y;
+          return $edad >= 15;
 }
+
+function creaUsuario($nick,$fechaNac,$json){
+     if(esMayorDe15($fechaNac)){
+
+          $db=new mysqli("localhost","root","","") or die ("No es posible conectarse al servidor");
+          $db->set_charset("utf8mb4");
+                         $insert="INSERT INTO Usuarios (
+                              nickname, fechaNacimiento,
+                              PartidasJugadas, PartidasGanadas, email
+                              ) VALUES ('nick123', '2001-04-15',0, 0, 'nick123@example.com'
+                              );"
+                         //$existe="si";
+                         //idParticiapnte
+                         //nombre
+                         //partidas Ganadas
+                         //
+                    $result = $db->query($insert);
+          
+               if ($result->affected_rows() > 0) {
+               echo " Usuario insertado correctamente.";
+          } else {
+               echo " No se insertó ningún usuario.";
+          }
+     }else {
+               echo "Menor a 15 años.";
+          }
           
 }
 

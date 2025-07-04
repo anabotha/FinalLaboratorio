@@ -1,0 +1,10 @@
+database:
+
+
+tabla Usuarios:
+
+tabla Cartas:
+
+tablas Partidas: 
+
+tabla Contraseñas:
