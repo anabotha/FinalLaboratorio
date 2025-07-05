@@ -1,20 +1,25 @@
 <?php
-if (isset($_GET['nick']) && isset($_GET['fechaNac']) && isset($_GET['json'])) {
-     $nick = htmlspecialchars($_GET['nick']);
-     $fechaNac=htmlspecialchars($_GET['fechaNac']);
+if (isset($_GET['obj'])) {
+     $json_string = $_GET['obj'];
+    // Decodificar JSON
+     $data = json_decode($json_string);
+     $nick = htmlspecialchars($data->nickname);
+     $fechaNac = htmlspecialchars($data->fechaNacimiento);
+     $email=htmlspecialchars($data->email);
      if(!existeNombre($_GET['nick'])){
-          creaUsuario($nick,$fechaNac,$_GET['json']);
+          creaUsuario($nick,$fechaNac,$email);
      }else{
           $respuesta = ["existe" => true];//ya existe ese nombre
           echo json_encode($respuesta);
           
      }
 }
+
 #chequea si el usuario existe y lo devuelve de lo cntrario, devuelve null
 function existeNombre($nick){
-$db=new mysqli("localhost","root","","") or die ("No es posible conectarse al servidor");
+$db=new mysqli("localhost","root","","juegodb") or die ("No es posible conectarse al servidor");
 $db->set_charset("utf8mb4");
-          $query = "SELECT idUsuario FROM Usuarios WHERE nickname = '$nick'"; // Limitar a un resultado
+          $query = "SELECT nickname FROM Usuarios WHERE nickname = '$nick'"; // Limitar a un resultado
           $result = $db->query($query);
      if($result->num_rows == 0){ //si no existe el cliente en la bd
           return true;
@@ -30,7 +35,7 @@ function esMayorDe15() {
           return $edad >= 15;
 }
 
-function creaUsuario($nick,$fechaNac,$json){
+function creaUsuario($nick,$fechaNac,$email){
      if(esMayorDe15($fechaNac)){
 
           $db=new mysqli("localhost","root","","") or die ("No es posible conectarse al servidor");
@@ -38,24 +43,24 @@ function creaUsuario($nick,$fechaNac,$json){
                          $insert="INSERT INTO Usuarios (
                               nickname, fechaNacimiento,
                               PartidasJugadas, PartidasGanadas, email
-                              ) VALUES ('nick123', '2001-04-15',0, 0, 'nick123@example.com'
+                              ) VALUES ('$nick', '$fechaNac',0, 0, '$email'
                               );"
-                         //$existe="si";
-                         //idParticiapnte
-                         //nombre
-                         //partidas Ganadas
-                         //
                     $result = $db->query($insert);
+$json_temp = new stdClass(); 
           
                if ($result->affected_rows() > 0) {
-               echo " Usuario insertado correctamente.";
+          $json_temp->existe = true;
+
           } else {
-               echo " No se insertó ningún usuario.";
+          $json_temp->existe = true;
+          $json_temp->explanation = "No se insertó ningún usuario.";
           }
      }else {
-               echo "Menor a 15 años.";
+          $json_temp->existe = true;
+          $json_temp->explanation = "Menor a 15 años.";
           }
-          
+     $myJson=json_encode($json_temp);
+          echo $myJson;
 }
 
 ?>
