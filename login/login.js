@@ -4,8 +4,10 @@
 //devuelve los usuarios.
 //variable de control,que cuando los dos esten iniciados pase a la siguiente vista.
 
+// tu código aquí
 window.onload = function () {
-     
+     console.log("getters");
+     deleteAllCookies();
      document.getElementById("inicio1").addEventListener("click", function (e) {
           e.preventDefault();
           buscaNombre(document.getElementById("usuario1").value,1);
@@ -20,6 +22,8 @@ window.onload = function () {
      });
 }
 
+
+
 function buscaNombre(usuario, jugador) {
      console.log(usuario, jugador);
 
@@ -29,7 +33,7 @@ function buscaNombre(usuario, jugador) {
           if (xhr.readyState === 4 && xhr.status === 200) {
                let respuesta =JSON.parse(xhr.responseText);
                console.log(respuesta);
-               gestionarRtas(respuesta); // Asegurate de que esta función exista
+               gestionarRtas(respuesta); 
           }
      };
 
@@ -38,6 +42,14 @@ function buscaNombre(usuario, jugador) {
      xhr.send();
 }
 
+function deleteAllCookies() {
+const cookies = document.cookie.split(";");
+
+for (let cookie of cookies) {
+     const nombre = cookie.split("=")[0].trim();
+     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+}
+}
 
 //cookie time
 function setCookie(nombre, valor, dias) {
@@ -69,21 +81,34 @@ function finLogueo(){
      j2=getCookie('jugador2');
 if(j1&&j2){
 //pasar a siguiente vista
-console.log("llego");
+/*
 deleteCookie('jugador1');
-     deleteCookie('jugador2');
-
+deleteCookie('jugador2');*/
+console.log("llego");
+const mensaje=document.getElementById("logueado1");
+mensaje.style.display='none';
+const mensaje2=document.getElementById("logueado2");
+mensaje2.style.display='none';
      //pase a otra vista
+     const btnElegirTurno = document.createElement("button");
+     btnElegirTurno.textContent = "Elegir turno";
+     btnElegirTurno.id = "btnElegirTurno";
+     const body = document.getElementById("body");
+     body.appendChild(btnElegirTurno);
+     btnElegirTurno.addEventListener("click",dirigir);
 }
 }
 
 function gestionarRtas(rta){
-     console.log("entra");
-
 if(rta.existe && rta.enUso){
      console.log("no podes jugar contra vos mismo");
 }else if(rta.existe && !rta.enUso){
      console.log("logueada, falta tu compa nomas");
+     const ingreso=document.getElementById("ingresoData"+rta.nroJug);
+     /*ingreso.style.display=none;*/
+     ingreso.style.display = 'none'; 
+     const mensaje=document.getElementById("logueado"+rta.nroJug);
+     mensaje.style.display='flex';
      finLogueo();
 }
      else if(!rta.existe){

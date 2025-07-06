@@ -38,7 +38,7 @@ $json_temp = new stdClass();
           $json_temp->nroJug = $nroJug;
           $json_temp->enUso=false;
 
-          $json_temp->partidasGanadas = $cliente->partidasGanadas ?? null;
+          $json_temp->partidasGanadas = $cliente->PartidasGanadas ?? null;
           setcookiePHP($cliente->nickname,$nroJug,1);
           }else {//no existe el usuario
                $json_temp->existe = false;

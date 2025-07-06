@@ -7,6 +7,7 @@ align-items: center;
 justify-content: center;
 height: 100vh;
 margin: 0;
+flex-direction: column;
 }
 
 .login-box {
@@ -69,10 +70,12 @@ flex-direction: row;
 gap:20px;
 }
 
-.logueado{
+.logueado1{
      display:none;
 }
-
+.logueado2{
+     display:none;
+}
 
 .register-box {
      display: none;

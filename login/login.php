@@ -14,16 +14,16 @@
           <div class="login-box">
      <div class="crown">👑</div>
      <h2>PLAYER ONE</h2>
-     <div class="ingresoData">
+     <div class="ingresoData1" id="ingresoData1">
      <p>¿Listo para dominar?</p>
      <form action="juego.php" method="post">
           <input type="text" id="usuario1" name="usuario1" placeholder="Nombre de usuario" required>
-          <!--<input type="password" name="password1" placeholder="Contraseña" required>-->
+          <input type="password" name="password1" placeholder="Contraseña" required>
           <button id="inicio1" type="button">ENTRAR AL JUEGO</button>
      </form>
      <a href="register.php">¿No tenés cuenta? Registrate</a>
 </div>
-     <p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
+     <p class="logueado1" id="logueado1" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
 
      <p name="info" ></p>
 </div>
@@ -31,17 +31,17 @@
 <div class="login-box">
      <div class="crown">👑</div>
      <h2>PLAYER TWO</h2>
-     <div class="ingresoData">
+     <div class="ingresoData2" id="ingresoData2">
           <p>¿Listo para dominar?</p>
      <form action="login.php" method="post">
           <input type="text" id="usuario2"name="usuario2" placeholder="Nombre de usuario" required>
-          <!--<input type="password" name="password2" placeholder="Contraseña" required>-->
+          <input type="password" name="password2" placeholder="Contraseña" required>
           <button id="inicio2" type="button">ENTRAR AL JUEGO</button>
      </form>
      <a href="register.php">¿No tenés cuenta? Registrate</a>
 </div>
 <p name="info" ></p>
-<p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
+<p class="logueado2" id="logueado2" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
 
 </div>
 </section>
