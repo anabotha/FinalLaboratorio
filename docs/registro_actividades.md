@@ -14,3 +14,5 @@
 7 - Armado de vistas
 
 8 - Inicio de logicas simples. (ej:tirar dado,login,filtros)
+
+9 - Ambiguedad : no podes jugar contra vos mismo.

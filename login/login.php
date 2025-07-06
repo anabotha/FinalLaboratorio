@@ -8,11 +8,10 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Document</title>
      <link rel="stylesheet" href="./login.css">
-     <script src="login.js" defer></script>
 </head>
 <body>
      <section class="logins">
-     <div class="login-box">
+          <div class="login-box">
      <div class="crown">👑</div>
      <h2>PLAYER ONE</h2>
      <div class="ingresoData">
@@ -27,25 +26,26 @@
      <p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
 
      <p name="info" ></p>
-     </div>
+</div>
 
-     <div class="login-box">
+<div class="login-box">
      <div class="crown">👑</div>
      <h2>PLAYER TWO</h2>
      <div class="ingresoData">
-     <p>¿Listo para dominar?</p>
+          <p>¿Listo para dominar?</p>
      <form action="login.php" method="post">
-          <input type="text" id="usuario2 "name="usuario2" placeholder="Nombre de usuario" required>
+          <input type="text" id="usuario2"name="usuario2" placeholder="Nombre de usuario" required>
           <!--<input type="password" name="password2" placeholder="Contraseña" required>-->
           <button id="inicio2" type="button">ENTRAR AL JUEGO</button>
      </form>
      <a href="register.php">¿No tenés cuenta? Registrate</a>
 </div>
-     <p name="info" ></p>
-     <p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
+<p name="info" ></p>
+<p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
 
-     </div>
+</div>
 </section>
 
 </body>
+<script src="login.js" defer></script>
 </html>
