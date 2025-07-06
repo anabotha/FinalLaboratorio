@@ -3,7 +3,7 @@ if (isset($_GET['nick']) && isset($_GET['jugador'])) {
      $nick = htmlspecialchars($_GET['nick']);
      $nroJug = intval($_GET['jugador']); // Por si querés usarlo como número
 
-     if (!getCookiePHP($nick)) {
+     if (!cookieEsIgualA($nroJug,$nick)) {
           buscaUsuario($nick, $nroJug);
      } else {
           $json_temp = new stdClass();
@@ -23,6 +23,9 @@ function getCookiePHP($nombre) {
      return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
 }
 
+function cookieEsIgualA($nombre, $valorEsperado) {
+     return isset($_COOKIE[$nombre]) && $_COOKIE[$nombre] === $valorEsperado;
+}
 
 function buscaUsuario($nick,$nroJug){
 $nick = htmlspecialchars($nick); // Sanitizar el NI$nick
@@ -39,7 +42,7 @@ $json_temp = new stdClass();
           $json_temp->enUso=false;
 
           $json_temp->partidasGanadas = $cliente->PartidasGanadas ?? null;
-          setcookiePHP($cliente->nickname,$nroJug,1);
+          setcookiePHP($nroJug,$cliente->nickname,1);
           }else {//no existe el usuario
                $json_temp->existe = false;
           $json_temp->enUso=false;

@@ -9,7 +9,7 @@
      <title>Document</title>
      <link rel="stylesheet" href="./login.css">
 </head>
-<body>
+<body id="body">
      <section class="logins">
           <div class="login-box">
      <div class="crown">👑</div>

@@ -77,14 +77,15 @@ function deleteCookie(nombre) {
 }
 
 function finLogueo(){
-     j1=getCookie('jugador1');
-     j2=getCookie('jugador2');
+     j1=getCookie('1');
+     j2=getCookie('2');
+     console.log(j1,j2);
 if(j1&&j2){
 //pasar a siguiente vista
 /*
 deleteCookie('jugador1');
 deleteCookie('jugador2');*/
-console.log("llego");
+console.log("llego a fin logueo");
 const mensaje=document.getElementById("logueado1");
 mensaje.style.display='none';
 const mensaje2=document.getElementById("logueado2");
@@ -103,7 +104,7 @@ function gestionarRtas(rta){
 if(rta.existe && rta.enUso){
      console.log("no podes jugar contra vos mismo");
 }else if(rta.existe && !rta.enUso){
-     console.log("logueada, falta tu compa nomas");
+     console.log("logueada");
      const ingreso=document.getElementById("ingresoData"+rta.nroJug);
      /*ingreso.style.display=none;*/
      ingreso.style.display = 'none'; 
