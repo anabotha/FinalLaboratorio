@@ -23,7 +23,7 @@
           <button id="registreUsuario" type="submit">REGISTRARME ✅</button>
      </form>
      <a href="login.php">¿Ya tenés cuenta? Iniciá sesión</a>
-     <p class="logueado" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
+     
      
 </div>
 </body>

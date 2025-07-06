@@ -44,7 +44,11 @@ if(usuario.existe && usuario.nuevo){
      console.log("ya existe un usuario con ese nombre,intente otro");
 }else if(usuario.existe!=true && usuario.menor){
      console.log("debe ser mayor a 15 años");
-}else {
+}else if(usuario.existeEmail=true && !usuario.existe){
+     console.log("ya existe un usuario con ese mail");
+
+}
+else{
      console.log("hubo un error,intente de nuevo");
      console.log(usuario.menor);
 }
