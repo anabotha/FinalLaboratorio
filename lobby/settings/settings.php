@@ -23,7 +23,7 @@
      <!-- TIPO -->
      <div class="config-box" id="tipo-box">
           <h3>TIPO DE CARTAS</h3>
-          <div class="option" onclick="selectOption(this, 'tipo', 'Números')">Números</div>
+          <div class="option selected" onclick="selectOption(this, 'tipo', 'Números')">Números</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'Figuras')">Figuras</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'Colores')">Colores</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'Animales')">Animales</div>
@@ -32,7 +32,7 @@
      <!-- TIEMPO -->
      <div class="config-box" id="tiempo-box">
           <h3>TIEMPO LÍMITE</h3>
-          <div class="option" onclick="selectOption(this, 'tiempo', '5 min')">5 min</div>
+          <div class="option selected" onclick="selectOption(this, 'tiempo', '5 min')">5 min</div>
           <div class="option" onclick="selectOption(this, 'tiempo', '10 min')">10 min</div>
           <div class="option" onclick="selectOption(this, 'tiempo', '20 min')">20 min</div>
           <div class="option" onclick="selectOption(this, 'tiempo', 'Sin límite')">Sin límite</div>
@@ -43,15 +43,19 @@
      <div class="summary" id="resumen">
      <div>
           <h4>CARTAS</h4>
-          <p id="resumen-cartas"></p>
+          <p id="resumen-cartas"> 
+               8 Cartas (Fácil)
+
+          </p>
      </div>
      <div>
           <h4>TIPO</h4>
-          <p id="resumen-tipo"></p>
+          <p id="resumen-tipo">Números</p>
+          
      </div>
      <div>
           <h4>TIEMPO</h4>
-          <p id="resumen-tiempo"></p>
+          <p id="resumen-tiempo">5 min</p>
      </div>
      </div>
 
