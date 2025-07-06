@@ -26,9 +26,11 @@ function creaUsuario(usuario){
 let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
-               let respuesta =JSON.parse(xhr.responseText);
+               let respuesta =/*JSON.parse(*/xhr.responseText/*)*/;
                console.log(respuesta);
-               
+               /*if(respuesta.existe){
+                    console.log(respuesta.explanation);
+               }*/
                //mostrarDetalles2(respuesta);
           }
      };
