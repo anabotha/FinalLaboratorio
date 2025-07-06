@@ -15,7 +15,7 @@
      <div class="emoji">📝</div>
      <h2>REGISTRATE</h2>
      <p>¡Unite a la partida!</p>
-     <form action="login.php" method="post">
+     <form id="form" action="login.php" method="post">
           <input id="usuario" type="text" name="usuario" placeholder="Nombre de usuario" required>
           <input id="password" type="password" name="password" placeholder="Contraseña" required>
           <input id="fecha_nacimiento" type="date" name="fecha_nacimiento" required>
@@ -23,8 +23,8 @@
           <button id="registreUsuario" type="submit">REGISTRARME ✅</button>
      </form>
      <a href="login.php">¿Ya tenés cuenta? Iniciá sesión</a>
-     
-     
 </div>
+<p id="info" class="info"></p>
+<p id="exito" class="exito"></p> 
 </body>
 </html>

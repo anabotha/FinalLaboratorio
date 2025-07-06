@@ -38,18 +38,33 @@ function creaUsuario(usuario) {
 }
 
 function gestionarRespuestas(usuario){
-if(usuario.existe && usuario.nuevo){
+     console.log(usuario.nickname);
+     var p=document.getElementById("info");
+     var exito=document.getElementById("exito");
+
+if(usuario.nombreExiste==false && usuario.nuevo!=false){
      console.log("se creo exitosamente,ya puede jugar");
-}else if(usuario.existe && usuario.nuevo!=true){
+     exito.innerText="Registrado exitosamente";
+     p.innerText="";
+
+}else if(usuario.nombreExiste && usuario.nuevo!=true){
      console.log("ya existe un usuario con ese nombre,intente otro");
-}else if(usuario.existe!=true && usuario.menor){
+     p.innerText="Ya existe un usuario con ese nombre, intente con otro";
+}else if(usuario.nombreExiste!=true && usuario.menor){
      console.log("debe ser mayor a 15 años");
-}else if(usuario.existeEmail=true && !usuario.existe){
+     exito.innerText="";
+     p.innerText="Debe ser mayor a 15 años";
+
+}else if(usuario.emailExiste=true && usuario.nombreExiste!=true && usuario.nuevo!=true){
      console.log("ya existe un usuario con ese mail");
+     exito.innerText="";
+     p.innerText="Ya existe una cuenta asociada a ese email, intente con otro";
 
 }
 else{
      console.log("hubo un error,intente de nuevo");
-     console.log(usuario.menor);
+     console.log(usuario);
+     exito.innerText="";
+     p.innerText="hubo un error,intente de nuevo";
 }
 }

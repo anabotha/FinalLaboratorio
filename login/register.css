@@ -7,6 +7,7 @@ align-items: center;
 justify-content: center;
 height: 100vh;
 margin: 0;
+flex-direction: column;
 }
 button {
 width: 100%;
@@ -58,3 +59,16 @@ text-decoration: none;
 a:hover {
 text-decoration: underline;
 }
+
+.info{
+     font-weight: bolder;
+     font-size: 18px;
+     color:red;
+}
+.exito{
+     font-weight: bolder;
+     font-size: 18px;
+     color:greenyellow;
+}
+
+
