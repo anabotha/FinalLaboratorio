@@ -94,9 +94,10 @@ mensaje2.style.display='none';
      const btnElegirTurno = document.createElement("button");
      btnElegirTurno.textContent = "Elegir turno";
      btnElegirTurno.id = "btnElegirTurno";
+     btnElegirTurno.className="btnElegirTurno";
      const body = document.getElementById("body");
      body.appendChild(btnElegirTurno);
-     btnElegirTurno.addEventListener("click",dirigir);
+     btnElegirTurno.addEventListener("click",irTurnos);//direcciona
 }
 }
 
@@ -116,4 +117,8 @@ if(rta.existe && rta.enUso){
      console.log("no existe ese usuario,crealo");
      //escrbir q no existe el usuario
 }
+}
+
+function irTurnos(){//direcciona a la siguiente vista
+     window.location.href = "../turns/turno.php";
 }

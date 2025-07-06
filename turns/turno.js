@@ -20,14 +20,15 @@ function tirarDado(jugador){
 
           resu.innerText=resultado;
           btn=document.createElement("button");
-          btn.innerHTML="seguir";
-          btn.classList.add("btn");
+          btn.innerHTML="SEGUIR";
+          btn.className="btnResultado";
           resu.appendChild(btn);
-          btn.addEventListener("click",pasarATurnos);
+          btn.addEventListener("click",pasarALobby);
      }
 }
 
 
-function pasarATurnos(){
+function pasarALobby(){
      console.log("turnos");
+      window.location.href = "../lobby/settings/settings.php"
 }
