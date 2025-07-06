@@ -14,7 +14,7 @@ if (isset($_GET['obj'])) {
 
           $json_temp->existe = true;//ya existe ese nombre
           $json_temp->explanation = "ya existia en la bd";
-
+          $json_temp->nuevo=false;
           echo json_encode($json_temp);
           
      }
@@ -47,6 +47,7 @@ $edad = $hoy->diff($fechaNacimiento)->y;
 }
 
 function creaUsuario($nick,$fechaNac,$email){
+     $json_temp = new stdClass(); 
 if(esMayorDe15($fechaNac)){
 $db=new mysqli("localhost","root","","juegodb") or die ("No es posible conectarse al servidor");
 $db->set_charset("utf8mb4");
@@ -56,18 +57,19 @@ $insert="INSERT INTO Usuarios (
      ) VALUES ('$nick', '$fechaNac',0, 0, '$email'
      );";
 $result = $db->query($insert);
-$json_temp = new stdClass(); 
 
      if ($result->affected_rows() > 0) {
      $json_temp->existe = true;
+     $json_temp->nuevo=true;
 
      } else {
      $json_temp->existe = false;
-     $json_temp->explanation = "No se inserto ningun usuario.";
+          $json_temp->menor = false;
+
      }
 }else {
      $json_temp->existe = false;
-     $json_temp->explanation = "Menor a 15 años.";
+     $json_temp->menor = true;
      }
 $myJson=json_encode($json_temp);
      echo $myJson;

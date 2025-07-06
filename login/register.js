@@ -27,15 +27,25 @@ function creaUsuario(usuario) {
      let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
-               let respuesta = /*JSON.parse(*/ xhr.responseText; /*)*/
+               let respuesta = JSON.parse(xhr.responseText);
                console.log(respuesta);
-               /*if(respuesta.existe){
-                    console.log(respuesta.explanation);
-               }*/
-               //mostrarDetalles2(respuesta);
+               gestionarRespuestas(respuesta);
           }
      };
      console.log(usuario);
      xhr.open("GET", "creaUsuario.php?obj=" + encodeURIComponent(usuario), true);
      xhr.send();
+}
+
+function gestionarRespuestas(usuario){
+if(usuario.existe && usuario.nuevo){
+     console.log("se creo exitosamente,ya puede jugar");
+}else if(usuario.existe && usuario.nuevo!=true){
+     console.log("ya existe un usuario con ese nombre,intente otro");
+}else if(usuario.existe!=true && usuario.menor){
+     console.log("debe ser mayor a 15 años");
+}else {
+     console.log("hubo un error,intente de nuevo");
+     console.log(usuario.menor);
+}
 }
