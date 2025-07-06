@@ -111,3 +111,8 @@ input[type="date"] {
      padding:10px;
      width: 40%;
 }
+.info{
+     font-weight: bolder;
+     font-size: 18px;
+     color:red;
+}

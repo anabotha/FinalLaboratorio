@@ -1,15 +1,15 @@
-- [ ] Ver tema contraseña -> hacer un hash? 
+ [x] Ver tema contraseña -> hacer un hash? 
 
 
-- [x] Creacion de usuario -> register.php
+ [x] Creacion de usuario -> register.php
 
 
-- [x] Proceso de verificaion q un jugador no pueda jugar contra si mismo -> login.js
+ [x] Proceso de verificaion q un jugador no pueda jugar contra si mismo -> login.js
 
-- [x] Direccionamientos y vistas de login y turnos
+ [x] Direccionamientos y vistas de login y turnos
 
-- [] Registros de usuarios hacer vista y direcionaminetos.
+ [x] Registros de usuarios hacer vista y direcionaminetos.
 
-- [] armar lobby 
+ [ ] armar lobby 
 
-- [] bd de cartas
+[ ] bd de cartas

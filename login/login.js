@@ -10,21 +10,21 @@ window.onload = function () {
      deleteAllCookies();
      document.getElementById("inicio1").addEventListener("click", function (e) {
           e.preventDefault();
-          buscaNombre(document.getElementById("usuario1").value,1);
+          buscaNombre(document.getElementById("usuario1").value,1,document.getElementById("password1").value);
                console.log("llegaaaaaa");
 
           //no compara la contraseña aun
      });
      document.getElementById("inicio2").addEventListener("click", function (e) {
           e.preventDefault();
-          buscaNombre(document.getElementById("usuario2").value,2);
+          buscaNombre(document.getElementById("usuario2").value,2,document.getElementById("password2").value);
 
      });
 }
 
 
 
-function buscaNombre(usuario, jugador) {
+function buscaNombre(usuario, jugador,contraseña) {
      console.log(usuario, jugador);
 
      let xhr = new XMLHttpRequest();
@@ -38,7 +38,7 @@ function buscaNombre(usuario, jugador) {
      };
 
      console.log("usuario: " + usuario);
-     xhr.open("GET", "buscaUsuario.php?nick=" + encodeURIComponent(usuario) + "&jugador=" + encodeURIComponent(jugador), true);
+     xhr.open("GET", "buscaUsuario.php?nick=" + encodeURIComponent(usuario) + "&jugador=" + encodeURIComponent(jugador)+"&contraseña="+ encodeURIComponent(contraseña), true);
      xhr.send();
 }
 
@@ -104,21 +104,41 @@ mensaje2.style.display='none';
 function gestionarRtas(rta){
 if(rta.existe && rta.enUso){
      console.log("no podes jugar contra vos mismo");
+          limpiarCampos(rta.nroJug);
+
 }else if(rta.existe && !rta.enUso){
-     console.log("logueada");
-     const ingreso=document.getElementById("ingresoData"+rta.nroJug);
-     /*ingreso.style.display=none;*/
-     ingreso.style.display = 'none'; 
-     const mensaje=document.getElementById("logueado"+rta.nroJug);
-     mensaje.style.display='flex';
-     finLogueo();
+     if(rta.contra){
+          const ingreso=document.getElementById("ingresoData"+rta.nroJug);
+          ingreso.style.display ='none'; 
+          const mensaje=document.getElementById("logueado"+rta.nroJug);
+          mensaje.style.display='flex';
+          finLogueo();
+     }else{
+          limpiarCampos(rta.nroJug);
+          console.log("contraseña incorrecta");
+          const p=document.getElementById("info"+rta.nroJug);
+          p.innerText="Contraseña incorrecta";
+     }
 }
      else if(!rta.existe){
+          limpiarCampos(rta.nroJug);
      console.log("no existe ese usuario,crealo");
-     //escrbir q no existe el usuario
+     const p=document.getElementById("info"+rta.nroJug);
+          p.innerText=" No tenes usuario? Registrate!";
 }
 }
 
 function irTurnos(){//direcciona a la siguiente vista
      window.location.href = "../turns/turno.php";
+}
+
+function limpiarCampos(jugador) {
+// Determinar los IDs según el jugador
+const usuario = document.getElementById("usuario" + jugador);
+const password = document.getElementById("password" + jugador);
+const info = document.getElementById("info" + jugador);
+
+if (usuario) usuario.value = "";
+if (password) password.value = "";
+if (info) info.textContent = "";
 }

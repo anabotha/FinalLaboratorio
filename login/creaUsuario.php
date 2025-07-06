@@ -5,29 +5,29 @@ $data = json_decode($json_string);
 $nick = trim($data->nickname);
 $fechaNac = trim($data->fechaNacimiento);
 $email = trim($data->email);
-
+$contra=trim($data->password);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-     responderJson([
-          "error" => true,
-          "mensaje" => "Email inválido"
-     ]);
-     exit;
+responderJson([
+     "error" => true,
+     "mensaje" => "Email inválido"
+]);
+exit;
 }
 
 $nombreExiste = existeNombre($nick);
 $emailExiste = existeEmail($email);
 
 if (!$nombreExiste && !$emailExiste) {
-     creaUsuario($nick, $fechaNac, $email);
+creaUsuario($nick, $fechaNac, $email,$contra);
 } else {
-     responderJson([
-          "nickname" => $nick,
-          "nombreExiste" => $nombreExiste,
-          "emailExiste" => $emailExiste,
-          "nuevo" => false,
-          "explicacion" => $nombreExiste ? "Nickname ya registrado" : "Email ya registrado"
-     ]);
-     
+responderJson([
+     "nickname" => $nick,
+     "nombreExiste" => $nombreExiste,
+     "emailExiste" => $emailExiste,
+     "nuevo" => false,
+     "explicacion" => $nombreExiste ? "Nickname ya registrado" : "Email ya registrado"
+]);
+
 }
 
 }
@@ -58,7 +58,7 @@ $db = new mysqli("localhost", "root", "", "juegodb");
 
 // Manejo de error de conexión
 if ($db->connect_error) {
-     die("Error de conexión: " . $db->connect_error);
+die("Error de conexión: " . $db->connect_error);
 }
 
 $db->set_charset("utf8mb4");
@@ -66,7 +66,7 @@ $db->set_charset("utf8mb4");
 // Limpiar y validar el email
 $email = trim($email);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-     return false; // No es un email válido
+return false; // No es un email válido
 }
 
 // Usar consulta preparada para evitar inyección SQL
@@ -77,54 +77,87 @@ return $existe;
 }
 
 function esMayorDe15($fechaNac) {
-    try {
-        $fechaNacimiento = new DateTime($fechaNac);
-    } catch (Exception $e) {
-        return false; // fecha inválida
-    }
-
-    $hoy = new DateTime();
-
-    // Validar que no sea una fecha futura
-    if ($fechaNacimiento > $hoy) {
-        return false;
-    }
-
-    $edad = $hoy->diff($fechaNacimiento)->y;
-    return $edad >= 15;
+try {
+     $fechaNacimiento = new DateTime($fechaNac);
+} catch (Exception $e) {
+     return false; // fecha inválida
 }
 
-function creaUsuario($nick, $fechaNac, $email) {
-    $json_temp = new stdClass();
-    if (esMayorDe15($fechaNac)) {
-        $db = new mysqli("localhost", "root", "", "juegodb");
-        $db->set_charset("utf8mb4");
+$hoy = new DateTime();
 
-        $insert = "INSERT INTO Usuarios (
-            nickname, fechaNacimiento, PartidasJugadas, PartidasGanadas, email
-        ) VALUES ('$nick', '$fechaNac', 0, 0, '$email');";
-
-        $db->query($insert);
-
-        if ($db->affected_rows > 0) {
-            $json_temp->nombreExiste = false;
-            $json_temp->emailExiste = false;
-            $json_temp->nuevo = true;
-            $json_temp->nickname = $nick;
-        } else {
-            $json_temp->nombreExiste = true;
-            $json_temp->emailExiste = false;
-            $json_temp->nuevo = false;
-            $json_temp->error = true;
-        }
-    } else {
-            $json_temp->nombreExiste = false;
-        $json_temp->nuevo = false;
-        $json_temp->menor = true;
-        $json_temp->nickname = $nick;
-    }
-
-    responderJson($json_temp);
+// Validar que no sea una fecha futura
+if ($fechaNacimiento > $hoy) {
+     return false;
 }
 
+$edad = $hoy->diff($fechaNacimiento)->y;
+return $edad >= 15;
+}
+function hashContraseña($contra, $nick) {
+// Hashea la contraseña con el algoritmo por defecto (bcrypt)
+$hash = password_hash($contra, PASSWORD_DEFAULT);
+
+// Conexión a la base de datos
+$db = new mysqli("localhost", "root", "", "datosJuegoDb");
+$db->set_charset("utf8mb4");
+
+// Verifica si hubo error en la conexion
+if ($db->connect_error) {
+     return false;
+}
+
+// Preparo la consulta para evitar inyecciones SQL
+$stmt = $db->prepare("INSERT INTO contraseñas (nickname, contraseñas) VALUES (?, ?)");
+if (!$stmt) {
+     return false;
+}
+
+// Asocio los parámetros
+$stmt->bind_param("ss", $nick, $hash);
+
+// Ejecuta la consulta
+$stmt->execute();
+
+// Verifica si se inserto correctamente
+$resultado = $stmt->affected_rows > 0;
+// Cierro bd
+$stmt->close();
+$db->close();
+
+return $resultado;
+}
+
+function creaUsuario($nick, $fechaNac, $email,$contra) {
+$json_temp = new stdClass();
+if (esMayorDe15($fechaNac)) {
+     $db = new mysqli("localhost", "root", "", "juegodb");
+     $db->set_charset("utf8mb4");
+
+     $insert = "INSERT INTO Usuarios (
+          nickname, fechaNacimiento, PartidasJugadas, PartidasGanadas, email
+     ) VALUES ('$nick', '$fechaNac', 0, 0, '$email');";
+
+     $db->query($insert);
+
+     if ($db->affected_rows > 0) {
+          $json_temp->nombreExiste = false;
+          $json_temp->emailExiste = false;
+          $json_temp->nuevo = true;
+          $json_temp->nickname = $nick;
+          hashContraseña($contra,$nick);
+     } else {
+          $json_temp->nombreExiste = true;
+          $json_temp->emailExiste = false;
+          $json_temp->nuevo = false;
+          $json_temp->error = true;
+     }
+} else {
+          $json_temp->nombreExiste = false;
+     $json_temp->nuevo = false;
+     $json_temp->menor = true;
+     $json_temp->nickname = $nick;
+}
+
+responderJson($json_temp);
+}
 ?>
