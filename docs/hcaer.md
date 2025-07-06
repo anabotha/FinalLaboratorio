@@ -5,3 +5,11 @@
 
 
 - [x] Proceso de verificaion q un jugador no pueda jugar contra si mismo -> login.js
+
+- [x] Direccionamientos y vistas de login y turnos
+
+- [] Registros de usuarios hacer vista y direcionaminetos.
+
+- [] armar lobby 
+
+- [] bd de cartas
