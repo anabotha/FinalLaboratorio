@@ -129,7 +129,8 @@ if(rta.existe && rta.enUso){
 }
 
 function irTurnos(){//direcciona a la siguiente vista
-     window.location.href = "../turns/turno.php";
+     window.location.href = "../lobby/lobby.php";
+
 }
 
 function limpiarCampos(jugador) {

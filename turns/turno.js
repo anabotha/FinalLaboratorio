@@ -39,5 +39,8 @@ function tirarDado(jugador){
 
 function pasarALobby(){
      console.log("turnos");
-     window.location.href = "../lobby/settings/settings.php"
+     window.location.href = "..//game/game.php"
+
+
+
 }

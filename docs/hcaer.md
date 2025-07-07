@@ -12,4 +12,6 @@
 
  [ ] armar lobby 
 
+[ ] armar vista y css de lobby.
+
 [ ] bd de cartas
