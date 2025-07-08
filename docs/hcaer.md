@@ -1,8 +1,6 @@
  [x] Ver tema contraseña -> hacer un hash? 
 
-
  [x] Creacion de usuario -> register.php
-
 
  [x] Proceso de verificaion q un jugador no pueda jugar contra si mismo -> login.js
 
@@ -14,4 +12,11 @@
 
 [x] armar vista y css de lobby.
 
-[ ] bd de cartas
+[] bd de cartas
+
+[] direccionamiento de sttings a juego
+
+[] cambiar talb apartida +1 en ganadasjx,jugadastotales,  cambiar ultimoganador.
+
+[]armar vista final.
+

@@ -6,6 +6,7 @@ $nick = trim($data->nickname);
 $fechaNac = trim($data->fechaNacimiento);
 $email = trim($data->email);
 $contra=trim($data->password);
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 responderJson([
      "error" => true,
@@ -27,10 +28,9 @@ responderJson([
      "nuevo" => false,
      "explicacion" => $nombreExiste ? "Nickname ya registrado" : "Email ya registrado"
 ]);
-
+}
 }
 
-}
 #chequea si el usuario existe y lo devuelve de lo cntrario, devuelve null
 function responderJson($obj){
 echo json_encode($obj);

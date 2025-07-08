@@ -3,7 +3,6 @@ window.onload = function () {
           .getElementById("registreUsuario")
           .addEventListener("click", function (e) {
                e.preventDefault();
-               console.log("register llega");
                const nombre = document.getElementById("usuario").value;
                const password = document.getElementById("password").value;
                const email = document.getElementById("email").value;
@@ -27,6 +26,7 @@ function creaUsuario(usuario) {
      let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
+               console.log(xhr.responseText);
                let respuesta = JSON.parse(xhr.responseText);
                console.log(respuesta);
                gestionarRespuestas(respuesta);
@@ -42,24 +42,23 @@ function gestionarRespuestas(usuario){
      var p=document.getElementById("info");
      var exito=document.getElementById("exito");
 
-if(usuario.nombreExiste==false && usuario.nuevo!=false){
+if(usuario.nombreExiste===false && usuario.nuevo){
      console.log("se creo exitosamente,ya puede jugar");
      exito.innerText="Registrado exitosamente";
      p.innerText="";
 
-}else if(usuario.nombreExiste && usuario.nuevo!=true){
+}else if(usuario.nombreExiste && usuario.nuevo===false){
      console.log("ya existe un usuario con ese nombre,intente otro");
      p.innerText="Ya existe un usuario con ese nombre, intente con otro";
-}else if(usuario.nombreExiste!=true && usuario.menor){
+}else if(usuario.nombreExiste===false && usuario.menor){
      console.log("debe ser mayor a 15 años");
      exito.innerText="";
      p.innerText="Debe ser mayor a 15 años";
 
-}else if(usuario.emailExiste=true && usuario.nombreExiste!=true && usuario.nuevo!=true){
+}else if(usuario.emailExiste && usuario.nuevo===false){
      console.log("ya existe un usuario con ese mail");
      exito.innerText="";
      p.innerText="Ya existe una cuenta asociada a ese email, intente con otro";
-
 }
 else{
      console.log("hubo un error,intente de nuevo");
