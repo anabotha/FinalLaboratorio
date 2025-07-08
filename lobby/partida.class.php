@@ -8,7 +8,31 @@ class Partida
      public $ganadasComunJ2;
      public $ganadasIndivJ1;
      public $ganadasIndivJ2;
-     public $primeroActual;//primer turno actual
+     public $primeroActual; // primer turno actual
+     public $partidasTotales;
+     public $ultimaPartida;
+     public $ultimoGanador;
+
+     // Getter
+     public function getUltimoGanador() {
+          return $this->ultimoGanador;
+     }
+
+     // Setter
+     public function setUltimoGanador($ganador) {
+          $this->ultimoGanador = $ganador;
+     }
+
+     // Getter
+     public function getUltimaPartida() {
+          return $this->ultimaPartida;
+     }
+
+     // Setter
+     public function setUltimaPartida(DateTime $fecha) {
+          $this->ultimaPartida = $fecha;
+     }
+
      public function __construct() {
           $this->j1 = null;
           $this->j2 = null;
@@ -17,6 +41,8 @@ class Partida
           $this->ganadasIndivJ1 = 0;
           $this->ganadasIndivJ2 = 0;
           $this->primeroActual = null;
+          $this->partidasTotales = 0;
+          $this->ultimaPartida=null;
      }
 
      public function getJ1() { return $this->j1; }
@@ -26,6 +52,7 @@ class Partida
      public function getGanadasIndivJ1() { return $this->ganadasIndivJ1; }
      public function getGanadasIndivJ2() { return $this->ganadasIndivJ2; }
      public function getPrimeroActual() { return $this->primeroActual; }
+     public function getpartidasTotales() { return $this->partidasTotales; }
 
      // Setters
      public function setJ1($j1) { $this->j1 = $j1; }
@@ -35,6 +62,7 @@ class Partida
      public function setGanadasIndivJ1($wins) { $this->ganadasIndivJ1 = $wins; }
      public function setGanadasIndivJ2($wins) { $this->ganadasIndivJ2 = $wins; }
      public function setPrimeroActual($player) { $this->primeroActual = $player; }
+     public function setpartidasTotales($jugadas) { $this->partidasTotales = $jugadas; }
 
      // Helper methods
      public function getTotalWinsJ1() {
@@ -54,6 +82,6 @@ class Partida
           $total = $this->getTotalWinsJ1() + $this->getTotalWinsJ2();
           return $total > 0 ? round(($this->getTotalWinsJ2() / $total) * 100, 1) : 0;
      }
-     }
+}
 
 ?>

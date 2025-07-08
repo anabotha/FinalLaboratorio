@@ -91,13 +91,13 @@ mensaje.style.display='none';
 const mensaje2=document.getElementById("logueado2");
 mensaje2.style.display='none';
      //pase a otra vista
-     const btnElegirTurno = document.createElement("button");
-     btnElegirTurno.textContent = "Elegir turno";
-     btnElegirTurno.id = "btnElegirTurno";
-     btnElegirTurno.className="btnElegirTurno";
+     const btnLobby = document.createElement("button");
+     btnLobby.textContent = "IR A LOBBY";
+     btnLobby.id = "btnLobby";
+     btnLobby.className="btnLobby";
      const body = document.getElementById("body");
-     body.appendChild(btnElegirTurno);
-     btnElegirTurno.addEventListener("click",irTurnos);//direcciona
+     body.appendChild(btnLobby);
+     btnLobby.addEventListener("click",irTurnos);//direcciona
 }
 }
 

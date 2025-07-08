@@ -1,11 +1,55 @@
 body {
+display: flex;
 background-color: #0d1b2a;
 color: white;
 font-family: Arial, sans-serif;
-display: flex;
 align-items: center;
 justify-content: center;
 height: 100vh;
 margin: 0;
 flex-direction: column;
+}
+.infoLobby{
+display: flex;
+flex-direction: row;
+font-family: Arial, sans-serif;
+font-size: medium;
+gap:20px;
+}
+.jugadores{
+display: flex;
+flex-direction: column;
+background-color: #1b263b;
+border-radius: 10px;
+padding: 40px;
+width: 320px;
+text-align: center;
+box-shadow: 0 0 20px #415a77;
+}
+.ultimaPartida{
+     display: flex;
+flex-direction: column;
+background-color: #1b263b;
+border-radius: 10px;
+padding: 40px;
+width: 320px;
+text-align: center;
+box-shadow: 0 0 20px #415a77;
+}
+button {
+width: 100%;
+padding: 10px;
+background-color: #1e90ff;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+color: white;
+cursor: pointer;
+font-size: 16px;
+margin-top:25px;
+}
+.titulo{
+font-family: Arial, sans-serif;
+font-size: large;
+color: whitesmoke;
 }

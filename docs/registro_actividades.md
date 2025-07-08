@@ -16,3 +16,11 @@
 8 - Inicio de logicas simples. (ej:tirar dado,login,filtros)
 
 9 - Ambiguedad : no podes jugar contra vos mismo.
+
+10 - hash de contraseñas
+
+11 - conexion a bd mockup de contraseñas y comparacion correspondiente para login y registro.
+
+12 - conexion a bd mockup de partidas para mostrar info
+
+13 - armado de vista lobby

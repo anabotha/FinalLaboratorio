@@ -21,7 +21,16 @@ if ($info) {
 
 
      ?>
-     <h2>hola mundo, existe la cookie y anda el json.</h2>
+     <h2></h2>
+     <div id="titulo" class="titulo"></div>
+
+<div class="infoLobby">
+     <div id="ultimaPartida"></div>
+     <div id="jugador1"></div>
+     <div id="jugador2"></div>
+</div>
+     <div id="btn" class="btn"></div>
+
 
 <?php
 //echo $partida->J1;

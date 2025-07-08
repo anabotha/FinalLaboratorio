@@ -34,43 +34,80 @@ if (strcasecmp($nick1, $nick2) < 0) {
 }
 
 require_once './Partida.class.php';
-$partida = new Partida();
 
 //conexion a bd
 $db=new mysqli("localhost","root","","juegoDb") or die ("No es posible conectarse al servidor");
 $db->set_charset("utf8mb4");
-          $query = "SELECT * FROM partidas where j1='$usuario1'
-          AND j2='$usuario2'"; // Limitar a un resultado
-          $result = $db->query($query);
+$query = "SELECT 
+p.j1,p.j2,
+p.ganadasComunJ2,
+p.ganadasComunJ1,
+p.partidasTotales,
+p.ultimaPartida, 
+p.ultimoGanador,
+u1.PartidasGanadas AS ganadasIndivJ1, 
+u2.PartidasGanadas AS ganadasIndivJ2
+FROM partidas p
+JOIN usuarios u1 ON p.j1 = u1.nickname
+JOIN usuarios u2 ON p.j2 = u2.nickname
+WHERE p.j1 = '$usuario1' AND p.j2 = '$usuario2'"; // Limitar a un resultado
+     $result = $db->query($query);
      if($result->num_rows == 1){ //si existe el cliente en la bd
           while($cliente = $result->fetch_object()){
+               $partida = new Partida();
                $partida->setJ1($cliente->j1);
                $partida->setJ2($cliente->j2);
                $partida->setGanadasComunJ1($cliente->ganadasComunJ1);
                $partida->setGanadasComunJ2($cliente->ganadasComunJ2);
-               $partida->setGanadasIndivJ1(0); // Asignar 
-               $partida->setGanadasIndivJ2(0); // Asignar 
-               //$partida->setPrimeroActual($cliente->ultimoGanador); // O asigna quien inicia
-          
-     }} else{//no existen partidas
-          // la subo a la bd
-          $update="INSERT INTO Partidas (
-          j1, j2,
-          ganadasComunJ1,
-          ganadasComunJ2,
-          partidasTotales
-          ) VALUES (
-          '$usuario1', '$usuario2',0, 0,0);";
-          $result = $db->query($update);
-          // Inicializa el objeto Partida con los valores de la nueva partida
-          $partida->setJ1($usuario1);
-          $partida->setJ2($usuario2);
-          $partida->setGanadasComunJ1(0);
-          $partida->setGanadasComunJ2(0);
-          $partida->setGanadasIndivJ1(0);
-          $partida->setGanadasIndivJ2(0);
-          $partida->setPrimeroActual(null);
-     }
+               $partida->setpartidasTotales($cliente->partidasTotales);
+               $partida->setUltimoGanador($cliente->ultimoGanador);
+               $partida->setPrimeroActual($cliente->ultimoGanador); // o lo que corresponda
+               $partida->setGanadasIndivJ1($cliente->ganadasIndivJ1);
+               $partida->setGanadasIndivJ2($cliente->ganadasIndivJ2);
+                    if (!empty($cliente->ultimaPartida)) {
+     $partida->setUltimaPartida(new DateTime($cliente->ultimaPartida));
+} 
+}
+} else {
+// Insertar nueva partida
+          $partida = new Partida();
+
+$update = "INSERT INTO Partidas (
+     j1, j2,
+     ganadasComunJ1,
+     ganadasComunJ2,
+     partidasTotales
+) VALUES (
+     '$usuario1', '$usuario2', 0, 0, 0
+);";
+$db->query($update);
+
+// Obtener ganadas individuales desde la tabla usuarios
+$ganadasJ1 = 0;
+$ganadasJ2 = 0;
+
+$resJ1 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$usuario1'");
+if ($resJ1 && $resJ1->num_rows > 0) {
+     $ganadasJ1 = $resJ1->fetch_object()->partidasGanadas;
+}
+
+$resJ2 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$usuario2'");
+if ($resJ2 && $resJ2->num_rows > 0) {
+     $ganadasJ2 = $resJ2->fetch_object()->partidasGanadas;
+}
+
+// Inicializar el objeto Partida
+$partida->setJ1($usuario1);
+$partida->setJ2($usuario2);
+$partida->setGanadasComunJ1(0);
+$partida->setGanadasComunJ2(0);
+$partida->setPrimeroActual(null);
+$partida->setGanadasIndivJ1($ganadasJ1);
+$partida->setGanadasIndivJ2($ganadasJ2);
+$partida->setpartidasTotales(0);
+//$partida->setUltimaPartida(null);
+$partida->setUltimoGanador(null);
+}
      $myJson=json_encode($partida);//si creo una  partida class armo eso y la mando
      setCookiePHP("partida",$myJson,1);
           return $myJson;

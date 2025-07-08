@@ -10,8 +10,8 @@
 
  [x] Registros de usuarios hacer vista y direcionaminetos.
 
- [ ] armar lobby 
+ [x] armar lobby 
 
-[ ] armar vista y css de lobby.
+[x] armar vista y css de lobby.
 
 [ ] bd de cartas
