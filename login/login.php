@@ -21,7 +21,7 @@
           <input type="password" id="password1"name="password1" placeholder="Contraseña" required>
           <button id="inicio1" type="button">ENTRAR AL JUEGO</button>
      </form>
-     <a href="register.php">¿No tenés cuenta? Registrate</a>
+     <a href="./register/register.php">¿No tenés cuenta? Registrate</a>
      <p id="info1" class="info"></p>
 
 </div>

@@ -22,7 +22,7 @@
           <input id="email" type="email" name="email" placeholder="Correo electrónico" required>
           <button id="registreUsuario" type="submit">REGISTRARME ✅</button>
      </form>
-     <a href="login.php">¿Ya tenés cuenta? Iniciá sesión</a>
+     <a href="../login.php">¿Ya tenés cuenta? Iniciá sesión</a>
 </div>
 <p id="info" class="info"></p>
 <p id="exito" class="exito"></p> 

@@ -55,5 +55,7 @@ function getCookie(nombre) { //
 }
 function dirigir(){
      setCookie("settings", JSON.stringify(settings),1);
-window.location.href = "../lobby/lobby.php"
+window.location.href = "../../turns/turno.php?ts=" + new Date().getTime();
+
+
 }

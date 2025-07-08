@@ -6,6 +6,7 @@
 
 // tu código aquí
 window.onload = function () {
+     
      console.log("getters");
      deleteAllCookies();
      document.getElementById("inicio1").addEventListener("click", function (e) {
@@ -129,8 +130,8 @@ if(rta.existe && rta.enUso){
 }
 
 function irTurnos(){//direcciona a la siguiente vista
-     window.location.href = "../lobby/lobby.php";
-
+     //window.location.href = "../lobby/lobby.php";
+window.location.href = "../lobby/lobby.php?refrescar=" + new Date().getTime();
 }
 
 function limpiarCampos(jugador) {
