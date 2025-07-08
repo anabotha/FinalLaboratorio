@@ -13,7 +13,7 @@ function getCookiePHP($nombre) {
      return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
 }
 $info = getCookiePHP("partida");
-echo $info;
+//echo $info;
 if ($info) {
      $partida = json_decode($info);
      //echo $partida;
