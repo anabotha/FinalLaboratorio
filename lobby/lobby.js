@@ -125,7 +125,6 @@ function mostrarInfoJugador(idDiv, nombreJugador, partidasGanadas) {
 }
 
 function pasarATurnos(){
-     //setCookie("settings", JSON.stringify(settings),1);
 window.location.href = "./settings/settings.php"
 }
 }

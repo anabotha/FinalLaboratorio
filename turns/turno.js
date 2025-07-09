@@ -9,6 +9,7 @@ function tirarDado(jugador){
           var empate=true;
      if((tiradas[0] !== 0 && tiradas[1] !== 0 )&& empate!=false ){
      deleteCookie("inicia");
+     deleteCookie("segundo");
 
           //document.getElementById("turno-container").style.display=none;
           resu=document.getElementById("resultado");
@@ -16,13 +17,18 @@ function tirarDado(jugador){
           var botones=document.querySelectorAll(".btn");
           
                if (tiradas[0] > tiradas[1]) {
-               resultado = "🎉 ¡JUGADOR 1 comienza!";
+                    nombre=getCookie(1).toUpperCase();
+                    resultado = "🎉 "+nombre+" comienza!";
                     empate=false;
-                    setCookie("inicia","jugador1",1); 
+                    setCookie("inicia",getCookie(1),1); 
+                    setCookie("segundo",getCookie(2),1); 
+
                } else if (tiradas[1] > tiradas[0]) {
-                    resultado = "🎉 ¡JUGADOR 2 comienza!";
+                    nombre=getCookie(1).toUpperCase();
+                    resultado = "🎉 "+nombre+" comienza!";
                     empate=false;
-                    setCookie("inicia","jugador2",1);//ver si puede decir el nombre em vez de l jugaodr
+                    setCookie("inicia",getCookie(2),1);//ver si puede decir el nombre em vez de l jugaodr
+                    setCookie("segundo",getCookie(1),1); 
 
                } else {
                     resultado = "🤝 ¡Empate! Vuelvan a tirar.";
@@ -44,7 +50,7 @@ function tirarDado(jugador){
 
 function pasarALobby(){
      console.log("turnos");
-     window.location.href = "..//game/game.php"
+     window.location.href = "../game/game.php"
 
 }
 function setCookie(nombre, valor, dias) {

@@ -1,5 +1,23 @@
+
+.view-container{
+display: flex;
+flex-direction: row;
+
+}
+.cont-jugador1{
+width: 100%;
+}
+.cont-jugador2{
+width: 100%;
+     
+}
 .game-container{
+width: 100%;
 display:"grid";
 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 grid-auto-rows: 1fr;
+}
+.btn-container{
+width: 100px;
+height: 140px;
 }

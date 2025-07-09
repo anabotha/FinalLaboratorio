@@ -8,6 +8,12 @@
      <script src="./turno.js" defer></script>
 </head>
 <body>
+     <?php
+     function getCookiePHP($nombre) {
+     return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
+}
+
+     ?>
      <div class="icono">🎲</div>
 <h1>DECIDIR TURNO</h1>
 <p class="subtitulo">¡Que la suerte decida quién comienza!</p>
@@ -16,7 +22,10 @@
 <!-- Jugador 1 -->
 <div class="jugador-box">
      <div class="icono">👑</div>
-     <h2>JUGADOR 1</h2>
+     <h2><?php
+      $nombre = getCookiePHP(1);
+      echo strtoupper($nombre);
+     ?></h2>
      <div class="dado" id="dado1">?</div>
      <button class="btn" onclick="tirarDado(1)">TIRAR DADO</button>
 </div>
@@ -26,7 +35,11 @@
 <!-- Jugador 2 -->
 <div class="jugador-box">
      <div class="icono">⚔</div>
-     <h2>JUGADOR 2</h2>
+     <h2><?php
+                    
+     $nombre =getCookiePHP(2);
+     echo strtoupper($nombre);
+     ?></h2>
      <div class="dado" id="dado2">?</div>
      <button class="btn" onclick="tirarDado(2)">TIRAR DADO</button>
 </div>

@@ -1,5 +1,5 @@
 window.onload=function(){
-     deleteAllCookies();
+     deleteCookie("settings");
 settings={
      cartas:"8 Cartas (Fácil)" ,
      tipo: "Números",

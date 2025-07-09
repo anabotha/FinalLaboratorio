@@ -6,7 +6,6 @@
 
 // tu código aquí
 window.onload = function () {
-     
      console.log("getters");
      deleteAllCookies();
      document.getElementById("inicio1").addEventListener("click", function (e) {
@@ -109,6 +108,8 @@ if(rta.existe && rta.enUso){
 
 }else if(rta.existe && !rta.enUso){
      if(rta.contra){
+          
+          setCookie(rta.nroJug,rta.nickname,1);
           const ingreso=document.getElementById("ingresoData"+rta.nroJug);
           ingreso.style.display ='none'; 
           const mensaje=document.getElementById("logueado"+rta.nroJug);
