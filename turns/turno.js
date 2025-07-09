@@ -17,15 +17,15 @@ function tirarDado(jugador){
           var botones=document.querySelectorAll(".btn");
           
                if (tiradas[0] > tiradas[1]) {
-                    nombre=getCookie(1).toUpperCase();
-                    resultado = "🎉 "+nombre+" comienza!";
+                    const nombre=getCookie(1).toUpperCase();
+                    resultado = "🎉 "+nombre+" COMIENZA!";
                     empate=false;
                     setCookie("inicia",getCookie(1),1); 
                     setCookie("segundo",getCookie(2),1); 
 
                } else if (tiradas[1] > tiradas[0]) {
-                    nombre=getCookie(1).toUpperCase();
-                    resultado = "🎉 "+nombre+" comienza!";
+                    const nombre=getCookie(2).toUpperCase();
+                    resultado = "🎉 "+nombre+" COMIENZA!";
                     empate=false;
                     setCookie("inicia",getCookie(2),1);//ver si puede decir el nombre em vez de l jugaodr
                     setCookie("segundo",getCookie(1),1); 
