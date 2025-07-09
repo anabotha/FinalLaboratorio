@@ -1,9 +1,9 @@
 window.onload=function(){
-//selectOption();
+     deleteAllCookies();
 settings={
-     cartas:"" ,
-     tipo: "",
-     tiempo:"" 
+     cartas:"8 Cartas (Fácil)" ,
+     tipo: "Números",
+     tiempo:"5 min" 
 }
 document.getElementById("btnIniciar").addEventListener("click",dirigir);
 }
@@ -53,6 +53,18 @@ function getCookie(nombre) { //
      }
      return null;
 }
+function deleteCookie(nombre) { 
+     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+}
+function deleteAllCookies() {
+const cookies = document.cookie.split(";");
+
+for (let cookie of cookies) {
+     const nombre = cookie.split("=")[0].trim();
+     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+}
+}
+
 function dirigir(){
      setCookie("settings", JSON.stringify(settings),1);
 window.location.href = "../../turns/turno.php?ts=" + new Date().getTime();
