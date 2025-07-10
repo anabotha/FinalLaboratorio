@@ -74,7 +74,20 @@ if (nombre === jugador1) return "1";
 if (nombre === jugador2) return "2";
 
 }
-
+function muestroTurno(jug){
+     console.log("turno"+jug);
+     const p=document.getElementById("turno"+jug);
+     console.log(p);
+     p.innerText="¡Es tu turno!";
+     if (jug === "1") {
+          const turno=document.getElementById("turno2");
+     turno.innerText="";
+     }else{
+          const turno=document.getElementById("turno1");
+     turno.innerText="";
+     };
+          
+}
 function daVuelta(button) {
      const uid = button.id;
      const cartaReal = button.getAttribute("data-carta");
@@ -108,11 +121,10 @@ function daVuelta(button) {
           const nuevoTurno = turnoActual === getCookie("1") ? getCookie("2") : getCookie("1");
 
           setCookie("turno", nuevoTurno, 1);
+          muestroTurno(getNumeroJugador(getCookie("turno")));
           setCookie("jugadasTurno", 0, 1);
           deleteCookie("1stPick");
           deleteCookie("2ndPick");
-
-          document.getElementById("info").innerText = "Turno de: " + nuevoTurno;
      } else {
           console.log("error en el control de jugadas");
      }
@@ -202,7 +214,8 @@ function infoJugadores(){
      setCookie("jugadasTurno",0,1);
      imprimoJugador(j1,1);
      imprimoJugador(j2,2);
-     document.getElementById("info").innerText="Turno de: "+inicia;
+     const jug=getNumeroJugador(inicia);
+     muestroTurno(jug);
 }
 function imprimoJugador(j,id){
      

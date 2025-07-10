@@ -1,90 +1,119 @@
 body {
-background-color: #0d1b2a;
-color: white;
-font-family: Arial, sans-serif;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 90%;
-margin: 0px;
-flex-direction: column;
-
-}
-h2{
-
-}
-.view-container {
-display: flex;
-width: 100%;
-flex-direction: row;
-justify-content: space-around;
-align-items: flex-start; /* para que queden arriba */
-gap: 40px;
-padding: 20px 0px;
-flex-wrap: nowrap; /* ← importante para mantener en una fila */
-margin:0px;
+  background: radial-gradient(circle at center, #0d1b2a, #000814);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cont-jugador1,
-.cont-jugador2 {
-    width: 220px;
-    box-sizing: border-box;
-justify-content: center;
-align-items: start; 
-padding: 20px;
-border-radius: 12px;
-box-shadow: 0 0 10px #1e90ff;
-flex-shrink: 0;
-margin:0px 10px;
+h1 {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  margin-bottom: 20px;
 }
 
-/**/
-.btn-container{
-width: 100px;
-height: 140px;
-}
-img{
-width: 100%;
-     
-}
-.adivinado{
-     width: 100px;
-height: 140px;
+/* Estructura 3x3 */
+.grid-3x3 {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+  gap: 20px;
+  width: 90vw;
+  height: 75vh;
 }
 
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+/* Jugadores */
+#cont-jugador1, #cont-jugador2 {
+  background: rgba(0, 128, 255, 0.1);
+  border: 2px solid #00ffff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 80%;
+  height: 80%;
+  flex-direction: column;
+  box-shadow: 0 0 15px #00ffff66;
+  display: flex;
+  align-items: center;
+}
+#cont-jugador2{
+    margin-left: 12px;
+}
+#cont-jugador1{
+    margin-right: 12px;
+}
+#cont-jugador1 h2, #cont-jugador2 h2 {
+  margin-bottom: 10px;
+}
 
+/* Tablero */
+#game-container {
+  background-color: #14213d;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #1e90ff66;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-rows: 140px;
+  gap: 10px;
+  padding: 20px;
+  width: 90%;
+  height: 100%;
+  justify-items: center;
+  margin:0,20px;
+}
+
+/* Cartas */
 .btn-container {
-background-color: #1c2a3c;
-border-radius: 20px;
-width:80px;
-height: 140px;
-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-transition: transform 0.2s;
+  width: 100px;
+  height: 140px;
+  background: linear-gradient(to bottom, #1f2937, #0f172a);
+  border-radius: 20px;
+  box-shadow: 0 0 12px #00ffff33;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-container:hover {
-transform: scale(1.03);
+  transform: scale(1.05);
+  box-shadow: 0 0 18px #00ffffaa;
+}
+.adivinado{
+  filter: none;
+  transform: none;
+  width: 100px;
+  height: 140px;
+  background: linear-gradient(to bottom, #1f2937, #0f172a);
+  border-radius: 20px;
+  box-shadow: 0 0 12px #05252533;
 }
 
-.game-container {
-flex: 1;
-flex-grow: 1;
-height:90%;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-grid-auto-rows: 1fr;
-gap: 8px;
-padding: 20px;
-justify-items: center;
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
+
+/* Texto */
 p {
-background-color: #223448;
-margin: 8px 0;
-padding: 8px;
-border-radius: 10px;
-font-size: 18px;
-font-weight: bolder;
-font-size: larger;
+  background-color: #223448;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Info final */
+#info {
+  font-size: 1.2rem;
+  color: #00ffcc;
 }
