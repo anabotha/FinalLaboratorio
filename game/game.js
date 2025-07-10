@@ -51,7 +51,6 @@ function empezarJuego(mazo){
      container.setAttribute("data-carta", carta.carta); // guarda src imagen verdadera
 
      const img = document.createElement("img");
-     img.src = carta.reverso;
      img.id = "img" + container.id;
      img.style.width = "100%";
 

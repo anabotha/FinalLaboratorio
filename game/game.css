@@ -10,8 +10,8 @@ body {
 }
 
 h1 {
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
+  color: #8cbebe;
+  text-shadow: 0 0 10px #318d8d;
   margin-bottom: 20px;
 }
 
@@ -34,7 +34,7 @@ h1 {
 /* Jugadores */
 #cont-jugador1, #cont-jugador2 {
   background: rgba(0, 128, 255, 0.1);
-  border: 2px solid #00ffff;
+  border: 2px solid #063131;
   border-radius: 16px;
   padding: 20px;
   width: 80%;
@@ -72,7 +72,8 @@ h1 {
 
 /* Cartas */
 .btn-container {
-  width: 100px;
+    padding:0%;
+  width: 140px;
   height: 140px;
   background: linear-gradient(to bottom, #1f2937, #0f172a);
   border-radius: 20px;
@@ -82,12 +83,12 @@ h1 {
 
 .btn-container:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 18px #00ffffaa;
+  box-shadow: 0 0 18px #023636aa;
 }
 .adivinado{
   filter: none;
   transform: none;
-  width: 100px;
+  width: 140px;
   height: 140px;
   background: linear-gradient(to bottom, #1f2937, #0f172a);
   border-radius: 20px;
@@ -115,5 +116,5 @@ p {
 /* Info final */
 #info {
   font-size: 1.2rem;
-  color: #00ffcc;
+  color: #062720;
 }

@@ -34,6 +34,8 @@ function tirarDado(jugador){
                     resultado = "🤝 ¡Empate! Vuelvan a tirar.";
                     empate=true;
                     tiradas = [0, 0];
+          resu.innerText=resultado;
+
                }
      }
      if(empate==false){
