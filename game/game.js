@@ -33,7 +33,6 @@ function buscaCartas() {
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
                let respuesta =JSON.parse(xhr.responseText);
-               console.log(respuesta);
                empezarJuego(respuesta); 
           }
      };
@@ -42,32 +41,18 @@ function buscaCartas() {
      xhr.send();
 }
 
-function buscaCarta(id,tipo) {
-     let xhr = new XMLHttpRequest();
-     xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-               console.log(xhr.responseText);
-               let respuesta =JSON.parse(xhr.responseText);
-               console.log(respuesta);
-               empezarJuego(respuesta); 
-          }
-     };
-     console.log("tipo"+ tipo);
-     xhr.open("GET", "buscaCarta.php?id="+encodeURI(id)+"&tipo="+encodeURI(tipo), true);
-     xhr.send();
-}
 function empezarJuego(mazo){
      console.log("empezar juego js");
      mazo.forEach((carta, index) => {
      const container = document.createElement("button");
-     container.id = "container" + index + "_" + carta.id;
+     container.id = index + "_" + carta.id;
      container.className = "btn-container";
      container.setAttribute("data-id", carta.id); // para usar luego
-     container.setAttribute("data-carta", carta.carta); // guarda imagen verdadera
+     container.setAttribute("data-carta", carta.carta); // guarda src imagen verdadera
 
      const img = document.createElement("img");
      img.src = carta.reverso;
-     img.id = "img" + carta.id;
+     img.id = "img" + container.id;
      img.style.width = "100%";
 
      container.appendChild(img);
@@ -82,22 +67,22 @@ function empezarJuego(mazo){
 }
 
 function getNumeroJugador(nombre) {
-    const jugador1 = getCookie("1");
-    const jugador2 = getCookie("2");
+const jugador1 = getCookie("1");
+const jugador2 = getCookie("2");
 
-    if (nombre === jugador1) return "1";
-    if (nombre === jugador2) return "2";
-    return null;
+if (nombre === jugador1) return "1";
+if (nombre === jugador2) return "2";
+
 }
 
-     function daVuelta(button) {
+function daVuelta(button) {
      const uid = button.id;
      const cartaReal = button.getAttribute("data-carta");
      const id = button.getAttribute("data-id");
 
      console.log("llega a daVuelta " + uid);
 
-     const img = document.getElementById("img" + id);
+     const img = document.getElementById("img" + uid);
      img.src = cartaReal;
      button.disabled = true;
 
@@ -150,58 +135,66 @@ function getLocal(key) {
           return null;
      }
 }
-
-
+function sacoValor(id){
+console.log(id);
+const img=document.getElementById("img"+id);
+img.src="";
+}
 function comparoCartas(id1,id2,jugador){
      sumoIntentos(jugador);
-     const carta1=document.getElementById(id1);
-     const carta2=document.getElementById(id2);
-     console.log(carta1 ,carta2);
-     setTimeout(() => {
+     /*const carta1=document.getElementById(id1);
+     const carta2=document.getElementById(id2);*/
+     const valor1 = id1.slice(1);
+     const valor2 = id2.slice(1);
+     const carta1 = document.getElementById(id1);
+     const carta2 = document.getElementById(id2);
 
-     if (carta1.value==carta2.value){//comapra si son iguales
+     setTimeout(() => {
+     if (valor1==valor2){//comapra si son iguales
           console.log("acerto");
           carta1.disabled = true; //las desabilita porque ya adivino.
           carta2.disabled = true;
-          carta1.classList="adivinado";
-          carta2.classList="adivinado";
+          carta1.className="adivinado";
+          carta2.className="adivinado";
+          let pares = JSON.parse(getCookie("settings")).cartas[0];
+          pares=parseInt(pares);
+          if(pares!=3){
+               pares=pares/2;
+          }else{
+               pares=16
+          }
+          let paresEncontrados=getCookie("paresEncontrados");
+          setCookie("pares",pares,1);
+          if(paresEncontrados && paresEncontrados!=getCookie("pares")){
+               paresEncontrados=parseInt(getCookie("paresEncontrados"))+1;
+               setCookie("paresEncontrados",paresEncontrados,1);
+          }else if(paresEncontrados && paresEncontrados==getCookie("pares")){
+               console.log("fin del juego");
+               deleteCookie("pares");
+     deleteCookie("paresEncontrados");
+          }else{
+          setCookie("paresEncontrados",1,1);
+          }
           sumoAciertos(jugador); //suma aciertos
      } else{
      console.log("no acerto");
-     sacoValor(id2);//"da vuelta la carta"
-     sacoValor(id1);//deja de mostrar
+     sacoValor(id1);//"da vuelta la carta"
+     sacoValor(id2);//deja de mostrar
      }
-     let botones=document.getElementsByClassName("botonCarta");
-     for (let boton of botones) {
-          boton.disabled = false;
-     }
-     },500);
+     let botones=document.getElementsByClassName("btn-container");
+          for (let boton of botones) {
+                    boton.disabled = false;
+          }
+     },1000);
 }
 
-function asignoIntentos(){
-     intentosJuego=JSON.parse(getCookie("settings")).cartas;
-     let aciertos=document.getElementById("intentos"); //fijarme si voy a trabajar con la variable global o que hago.
-     intentos+=1;
-     aciertos.innerHTML=("Intentos: "+intentos);
-     if(intentos==IntentosJuego){
-          finalizoJuego();
-     }
-}
 
-function sumoIntentos(jugadorId) {
-     let intentosElem = document.getElementById("intentos-" + jugadorId);
-     let intentos = parseInt(intentosElem.textContent) || 0;
-     intentosElem.textContent = intentos + 1;
-}
 
-function sumoAciertos(jugadorId) {
-     let aciertosElem = document.getElementById("aciertos-" + jugadorId);
-     let aciertos = parseInt(aciertosElem.textContent, 10) || 0;
-     aciertosElem.textContent = aciertos + 1;
-}
 
 // Informacion de jugadores
 function infoJugadores(){
+     deleteCookie("pares");
+     deleteCookie("paresEncontrados");
      j1=getCookie("1");
      j2=getCookie("2");
      inicia=getCookie("inicia");
@@ -212,6 +205,7 @@ function infoJugadores(){
      document.getElementById("info").innerText="Turno de: "+inicia;
 }
 function imprimoJugador(j,id){
+     
      // Crear y agregar el nombre del jugador
      let h2 = document.getElementById("jugador"+id);
      h2.textContent = j;
@@ -222,5 +216,16 @@ function imprimoJugador(j,id){
 
      // setea el contador de aciertos
      let aciertos = document.getElementById("aciertos-"+id);
-     aciertos.textContent = 0;
+     aciertos.textContent = 0;}
+
+function sumoIntentos(jugadorId) {
+     let intentosElem = document.getElementById("intentos-"+jugadorId);
+     let intentos = parseInt(intentosElem.textContent) || 0;
+     intentosElem.textContent = intentos + 1;
+}
+
+function sumoAciertos(jugadorId) {
+     let aciertosElem = document.getElementById("aciertos-" + jugadorId);
+     let aciertos = parseInt(aciertosElem.textContent, 10) || 0;
+     aciertosElem.textContent = aciertos + 1;
 }
