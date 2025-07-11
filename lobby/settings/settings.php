@@ -23,7 +23,7 @@
      <!-- TIPO -->
      <div class="config-box" id="tipo-box">
           <h3>TIPO DE CARTAS</h3>
-          <div class="option selected" onclick="selectOption(this, 'tipo', 'Números')">Números</div>
+          <div class="option selected" onclick="selectOption(this, 'tipo', 'argentina')">Argentina</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'poker')">Poker</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'snoopy')">Snoopy</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'avion')">aviones</div>
