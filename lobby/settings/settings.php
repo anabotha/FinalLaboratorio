@@ -50,7 +50,7 @@
      </div>
      <div>
           <h4>TIPO</h4>
-          <p id="resumen-tipo">Números</p>
+          <p id="resumen-tipo">Argentina</p>
           
      </div>
      <div>

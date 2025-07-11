@@ -24,3 +24,14 @@
 12 - conexion a bd mockup de partidas para mostrar info
 
 13 - armado de vista lobby
+
+14- Armado de Logica de Turnos
+
+
+15- Armado de vista de turnos e info de jugadores
+
+16- Vista general de juego
+
+17- armado de tabla de cartas.
+
+18- Conexion a la tabla de cartas para mostrar durante el juego

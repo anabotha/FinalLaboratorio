@@ -20,6 +20,8 @@
       <div class="intentos"><p>Intentos: <span id="intentos-1"></span></p></div>
       <div class="aciertos"><p>Aciertos: <span id="aciertos-1"></span></p></div>
       <div class="turno" ><p id="turno1"></p></div>
+      <div class="ranking" ><p id="ranking1"></p></div>
+
 
     </div>
 
@@ -30,6 +32,7 @@
       <div class="intentos"><p>Intentos: <span id="intentos-2"></span></p></div>
       <div class="aciertos"><p>Aciertos: <span id="aciertos-2"></span></p></div>
       <div class="turno"><p id="turno2"></p></div>
+      <div class="ranking" ><p id="ranking2"></p></div>
 
     </div>
 

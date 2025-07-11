@@ -32,11 +32,12 @@ function buscaCartas() {
      let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
+     console.log(xhr.responseText);
+
                let respuesta =JSON.parse(xhr.responseText);
                empezarJuego(respuesta); 
           }
      };
-     console.log("busca cartas js");
      xhr.open("GET", "buscoCartas.php", true);
      xhr.send();
 }
@@ -241,7 +242,6 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
      if (callbackCambioTurno) callbackCambioTurno(!acerto);
 }, 500);
 }
-
 
 // Informacion de jugadores
 function infoJugadores(){

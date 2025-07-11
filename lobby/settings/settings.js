@@ -2,7 +2,7 @@ window.onload=function(){
      deleteCookie("settings");
 settings={
      cartas:"8 Cartas (Fácil)" ,
-     tipo: "Números",
+     tipo: "argentina",
      tiempo:"5 min" 
 }
 document.getElementById("btnIniciar").addEventListener("click",dirigir);
