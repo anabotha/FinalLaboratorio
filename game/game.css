@@ -32,6 +32,11 @@ h1 {
 }
 
 /* Jugadores */
+#cont-jugador1.ganador, #cont-jugador2.ganador {
+  background-color: rgba(6, 236, 56, 0.822);
+  box-shadow: 0 0 15px rgba(6, 196, 63, 0.4);
+}
+
 #cont-jugador1, #cont-jugador2 {
   background: rgba(0, 128, 255, 0.1);
   border: 2px solid #063131;

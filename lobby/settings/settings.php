@@ -32,10 +32,10 @@
      <!-- TIEMPO -->
      <div class="config-box" id="tiempo-box">
           <h3>TIEMPO LÍMITE</h3>
-          <div class="option selected" onclick="selectOption(this, 'tiempo', '5 min')">5 min</div>
-          <div class="option" onclick="selectOption(this, 'tiempo', '10 min')">10 min</div>
-          <div class="option" onclick="selectOption(this, 'tiempo', '20 min')">20 min</div>
-          <div class="option" onclick="selectOption(this, 'tiempo', 'Sin límite')">Sin límite</div>
+          <div class="option selected" onclick="selectOption(this, 'tiempo', '5')">5 min</div>
+          <div class="option" onclick="selectOption(this, 'tiempo', '10')">10 min</div>
+          <div class="option" onclick="selectOption(this, 'tiempo', '20')">20 min</div>
+          <div class="option" onclick="selectOption(this, 'tiempo', '1')">Sin límite</div>
      </div>
      </div>
 

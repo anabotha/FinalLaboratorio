@@ -12,7 +12,7 @@
 
   <div class="grid-3x3">
     <div class="cell"></div> <!-- fila 1 -->
-    <div class="cell"></div>
+    <div class="cell"><div class="tiempo" id="cronometro"></div></div>
     <div class="cell"></div>
 
     <div class="cell" id="cont-jugador1">

@@ -27,9 +27,31 @@ tipo: document.getElementById("resumen-tipo"),
 tiempo: document.getElementById("resumen-tiempo")
 };
 
-resumen[categoria].innerText= texto;
+switch (categoria) {
+     case "tiempo":
+          switch (texto) {
+               case "0":
+                    resumen[categoria].innerText = "sin limite";
+                    break;
+               case "5":
+                    resumen[categoria].innerText = "5 min";
+                    break;
+               case "10":
+                    resumen[categoria].innerText = "10 min";
+                    break;
+               case "20":
+                    resumen[categoria].innerText = "20 min";
+                    break;
+               default:
+                    resumen[categoria].innerText = texto;
+          }
+          break;
+     default:
+          resumen[categoria].innerText = texto;
+}
 
-settings[categoria]= texto;
+     settings[categoria]= texto;
+
 console.log(settings);
 
 }
