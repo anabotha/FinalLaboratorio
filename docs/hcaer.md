@@ -12,11 +12,13 @@
 
 [x] armar vista y css de lobby.
 
-[] bd de cartas
+[x] bd de cartas
 
-[] direccionamiento de sttings a juego
+[x] direccionamiento de sttings a juego
 
 [] cambiar talb apartida +1 en ganadasjx,jugadastotales,  cambiar ultimoganador.
 
 []armar vista final.
+
+[] armar ranking para cuando este jugando.
 

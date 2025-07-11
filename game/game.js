@@ -43,12 +43,18 @@ function buscaCartas() {
 
 function empezarJuego(mazo){
      console.log("empezar juego js");
-     let terminoPorTiempo = false;
+     terminoPorTiempo = false;
      reloj(() => {
     terminoPorTiempo = true;
     console.log("Se terminó el tiempo, se cierra el juego.");
     finJuego();
 });
+//logica de pares
+ pares = parseInt(JSON.parse(getCookie("settings")).cartas[0]);
+               if (pares === 3) pares = 16;
+               else pares = pares / 2;
+               setCookie("pares", pares, 1);
+               //
      mazo.forEach((carta, index) => {
      const container = document.createElement("button");
      container.id = index + "_" + carta.id;
@@ -110,15 +116,18 @@ function daVuelta(button) {
      deleteCookie("partida");
 
      // Control de jugadas
-     if (getCookie("turno") && getCookie("jugadasTurno") == "0") {
+     const jugadasTurno = getCookie("jugadasTurno") || "0";
+
+     if (getCookie("turno") && jugadasTurno =="0") {
           setCookie("jugadasTurno", 1, 1);
           setCookie("1stPick", uid, 1);
-     } else if (getCookie("turno") && getCookie("jugadasTurno") == "1") {
+     } else if (getCookie("turno") && jugadasTurno == "1") {
           setCookie("2ndPick", uid, 1);
 
           const id1 = getCookie("1stPick");
           const id2 = getCookie("2ndPick");
           const nroJugador=getNumeroJugador(getCookie("turno") );
+          bloquearBotones();
           comparoCartas(id1, id2, nroJugador, (debeCambiarTurno) => {
      const turnoActual = getCookie("turno");
      if (debeCambiarTurno) {
@@ -130,11 +139,12 @@ function daVuelta(button) {
      setCookie("jugadasTurno", 0, 1);
      muestroTurno(getNumeroJugador(getCookie("turno")));
      deleteCookie("1stPick");
-    deleteCookie("2ndPick");
+     deleteCookie("2ndPick");
 });
-
+habilitarBotonesNoAdivinados();
      } else {
           console.log("error en el control de jugadas");
+          setCookie("jugadasTurno", 0, 1); 
      }
      }
 
@@ -155,17 +165,40 @@ function getLocal(key) {
           return null;
      }
 }
-function sacoValor(id){
-console.log(id);
-const img=document.getElementById("img"+id);
-img.src="";
+function sacoValor(){
+     const botones = document.getElementsByClassName("btn-container");
+     for (let boton of botones) {
+          if (!boton.classList.contains("adivinado")) {
+          const img=document.getElementById("img"+boton.id);
+          console.log(boton.id);
+         img.src="";
+          }
+    }
+}
+function bloquearBotones() {
+    const botones = document.getElementsByClassName("btn-container");
+    for (let boton of botones) {
+        boton.disabled = true;
+    }
 }
 
+function habilitarBotonesNoAdivinados() {
+     const botones = document.getElementsByClassName("btn-container");
+     for (let boton of botones) {
+          if (!boton.classList.contains("adivinado")) {
+               boton.disabled = false;
+          }
+     }
+     }
+
 function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
-const valor1 = id1.slice(1);
-const valor2 = id2.slice(1);
-const carta1 = document.getElementById(id1);
-const carta2 = document.getElementById(id2);
+     sumoIntentos(jugador);
+     const carta1 = document.getElementById(id1);
+     const carta2 = document.getElementById(id2);
+     const valor1 = id1.slice(-3);
+     const valor2 = id2.slice(-3);
+     console.log(valor1,valor2,id1,id2);
+     
      setTimeout(() => {
           let acerto = false;
           if (valor1 === valor2) {
@@ -176,13 +209,10 @@ const carta2 = document.getElementById(id2);
                carta2.classList.add("adivinado");
                sumoAciertos(jugador);
                // Lógica de pares
-               let pares = parseInt(JSON.parse(getCookie("settings")).cartas[0]);
-               if (pares === 3) pares = 16;
-               else pares = pares / 2;
-
+               
+               
                let paresEncontrados = parseInt(getCookie("paresEncontrados") || 0) + 1;
                setCookie("paresEncontrados", paresEncontrados, 1);
-               setCookie("pares", pares, 1);
 
                if (paresEncontrados >= pares || terminoPorTiempo ) {
                     console.log("Fin del juego");
@@ -192,18 +222,21 @@ const carta2 = document.getElementById(id2);
                     return;
                }
           } else {
-               sacoValor(id1);
-               sacoValor(id2);
-          }
+               console.log(id1,id2);
+               sacoValor();
 
+          }
+          
+          console.log("Comparando:", valor1, "vs", valor2, "→ Acertó:", acerto);
           // Habilitar botones no adivinados
-          const botones = document.getElementsByClassName("btn-container");
+          /* const botones = document.getElementsByClassName("btn-container");
           for (let boton of botones) {
                if (!boton.classList.contains("adivinado")) {
                     boton.disabled = false;
                }
-     }
-
+               }*/
+              
+     habilitarBotonesNoAdivinados();
      // Llamar al callback con el resultado
      if (callbackCambioTurno) callbackCambioTurno(!acerto);
 }, 500);
@@ -257,7 +290,7 @@ function finJuego(){
 function reloj(callbackFin){
 tiempo=JSON.parse(getCookie("settings"));
 minutos=tiempo.tiempo;
-console.log(minutos+"min");
+//console.log(minutos+"min");
 
 if (minutos === "0") {
      console.log("⏳ Tiempo ilimitado");
@@ -284,7 +317,7 @@ const relojIntervalo = setInterval(() => {
           segundos--;
      }
 
-     console.log(`${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`);
+     //console.log(`${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`);
      const cronometro = document.getElementById("cronometro");
      if (cronometro) {
           cronometro.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;

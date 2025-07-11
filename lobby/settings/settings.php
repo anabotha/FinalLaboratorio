@@ -26,7 +26,7 @@
           <div class="option selected" onclick="selectOption(this, 'tipo', 'Números')">Números</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'poker')">Poker</div>
           <div class="option" onclick="selectOption(this, 'tipo', 'snoopy')">Snoopy</div>
-          <div class="option" onclick="selectOption(this, 'tipo', 'aviones')">aviones</div>
+          <div class="option" onclick="selectOption(this, 'tipo', 'avion')">aviones</div>
      </div>
 
      <!-- TIEMPO -->
