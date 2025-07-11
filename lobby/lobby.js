@@ -125,6 +125,6 @@ function mostrarInfoJugador(idDiv, nombreJugador, partidasGanadas) {
 }
 
 function pasarATurnos(){
-window.location.href = "./settings/settings.php"
+window.location.href = "../turns/turno.php?ts=" + new Date().getTime();
 }
 }

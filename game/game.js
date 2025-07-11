@@ -113,17 +113,20 @@ function daVuelta(button) {
           const id1 = getCookie("1stPick");
           const id2 = getCookie("2ndPick");
           const nroJugador=getNumeroJugador(getCookie("turno") );
-          comparoCartas(id1, id2,nroJugador);
+          comparoCartas(id1, id2, nroJugador, (debeCambiarTurno) => {
+    const turnoActual = getCookie("turno");
+    if (debeCambiarTurno) {
+        const nuevoTurno = turnoActual === getCookie("1") ? getCookie("2") : getCookie("1");
+        setCookie("turno", nuevoTurno, 1);
+    } else {
+        setCookie("turno", turnoActual, 1); // mantiene el turno
+    }
+    setCookie("jugadasTurno", 0, 1);
+    muestroTurno(getNumeroJugador(getCookie("turno")));
+    deleteCookie("1stPick");
+    deleteCookie("2ndPick");
+});
 
-          // Cambio de turno
-          const turnoActual = getCookie("turno");
-          const nuevoTurno = turnoActual === getCookie("1") ? getCookie("2") : getCookie("1");
-
-          setCookie("turno", nuevoTurno, 1);
-          muestroTurno(getNumeroJugador(getCookie("turno")));
-          setCookie("jugadasTurno", 0, 1);
-          deleteCookie("1stPick");
-          deleteCookie("2ndPick");
      } else {
           console.log("error en el control de jugadas");
      }
@@ -151,53 +154,53 @@ console.log(id);
 const img=document.getElementById("img"+id);
 img.src="";
 }
-function comparoCartas(id1,id2,jugador){
-     sumoIntentos(jugador);
-     /*const carta1=document.getElementById(id1);
-     const carta2=document.getElementById(id2);*/
-     const valor1 = id1.slice(1);
-     const valor2 = id2.slice(1);
-     const carta1 = document.getElementById(id1);
-     const carta2 = document.getElementById(id2);
+function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
+    const valor1 = id1.slice(1);
+    const valor2 = id2.slice(1);
+    const carta1 = document.getElementById(id1);
+    const carta2 = document.getElementById(id2);
 
-     setTimeout(() => {
-     if (valor1==valor2){//comapra si son iguales
-          console.log("acerto");
-          carta1.disabled = true; //las desabilita porque ya adivino.
-          carta2.disabled = true;
-          carta1.className="adivinado";
-          carta2.className="adivinado";
-          let pares = JSON.parse(getCookie("settings")).cartas[0];
-          pares=parseInt(pares);
-          if(pares!=3){
-               pares=pares/2;
-          }else{
-               pares=16
-          }
-          let paresEncontrados=getCookie("paresEncontrados");
-          setCookie("pares",pares,1);
-          if(paresEncontrados && paresEncontrados!=getCookie("pares")){
-               paresEncontrados=parseInt(getCookie("paresEncontrados"))+1;
-               setCookie("paresEncontrados",paresEncontrados,1);
-          }else if(paresEncontrados && paresEncontrados==getCookie("pares")){
-               console.log("fin del juego");
-               deleteCookie("pares");
-     deleteCookie("paresEncontrados");
-          }else{
-          setCookie("paresEncontrados",1,1);
-          }
-          sumoAciertos(jugador); //suma aciertos
-     } else{
-     console.log("no acerto");
-     sacoValor(id1);//"da vuelta la carta"
-     sacoValor(id2);//deja de mostrar
-     }
-     let botones=document.getElementsByClassName("btn-container");
-          for (let boton of botones) {
-                    boton.disabled = false;
-          }
-     },1000);
+    setTimeout(() => {
+        let acerto = false;
+        if (valor1 === valor2) {
+            acerto = true;
+            carta1.disabled = true;
+            carta2.disabled = true;
+            carta1.classList.add("adivinado");
+            carta2.classList.add("adivinado");
+            sumoAciertos(jugador);
+            // Lógica de pares
+            let pares = parseInt(JSON.parse(getCookie("settings")).cartas[0]);
+            if (pares === 3) pares = 16;
+            else pares = pares / 2;
+
+            let paresEncontrados = parseInt(getCookie("paresEncontrados") || 0) + 1;
+            setCookie("paresEncontrados", paresEncontrados, 1);
+            setCookie("pares", pares, 1);
+
+            if (paresEncontrados >= pares) {
+                console.log("Fin del juego");
+                deleteCookie("pares");
+                deleteCookie("paresEncontrados");
+            }
+        } else {
+            sacoValor(id1);
+            sacoValor(id2);
+        }
+
+        // Habilitar botones no adivinados
+        const botones = document.getElementsByClassName("btn-container");
+        for (let boton of botones) {
+            if (!boton.classList.contains("adivinado")) {
+                boton.disabled = false;
+            }
+        }
+
+        // Llamar al callback con el resultado
+        if (callbackCambioTurno) callbackCambioTurno(!acerto);
+    }, 500);
 }
+
 
 
 

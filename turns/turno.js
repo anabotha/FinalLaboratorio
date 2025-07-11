@@ -52,7 +52,7 @@ function tirarDado(jugador){
 
 function pasarALobby(){
      console.log("turnos");
-     window.location.href = "../game/game.php"
+     window.location.href = "../lobby/settings/settings.php";
 
 }
 function setCookie(nombre, valor, dias) {

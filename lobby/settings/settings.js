@@ -67,7 +67,7 @@ for (let cookie of cookies) {
 
 function dirigir(){
      setCookie("settings", JSON.stringify(settings),1);
-window.location.href = "../../turns/turno.php?ts=" + new Date().getTime();
+window.location.href = "../../game/game.php";
 
 
 }
