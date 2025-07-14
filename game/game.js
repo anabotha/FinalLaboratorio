@@ -282,7 +282,8 @@ function imprimoJugador(j,id){
 
      // setea el contador de aciertos
      let aciertos = document.getElementById("aciertos-"+id);
-     aciertos.textContent = 0;}
+     aciertos.textContent = 0;
+}
 
 function sumoIntentos(jugadorId) {
      let intentosElem = document.getElementById("intentos-"+jugadorId);
@@ -303,8 +304,48 @@ function finJuego(){
      }
      tiempo=document.getElementById("cronometro");
      setLocal("tiempo",tiempo);
+     agregaPartidaBd();
      //cargar partida
      //mostrar resto de info
+}
+function agregaPartidaBd(){
+      let j1 = getCookie(1);
+let j2 = getCookie(2);
+let winner = "";
+
+// Ordenar alfabéticamente o numéricamente para consistencia (si usás nombres, se ordenan alfabéticamente)
+if (j1 > j2) {
+     const temp = j1;
+     j1 = j2;
+     j2 = temp;
+     score1=getLocal("score2");
+     score2=getLocal("score1");
+}else{
+     score1=getLocal("score1");
+     score2=getLocal("score2");
+}
+
+
+     const infoPartida={
+          player1:j1,
+          player2:j2,
+          winner:getCookie("winner"),
+          puntajej1:score1,
+          puntajej2:score2,
+          fecha:  new Date().toISOString().split('T')[0] 
+     }
+let xhr = new XMLHttpRequest();
+     xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+     console.log(xhr.responseText);
+
+               let respuesta =JSON.parse(xhr.responseText);
+               irAResults(respuesta); 
+          }
+     };
+     xhr.open("GET", "agregaPartidas.php?resultado=" + encodeURIComponent(JSON.stringify(infoPartida)), true);
+
+     xhr.send();
 }
 
 function reloj(callbackFin){
@@ -356,22 +397,39 @@ document.querySelectorAll(".turno").textContent="";
      if (aciertosj1>aciertosj2){
           console.log("gana1 10 puntos");
           document.getElementById("cont-jugador1").className="ganador";
+          setLocal("score2",0);
+               setLocal("score1",10);
+               setCookie("winner",getCookie(1));
      }else if(aciertosj1<aciertosj2){
           console.log("gana2 10 puntos");
           document.getElementById("cont-jugador2").className="ganador";
-
+          setLocal("score1",0);
+               setLocal("score2",10);
+               setCookie("winner",getCookie(1));
      }else{
           console.log("empate");
           intentosj2=parseInt(document.getElementById("intentos-2").textContent) || 0;
           intentosj1=parseInt(document.getElementById("intentos-1").textContent) || 0;
           if(intentosj1>intentosj2){
           console.log("gana2 6 puntos");
-
+          setLocal("score2",4);
+               setLocal("score1",6);
+               setCookie("winner",getCookie(1));
           } else if(intentosj1<intentosj2){
           console.log("gana1 6 puntos");
+               setCookie("winner",getCookie(2));
+               setLocal("score1",4);
+               setLocal("score2",6);
 
           }else{
           console.log("empate completo 5 ptos para cada uno");
+               setCookie("winner",getCookie(null));
+               setLocal("score1",5);
+               setLocal("score2",5);
           }
      }
+}
+function irAResults(rta){
+window.location.href = "../results/results.php?";
+
 }

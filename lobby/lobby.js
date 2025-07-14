@@ -85,9 +85,8 @@ setVistaLobby(rta);
 
 function setVistaLobby(rta){
 let divTitulo = document.getElementById("titulo");
-
 let ultima=rta.ultimaPartida;
-let ganador= rta.ultimoganador;
+let ganador= rta.ultimoGanador;
 const partidasJugadas=rta.partidasTotales;
 let div=document.getElementById("ultimaPartida");
 
