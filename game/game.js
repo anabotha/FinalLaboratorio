@@ -298,9 +298,15 @@ function sumoAciertos(jugadorId) {
 
 function finJuego(){
      ganador();
+     if(!terminoPorTiempo){//si termino porq se adivino todo detiene el reloj.
+          detenerReloj();
+     }
+     tiempo=document.getElementById("cronometro");
+     setLocal("tiempo",tiempo);
      //cargar partida
      //mostrar resto de info
 }
+
 function reloj(callbackFin){
 tiempo=JSON.parse(getCookie("settings"));
 minutos=tiempo.tiempo;
@@ -315,7 +321,7 @@ if (minutos === "0") {
 
 let segundos = 0;
 
-const relojIntervalo = setInterval(() => {
+relojIntervalo = setInterval(() => {
      if (segundos === 0) {
           if (minutos === 0) {
                clearInterval(relojIntervalo);
@@ -337,6 +343,10 @@ const relojIntervalo = setInterval(() => {
           cronometro.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
      }
 }, 1000);
+}
+
+function detenerReloj(){
+      clearInterval(relojIntervalo); // Detiene el reloj
 }
 function ganador(){
      let aciertosj1 = parseInt(document.getElementById("aciertos-1").textContent) || 0;
