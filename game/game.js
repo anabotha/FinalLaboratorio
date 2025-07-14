@@ -51,15 +51,28 @@ function empezarJuego(mazo){
     finJuego();
 });
 //logica de pares
- pares = parseInt(JSON.parse(getCookie("settings")).cartas[0]);
-               if (pares === 3) pares = 16;
-               else pares = pares / 2;
+ pares = parseInt(JSON.parse(getCookie("settings")).cartas);
+               pares = pares / 2;
                setCookie("pares", pares, 1);
                //
+     console.log(pares)
      mazo.forEach((carta, index) => {
      const container = document.createElement("button");
      container.id = index + "_" + carta.id;
      container.className = "btn-container";
+     var game=document.getElementById("game-container");
+     switch (pares) {
+          case 8:
+               container.classList.add('btn-mediano');
+               game.classList.add("grid-4x4");
+               break;
+          case 16:
+               container.classList.add('btn-small');
+               game.classList.add("grid-6x6");
+               break;
+          default:
+               break;
+     }
      container.setAttribute("data-id", carta.id); // para usar luego
      container.setAttribute("data-carta", carta.carta); // guarda src imagen verdadera
 
@@ -285,6 +298,7 @@ function sumoAciertos(jugadorId) {
 
 function finJuego(){
      ganador();
+     //cargar partida
      //mostrar resto de info
 }
 function reloj(callbackFin){
@@ -324,8 +338,6 @@ const relojIntervalo = setInterval(() => {
      }
 }, 1000);
 }
-
-
 function ganador(){
      let aciertosj1 = parseInt(document.getElementById("aciertos-1").textContent) || 0;
 let aciertosj2 = parseInt(document.getElementById("aciertos-2").textContent) || 0;

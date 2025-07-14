@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="./lobby.css">
 </head>
 <body>
-     <?php
+     <?php/*
 function getCookiePHP($nombre) {
      return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
 }
@@ -17,7 +17,7 @@ $info = getCookiePHP("partida");
 if ($info) {
      $partida = json_decode($info);
      //echo $partida;
-     if ($partida) {
+     if ($partida) {*/
 
 
      ?>
@@ -34,12 +34,12 @@ if ($info) {
 
 <?php
 //echo $partida->J1;
-}else{
+/*}else{
 echo"no anda el json";
 }
 }else{
 echo"de q cookie me habals flaca";
-}
+}*/
 ?>
 </body>
 </html>

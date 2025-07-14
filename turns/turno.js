@@ -22,13 +22,16 @@ function tirarDado(jugador){
                     empate=false;
                     setCookie("inicia",getCookie(1),1); 
                     setCookie("segundo",getCookie(2),1); 
-
+                    setLocal("inicia",getCookie(1));
+                    setLocal("segundo",getCookie(2));
                } else if (tiradas[1] > tiradas[0]) {
                     const nombre=getCookie(2).toUpperCase();
                     resultado = "🎉 "+nombre+" COMIENZA!";
                     empate=false;
                     setCookie("inicia",getCookie(2),1);//ver si puede decir el nombre em vez de l jugaodr
                     setCookie("segundo",getCookie(1),1); 
+                    setLocal("inicia",getCookie(2));
+                    setLocal("segundo",getCookie(1));
 
                } else {
                     resultado = "🤝 ¡Empate! Vuelvan a tirar.";
@@ -48,7 +51,23 @@ function tirarDado(jugador){
           btn.addEventListener("click",pasarALobby);
      }
 }
+function setLocal(key, value) {
+     try {
+          localStorage.setItem(key, JSON.stringify(value));
+     } catch (e) {
+          console.error("Error al guardar en localStorage:", e);
+     }
+}
 
+function getLocal(key) {
+     try {
+          const item = localStorage.getItem(key);
+          return item ? JSON.parse(item) : null;
+     } catch (e) {
+          console.error("Error al leer de localStorage:", e);
+          return null;
+     }
+}
 
 function pasarALobby(){
      console.log("turnos");

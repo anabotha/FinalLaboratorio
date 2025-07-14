@@ -15,9 +15,9 @@
      <!-- CANTIDAD -->
      <div class="config-box" id="cartas-box">
           <h3>CANTIDAD DE CARTAS</h3>
-          <div class="option selected" onclick="selectOption(this, 'cartas', '8 Cartas - Fácil')">8 Cartas (Fácil)</div>
-          <div class="option" onclick="selectOption(this, 'cartas', '16 Cartas - Medio')">16 Cartas (Medio)</div>
-          <div class="option" onclick="selectOption(this, 'cartas', '32 Cartas - Difícil')">32 Cartas (Difícil)</div>
+          <div class="option selected" onclick="selectOption(this, 'cartas', '8')">8 Cartas (Fácil)</div>
+          <div class="option" onclick="selectOption(this, 'cartas', '16 ')">16 Cartas (Medio)</div>
+          <div class="option" onclick="selectOption(this, 'cartas', '32')">32 Cartas (Difícil)</div>
      </div>
 
      <!-- TIPO -->
