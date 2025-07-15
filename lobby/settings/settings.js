@@ -1,7 +1,7 @@
 window.onload=function(){
      deleteCookie("settings");
 settings={
-     cartas:"8 Cartas (Fácil)" ,
+     cartas:"8" ,
      tipo: "argentina",
      tiempo:"5 min" 
 }

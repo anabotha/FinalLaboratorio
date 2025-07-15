@@ -85,7 +85,17 @@ setVistaLobby(rta);
 
 function setVistaLobby(rta){
 let divTitulo = document.getElementById("titulo");
-let ultima=rta.ultimaPartida;
+console.log(rta.ultimaPartida);
+let ultima = new Date(rta.ultimaPartida.date + "Z");
+let fechaFormateada = ultima.toLocaleDateString("es-AR", {
+    weekday: 'long', // lunes, martes...
+    year: 'numeric',
+    month: 'long',   // julio, agosto...
+    day: 'numeric'
+});
+
+console.log("ULTIMA PARTIDA: " + fechaFormateada);
+
 let ganador= rta.ultimoGanador;
 const partidasJugadas=rta.partidasTotales;
 let div=document.getElementById("ultimaPartida");
@@ -98,7 +108,7 @@ let div=document.getElementById("ultimaPartida");
      //let p2 = document.createElement("p");
      div.className="ultimaPartida";
      h2.innerText = " INFO ULTIMA PARTIDA " ;
-     p1.innerText = "ULTIMA PARTIDA: " + ultima;
+     p1.innerText = "ULTIMA PARTIDA: " + fechaFormateada;
      p2.innerText = "Ultimo Ganador: " + ganador;
      p3.innerText = "Partidas totales jugadas: " + partidasJugadas;
      divTitulo.appendChild(h2);

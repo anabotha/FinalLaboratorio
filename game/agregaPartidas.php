@@ -36,12 +36,21 @@ if ($resultado->num_rows > 0) {
 
      if ($ganador == $p1) $ganadasJ1++;
      if ($ganador == $p2) $ganadasJ2++;
+     if($ganador!=null){
 
-     $update = "UPDATE partidas 
-               SET ganadasComunJ1=?, ganadasComunJ2=?, partidasTotales=?, ultimaPartida=?, ultimoGanador=? 
-               WHERE j1=? AND j2=?";
-     $stmt = $db->prepare($update);
-     $stmt->bind_param("iiissss", $ganadasJ1, $ganadasJ2, $partidasTotales, $fecha, $ganador, $p1, $p2);
+          $update = "UPDATE partidas 
+                    SET ganadasComunJ1=?, ganadasComunJ2=?, partidasTotales=?, ultimaPartida=?, ultimoGanador=? 
+                    WHERE j1=? AND j2=?";
+          $stmt = $db->prepare($update);
+          $stmt->bind_param("iiissss", $ganadasJ1, $ganadasJ2, $partidasTotales, $fecha, $ganador, $p1, $p2);
+     }else{
+          $ganador=$fila['ultimoGanador'];
+          $update = "UPDATE partidas 
+                    SET ganadasComunJ1=?, ganadasComunJ2=?, partidasTotales=?, ultimaPartida=?, ultimoGanador=? 
+                    WHERE j1=? AND j2=?";
+          $stmt = $db->prepare($update);
+          $stmt->bind_param("iiissss", $ganadasJ1, $ganadasJ2, $partidasTotales, $fecha, $ganador, $p1, $p2);
+     }
      $stmt->execute();
 } else {
      // Si no existe, insertar una nueva
