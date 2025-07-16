@@ -199,8 +199,10 @@ function muestroTurno(jug) {
      const p = document.getElementById("turno"+jug);
      console.log(p, jug)
      if (p) p.innerText = "¡Es tu turno!";
+     p.style.visibility="visible";
 
      const otro = document.getElementById("turno" + (jug === "1" ? "2" : "1"));
+     otro.style.visibility="hidden";
      if (otro) otro.innerText = "";
 }
 
