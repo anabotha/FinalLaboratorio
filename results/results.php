@@ -18,28 +18,39 @@
 <div class="cell"></div>
 
 <div class="cell" id="cont-jugador1">
-     <h2 id="jugador1">Jugador 1</h2>
-     <div class="intentos"><p>Intentos: <span id="intentos-1"></span></p></div>
-     <div class="aciertos"><p>Aciertos: <span id="aciertos-1"></span></p></div>
-     <div class="turno" ><p id="turno1"></p></div>
+     <h1 id="ganador1"></h1>
+     <h2 id="jugador1"></h2>
+     <div class="mensaje"><p> <span id="mensaje1"></span></p></div>
+     <div class="porcentaje" ><p id="porcentaje1"></p></div>
+     <div class="aciertos" ><p id="aciertos1"></p></div>
+     <div class="intentos" ><p id="intentos1"></p></div>
+
      <div class="ranking" ><p id="ranking1"></p></div>
 
 
 </div>
 
-<div class="cell" id="game-container"></div>
+<div class="cell" id="game-container">
+     <div class="mensaje"><p> <span id="mensaje"></span></p></div>
+
+</div>
 
 <div class="cell" id="cont-jugador2">
-     <h2 id="jugador2">Jugador 2</h2>
-     <div class="intentos"><p>Intentos: <span id="intentos-2"></span></p></div>
-     <div class="aciertos"><p>Aciertos: <span id="aciertos-2"></span></p></div>
-     <div class="turno"><p id="turno2"></p></div>
+     <h1 id="ganador2"></h1>
+
+     <h2 id="jugador2"></h2>
+     <div class="mensaje"><p> <span id="mensaje2"></span></p></div>
+     <div class="porcentaje"><p id="porcentaje2"></p></div>
+     <div class="aciertos" ><p id="aciertos1"></p></div>
+     <div class="intentos" ><p id="intentos1"></p></div>
+
      <div class="ranking" ><p id="ranking2"></p></div>
 
 </div>
 
 <div class="cell"></div> <!-- fila 3 -->
-<div class="cell" id="info"></div>
+<div class="cell" id="info"> <a href="../login/login.php" class="btn">IR AL INICIO</a>
+</div>
 <div class="cell"></div>
 </div>
 </body>

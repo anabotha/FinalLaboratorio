@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(ellipse at center, #0d1b2a, #1b263b);
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 20px 0;
+  color: #fff;
+}
+
+.grid-3x3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para los contenedores de jugadores */
+#cont-jugador1, #cont-jugador2 {
+  background: #1b263b;
+  border: 2px solid #415a77;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(65, 90, 119, 0.2);
+  transition: transform 0.3s;
+}
+
+#cont-jugador1:hover, #cont-jugador2:hover {
+  transform: scale(1.03);
+}
+
+#ganador1, #ganador2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#jugador1, #jugador2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.mensaje p, .porcentaje p, .ranking p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #9eb4d1;
+}
+
+.porcentaje p {
+  font-size: 1.2rem;
+  color: #1e90ff;
+  font-weight: bolder;
+}
+
+.ranking p {
+  font-size: 1rem;
+  color: gold;
+}
+
+#game-container {
+  background-color: #243447;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: inset 0 0 10px rgba(30, 144, 255, 0.2);
+}
+
+/* Reloj o cronómetro */
+.tiempo {
+  font-size: 1.5rem;
+  color: #1e90ff;
+  font-weight: bold;
+}
+
+#game-container .mensaje {
+  background: rgba(30, 144, 255, 0.1);
+  border: 2px solid #1e90ff55;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
+  text-align: center;
+}
+
+#mensaje {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1e90ff;
+  text-shadow: 0 0 10px #1e90ff66;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-3x3 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+.btn {
+width: 100%;
+padding: 10px;
+background-color: #1e90ff;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+color: white;
+cursor: pointer;
+font-size: 16px;
+margin-top:25px;
+}
+.btn:hover {
+  background-color: #0056b3;
+    transform: scale(1.08);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}

@@ -145,7 +145,7 @@ function empezarJuego(mazo) {
      //logica de pares
      let pares = parseInt(JSON.parse(getCookie("settings")).cartas);
      pares = pares / 2;
-     setCookie("pares", pares, 1);
+     setLocal("pares", pares, 1);
      //
      console.log(pares)
      mazo.forEach((carta, index) => {
@@ -305,7 +305,7 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
                let paresEncontrados = parseInt(getCookie("paresEncontrados") || 0) + 1;
                setCookie("paresEncontrados", paresEncontrados, 1);
 
-               if (paresEncontrados >= getCookie("pares") || terminoPorTiempo) {
+               if (paresEncontrados >= getLocal("pares") || terminoPorTiempo) {
                     console.log("Fin del juego");
                     deleteCookie("pares");
                     deleteCookie("paresEncontrados");
@@ -327,10 +327,10 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
                }
                }*/
 
+              // Llamar al callback con el resultado
+              if (callbackCambioTurno) callbackCambioTurno(!acerto);
+          }, 500);
           habilitarBotonesNoAdivinados();
-          // Llamar al callback con el resultado
-          if (callbackCambioTurno) callbackCambioTurno(!acerto);
-     }, 500);
 }
 
 // Informacion de jugadores
@@ -465,8 +465,9 @@ function ganador() {
      const aciertosj2 = parseInt(document.getElementById("aciertos-2").textContent) || 0;
      const intentosj1 = parseInt(document.getElementById("intentos-1").textContent) || 0;
      const intentosj2 = parseInt(document.getElementById("intentos-2").textContent) || 0;
-     const pares = parseInt(getCookie("pares")) || 1;
-
+     const pares = parseInt(getLocal("pares")) || 4;
+console.log(aciertosj1, 1, pares);
+                    console.log(aciertosj2, 1, pares);
      document.querySelectorAll(".turno").forEach(el => el.textContent = "");
 
      if (!terminoPorTiempo) {
@@ -478,8 +479,8 @@ function ganador() {
                     setCookie("winner", getCookie(1));
                     setLocal("score1", 10);
                     setLocal("score2", 0);
-                    calcularPorcentajes(aciertosj1, 1, pares, true);
-                    calcularPorcentajes(aciertosj2, 2, pares, false);
+                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, true)))
+                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
                     break;
 
                case (aciertosj1 < aciertosj2):
@@ -492,36 +493,43 @@ function ganador() {
                          setLocal("score1", 0);
                          setLocal("score2", 10);
                     }
-                    calcularPorcentajes(aciertosj1, 1, pares, false);
-                    calcularPorcentajes(aciertosj2, 2, pares, true);
+                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
+                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, true)));
                     break;
 
                case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 < intentosj2):
                     setCookie("winner", getCookie(1));
                     setLocal("score1", 6);
                     setLocal("score2", 4);
-                    calcularPorcentajes(aciertosj1, 1, pares, true);
-                    calcularPorcentajes(aciertosj2, 2, pares, false);
+                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, true)));
+                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
                     break;
 
                case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 > intentosj2):
                     setCookie("winner", getCookie(2));
                     setLocal("score1", 4);
                     setLocal("score2", 6);
-                    calcularPorcentajes(aciertosj1, 1, pares, false);
-                    calcularPorcentajes(aciertosj2, 2, pares, true);
+                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
+                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, true)));
                     break;
 
                case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 === intentosj2):
                     setCookie("winner", null);
                     setLocal("score1", 5);
                     setLocal("score2", 5);
+                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
+                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
                     break;
 
                case (aciertosj1 === aciertosj2 && intentosMaximos):
                     setCookie("winner", null);
                     setLocal("score1", 3);
                     setLocal("score2", 3);
+                    
+
+
+                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
+                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
                     break;
           }
      } else {
@@ -540,37 +548,39 @@ function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
 
      switch (true) {
           case (gano && porcentaje === 100):
-               mensaje = `${numeroJugador}: ¡¡¡EXCELENTE MEMORIA!!!`;
+               mensaje = `¡¡¡EXCELENTE MEMORIA!!!`;
                break;
           case (gano && porcentaje >= 80):
-               mensaje = `${numeroJugador}: ¡¡¡MUY BUENA MEMORIA!!!`;
+               mensaje = `¡¡¡MUY BUENA MEMORIA!!!`;
                break;
           case (gano && porcentaje >= 60):
-               mensaje = `${numeroJugador}: ¡¡¡BUENA MEMORIA!!! ¡¡¡Puedes mejorar!!!`;
+               mensaje = `¡¡¡BUENA MEMORIA!!! ¡¡¡Puedes mejorar!!!`;
                break;
           case (gano && porcentaje < 60):
-               mensaje = `${numeroJugador}: ¡¡¡Ganaste, pero necesitas entrenar más tu memoria!!!`;
+               mensaje = `¡¡¡Ganaste, pero necesitas entrenar más tu memoria!!!`;
                break;
 
           case (!gano && porcentaje >= 80):
-               mensaje = `${numeroJugador}: ¡¡¡MUY BUENA MEMORIA!!!`;
+               mensaje = `¡¡¡MUY BUENA MEMORIA!!!`;
                break;
           case (!gano && porcentaje >= 60):
-               mensaje = `${numeroJugador}: ¡¡¡BUENA MEMORIA!!! ¡¡¡Puedes mejorar!!!`;
+               mensaje = `¡¡¡BUENA MEMORIA!!! ¡¡¡Puedes mejorar!!!`;
                break;
           case (!gano && porcentaje < 60):
-               mensaje = `${numeroJugador}: ¡¡¡Mala memoria, debes practicar más!!!`;
+               mensaje = `¡¡¡Mala memoria, debes practicar más!!!`;
                break;
 
           default:
-               mensaje = `${numeroJugador}: Resultado no definido.`;
+               mensaje = `Resultado no definido.`;
                console.log(mensaje);
+               
      }
 
      return {
           porcentaje: porcentaje.toFixed(1),
           mensaje
      };
+
 }
 
 
