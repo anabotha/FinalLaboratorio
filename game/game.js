@@ -204,8 +204,6 @@ function muestroTurno(jug) {
      if (otro) otro.innerText = "";
 }
 
-
-
 function daVuelta(button) {
      const uid = button.id;
      const cartaReal = button.getAttribute("data-carta");
@@ -218,9 +216,9 @@ function daVuelta(button) {
      button.disabled = true;
 
      // Borrar cookies temporales
-     deleteCookie("inicia");
+     /*deleteCookie("inicia");
      deleteCookie("segundo");
-     deleteCookie("partida");
+     deleteCookie("partida");*/
 
 
      // Control de jugadas
@@ -388,7 +386,7 @@ function abandonoPartida(jugador) {
      abandono = true;
      console.log("abandono" + jugador);
      const num = getNumeroJugador(jugador);
-     setLocal("score" + num, 0);
+     setLocal("score"+ num, 0);
      if (num == 1) {
           setLocal("score2", 2);
           setLocal("score1", 0);
@@ -417,7 +415,6 @@ function finJuego() {
      //cargar partida
      //mostrar resto de info
 }
-
 
 function reloj(callbackFin) {
      tiempo = JSON.parse(getCookie("settings"));
@@ -460,12 +457,15 @@ function reloj(callbackFin) {
 function detenerReloj() {
      clearInterval(relojIntervalo); // Detiene el reloj
 }
+
 function ganador() {
      const aciertosj1 = parseInt(document.getElementById("aciertos-1").textContent) || 0;
      const aciertosj2 = parseInt(document.getElementById("aciertos-2").textContent) || 0;
      const intentosj1 = parseInt(document.getElementById("intentos-1").textContent) || 0;
      const intentosj2 = parseInt(document.getElementById("intentos-2").textContent) || 0;
      const pares = parseInt(getLocal("pares")) || 4;
+     let porcentajesJ1=0;
+     let porcentajesJ2=0;
 console.log(aciertosj1, 1, pares);
                     console.log(aciertosj2, 1, pares);
      document.querySelectorAll(".turno").forEach(el => el.textContent = "");
@@ -473,72 +473,105 @@ console.log(aciertosj1, 1, pares);
      if (!terminoPorTiempo) {
           if (!intentosMaximos) setCookie("razon", "adivinadas");
 
-          switch (true) {
-               case (aciertosj1 > aciertosj2):
-                    document.getElementById("cont-jugador1").className = "ganador";
-                    setCookie("winner", getCookie(1));
-                    setLocal("score1", 10);
-                    setLocal("score2", 0);
-                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, true)))
-                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
-                    break;
+               switch (true) {
+     case (aciertosj1 > aciertosj2): {
+          document.getElementById("cont-jugador1").className = "ganador";
+          setCookie("winner", getCookie(1));
+          setLocal("score1", 10);
+          setLocal("score2", 0);
+          
+          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, true);
+          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+          break;
+     }
 
-               case (aciertosj1 < aciertosj2):
-                    document.getElementById("cont-jugador2").className = "ganador";
-                    setCookie("winner", getCookie(2));
-                    if (intentosMaximos) {
-                         setLocal("score1", 4);
-                         setLocal("score2", 6);
-                    } else {
-                         setLocal("score1", 0);
-                         setLocal("score2", 10);
-                    }
-                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
-                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, true)));
-                    break;
-
-               case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 < intentosj2):
-                    setCookie("winner", getCookie(1));
-                    setLocal("score1", 6);
-                    setLocal("score2", 4);
-                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, true)));
-                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
-                    break;
-
-               case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 > intentosj2):
-                    setCookie("winner", getCookie(2));
-                    setLocal("score1", 4);
-                    setLocal("score2", 6);
-                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
-                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, true)));
-                    break;
-
-               case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 === intentosj2):
-                    setCookie("winner", null);
-                    setLocal("score1", 5);
-                    setLocal("score2", 5);
-                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
-                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
-                    break;
-
-               case (aciertosj1 === aciertosj2 && intentosMaximos):
-                    setCookie("winner", null);
-                    setLocal("score1", 3);
-                    setLocal("score2", 3);
-                    
-
-
-                    setLocal("porcentajesJ1",JSON.stringify(calcularPorcentajes(aciertosj1, 1, pares, false)));
-                    setLocal("porcentajesJ2",JSON.stringify(calcularPorcentajes(aciertosj2, 2, pares, false)));
-                    break;
+     case (aciertosj1 < aciertosj2): {
+          document.getElementById("cont-jugador2").className = "ganador";
+          setCookie("winner", getCookie(2));
+          if (intentosMaximos) {
+               setLocal("score1", 4);
+               setLocal("score2", 6);
+          } else {
+               setLocal("score1", 0);
+               setLocal("score2", 10);
           }
-     } else {
+
+          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, true);
+          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+          break;
+     }
+
+     case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 < intentosj2): {
+          setCookie("winner", getCookie(1));
+          setLocal("score1", 6);
+          setLocal("score2", 4);
+
+          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, true);
+          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+          break;
+     }
+
+     case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 > intentosj2): {
+          setCookie("winner", getCookie(2));
+          setLocal("score1", 4);
+          setLocal("score2", 6);
+
+          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, true);
+          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+          break;
+     }
+
+     case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 === intentosj2): {
+          setCookie("winner", null);
+          setLocal("score1", 5);
+          setLocal("score2", 5);
+
+          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+          break;
+     }
+
+     case (aciertosj1 === aciertosj2 && intentosMaximos): {
+          setCookie("winner", null);
+          setLocal("score1", 3);
+          setLocal("score2", 3);
+
+          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+          break;
+     }
+     }
+}else {
           // Se quedaron sin tiempo
           setCookie("winner", null);
           setCookie("razon", "tiempo");
           setLocal("score1", 0);
           setLocal("score2", 0);
      }
+     const usuario1={
+          nombre:getCookie(1),
+          ptje:getLocal("score1"),
+          porcentaje: porcentajesJ1.porcentaje ?? 0
+     }
+     const usuario2={
+          nombre:getCookie(2),
+          ptje:getLocal("score2"),
+          porcentaje:porcentajesJ2.porcentaje ?? 0
+     }
+     mandarARanking(usuario1);
+     mandarARanking(usuario2);
 }
 
 
@@ -583,8 +616,33 @@ function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
 
 }
 
+function mandarARanking(usuario) {
+    let xhr = new XMLHttpRequest();
 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            try {
+                const respuesta = JSON.parse(xhr.responseText);
+                console.log("✅ Respuesta del servidor:", respuesta);
+                 irAResults(respuesta);
+            } catch (e) {
+                console.error("❌ Error al parsear JSON:", xhr.responseText);
+            }
+        }
+    };
+
+    const url = "rankingUsuario.php?usuario=" + encodeURIComponent(JSON.stringify(usuario));
+     console.log(url);
+
+    xhr.open("GET", url, true);
+    xhr.send();
+}
+
+
+function mostrarRanking(){
+
+}
 function irAResults(rta) {
-     window.location.href = "../results/results.php?";
+     window.location.href = "../results/results.php";
 
 }

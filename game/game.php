@@ -1,5 +1,7 @@
 
-
+<?php
+include 'ranking.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -21,7 +23,27 @@
       <div class="intentos"><p>Intentos: <span id="intentos-1"></span></p></div>
       <div class="aciertos"><p>Aciertos: <span id="aciertos-1"></span></p></div>
       <div class="turno" ><p id="turno1"></p></div>
-      <div class="ranking" ><p id="ranking1"></p></div>
+      <div class="ranking">
+        Ranking:
+      <table>
+        <thead>
+  <th>Puntos</th>
+  <th>Porcentaje</th>
+
+</thead>
+        <?php 
+        $ranking = getRanking(getCookiePHP(1));
+        
+        foreach ($ranking as $fila): ?>
+    <tr> 
+        <td> <?= $fila['puntaje'] ?></td>
+        <td><?= htmlspecialchars($fila['porcentaje']) ?></td>
+        
+    </tr>
+    <?php endforeach; ?>
+  </table> </div>
+        
+
       <button class="button" type='button' id="rendirj1"> Rendirse</button>
       
     </div>
@@ -33,7 +55,28 @@
       <div class="intentos"><p>Intentos: <span id="intentos-2"></span></p></div>
       <div class="aciertos"><p>Aciertos: <span id="aciertos-2"></span></p></div>
       <div class="turno"><p id="turno2"></p></div>
-      <div class="ranking" ><p id="ranking2"></p></div>
+  <div class="ranking">
+  Ranking:
+      <table>
+<thead>
+  <th>Puntos</th>
+  <th>Porcentaje</th>
+
+</thead>
+  <?php 
+    $ranking = getRanking(getCookiePHP(2));
+    foreach ($ranking as $fila): 
+  ?>
+  <tr>
+      <td><?= $fila['puntaje'] ?> </td>
+        <td> <?= htmlspecialchars($fila['porcentaje']) ?></td>
+    </tr>
+
+    
+  <?php endforeach; ?>
+</table>
+</div>
+
       <button class="button"type='button' id="rendirj2"> Rendirse</button>
 
     </div>
@@ -46,3 +89,8 @@
 
 </body>
 </html>
+<?php
+function getCookiePHP($nombre) {
+     return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
+}
+?>

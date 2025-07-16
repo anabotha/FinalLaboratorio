@@ -1,10 +1,10 @@
 <?php
 if (isset($_GET['resultado'])) {
-agregarPartida($_GET['resultado']);
+$datos = json_decode($_GET['resultado']);
+agregarPartida($datos);
 }
 
-function agregarPartida($resultadoJson) {
-$datos = json_decode($resultadoJson);
+function agregarPartida($datos) {
 
 // Obtener los valores del objeto JSON
 $p1 = $datos->player1;
@@ -66,6 +66,8 @@ if ($resultado->num_rows > 0) {
 
 $stmt->close();
 $db->close();
-  echo json_encode(["estado" => "ok", "mensaje" => "Partida registrada"]);
+echo json_encode(["estado" => "ok", "mensaje" => "Partida registrada"]);
 }
+
+
 ?>

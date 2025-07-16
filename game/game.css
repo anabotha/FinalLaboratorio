@@ -156,3 +156,28 @@ p {
       border-radius: 8px;
       cursor: pointer;
 }
+.ranking {
+  display: flex;
+  margin-top:0px;
+  flex-direction: column;
+  background-color: #223448;
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
+  color: white;
+  /**/
+  margin: 8px 0;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: #214872;
+}
+
+.ranking-item {
+  background-color: #2b3a50;
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
