@@ -27,7 +27,6 @@
 </div>
      <p class="logueado1" id="logueado1" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
 
-     <p name="info" ></p>
 </div>
 
 <div class="login-box">
@@ -41,9 +40,8 @@
           <button id="inicio2" type="button">ENTRAR AL JUEGO</button>
      </form>
      <a href="register.php">¿No tenés cuenta? Registrate</a>
-     <p id="info2" class="info"></p>
 </div>
-<p name="info" ></p>
+<p name="info" id="info2" class="info" ></p>
 <p class="logueado2" id="logueado2" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
 
 </div>

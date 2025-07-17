@@ -139,6 +139,7 @@ function empezarJuego(mazo) {
      terminoPorTiempo = false;
      reloj(() => {
           terminoPorTiempo = true;
+          finJuego();
           console.log("Se terminó el tiempo, se cierra el juego.");
           //finJuego();
      });
@@ -408,6 +409,7 @@ function finJuego() {
           ganador();
 
      }
+     console.log("termino por tiempo"+terminoPorTiempo);
      if (!terminoPorTiempo) {//si termino porq se adivino todo detiene el reloj.
           detenerReloj();
      }
@@ -561,6 +563,7 @@ console.log(aciertosj1, 1, pares);
           setCookie("razon", "tiempo");
           setLocal("score1", 0);
           setLocal("score2", 0);
+
      }
      const usuario1={
           nombre:getCookie(1),

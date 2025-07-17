@@ -3,13 +3,15 @@ if (isset($_GET['nick']) && isset($_GET['jugador']) &&isset($_GET['contraseña']
      $nick = htmlspecialchars($_GET['nick']);
      $nroJug = intval($_GET['jugador']); // Por si querés usarlo como número
      $contra=$_GET['contraseña'];
-     if (!cookieEsIgualA($nroJug,$nick)) {
+     $nroJug2 = ($nroJug === "1") ? "2" : "1";
+
+     if (!cookieEsIgualA($nroJug2,$nick)) {
           buscaUsuario($nick, $nroJug,$contra);
      } else {
           $json_temp = new stdClass();
           $json_temp->existe = true;
           $json_temp->enUso = true;
-               $json_temp->nroJug = $nroJug;
+          $json_temp->nroJug = $nroJug;
 
           echo json_encode($json_temp);
      }

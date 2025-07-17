@@ -25,12 +25,16 @@ function getCookiePHP($nombre) {
 
 function buscaPartidas($nick1,$nick2){
 //ordena alfabeticamente los nicks
-if (strcasecmp($nick1, $nick2) < 0) {
-     $usuario1 = $nick1;
-     $usuario2 = $nick2;
+/*if (strcasecmp($nick1, $nick2) < 0) {
+     $nick1 = $nick1;
+     $nick2 = $nick2;
 } else {
-     $usuario1 = $nick2;
-     $usuario2 = $nick1;
+     $nick1 = $nick2;
+     $nick2 = $nick1;
+}*/
+if (strcmp($nick1, $nick2) > 0) {
+    [$nick1, $nick2] = [$nick2, $nick1]; 
+    //[$puntaje1, $puntaje2] = [$puntaje2, $puntaje1];
 }
 
 require_once './Partida.class.php';
@@ -50,7 +54,7 @@ u2.PartidasGanadas AS ganadasIndivJ2
 FROM partidas p
 JOIN usuarios u1 ON p.j1 = u1.nickname
 JOIN usuarios u2 ON p.j2 = u2.nickname
-WHERE p.j1 = '$usuario1' AND p.j2 = '$usuario2'"; // Limitar a un resultado
+WHERE p.j1 = '$nick1' AND p.j2 = '$nick2'"; // Limitar a un resultado
      $result = $db->query($query);
      if($result->num_rows == 1){ //si existe el cliente en la bd
           while($cliente = $result->fetch_object()){
@@ -78,7 +82,7 @@ $update = "INSERT INTO Partidas (
      ganadasComunJ2,
      partidasTotales
 ) VALUES (
-     '$usuario1', '$usuario2', 0, 0, 0
+     '$nick1', '$nick2', 0, 0, 0
 );";
 $db->query($update);
 
@@ -86,19 +90,19 @@ $db->query($update);
 $ganadasJ1 = 0;
 $ganadasJ2 = 0;
 
-$resJ1 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$usuario1'");
+$resJ1 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$nick1'");
 if ($resJ1 && $resJ1->num_rows > 0) {
      $ganadasJ1 = $resJ1->fetch_object()->partidasGanadas;
 }
 
-$resJ2 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$usuario2'");
+$resJ2 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$nick2'");
 if ($resJ2 && $resJ2->num_rows > 0) {
      $ganadasJ2 = $resJ2->fetch_object()->partidasGanadas;
 }
 
 // Inicializar el objeto Partida
-$partida->setJ1($usuario1);
-$partida->setJ2($usuario2);
+$partida->setJ1($nick1);
+$partida->setJ2($nick2);
 $partida->setGanadasComunJ1(0);
 $partida->setGanadasComunJ2(0);
 $partida->setPrimeroActual(null);

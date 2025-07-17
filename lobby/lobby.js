@@ -64,7 +64,6 @@ function carga() {
 }
      //window.location.href = "../turns/turno.php";
 function gestionar(rta){ //recibe el objeto con todas las cosas que me tocan imprimir.
-console.log("llega a gestionar fatla ivista nomas");
 nick1=getCookie(1);
 nick2=getCookie(2);
 console.log(nick1);

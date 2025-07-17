@@ -38,7 +38,6 @@ function creaUsuario(usuario) {
 }
 
 function gestionarRespuestas(usuario){
-     console.log(usuario.nickname);
      var p=document.getElementById("info");
      var exito=document.getElementById("exito");
 
@@ -46,6 +45,10 @@ if(usuario.nombreExiste===false && usuario.nuevo){
      console.log("se creo exitosamente,ya puede jugar");
      exito.innerText="Registrado exitosamente";
      p.innerText="";
+     setTimeout(() => {
+  window.location.href = "../login.php";
+}, 2000); // 2000 ms = 2 segundos
+
 
 }else if(usuario.nombreExiste && usuario.nuevo===false){
      console.log("ya existe un usuario con ese nombre,intente otro");

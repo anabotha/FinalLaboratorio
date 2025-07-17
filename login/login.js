@@ -11,7 +11,6 @@ window.onload = function () {
      document.getElementById("inicio1").addEventListener("click", function (e) {
           e.preventDefault();
           buscaNombre(document.getElementById("usuario1").value,1,document.getElementById("password1").value);
-               console.log("llegaaaaaa");
 
           //no compara la contraseña aun
      });
@@ -102,30 +101,36 @@ mensaje2.style.display='none';
 }
 
 function gestionarRtas(rta){
-if(rta.existe && rta.enUso){
+     let nroJug = rta.nroJug; 
+     if(rta.existe && rta.enUso){
+     //nroJug = (nroJug === "1") ? "2" : "1";
      console.log("no podes jugar contra vos mismo");
-          limpiarCampos(rta.nroJug);
+limpiarCampos(nroJug);
+console.log(nroJug);
+const p=document.getElementById("info"+nroJug);
+          p.innerText="no podes jugar contra vos mismo";
 
 }else if(rta.existe && !rta.enUso){
      if(rta.contra){
-          
-          setCookie(rta.nroJug,rta.nickname,1);
-          const ingreso=document.getElementById("ingresoData"+rta.nroJug);
+          const p=document.getElementById("info"+nroJug);
+          p.innerText="";
+          setCookie(nroJug,rta.nickname,1);
+          const ingreso=document.getElementById("ingresoData"+nroJug);
           ingreso.style.display ='none'; 
-          const mensaje=document.getElementById("logueado"+rta.nroJug);
+          const mensaje=document.getElementById("logueado"+nroJug);
           mensaje.style.display='flex';
           finLogueo();
      }else{
-          limpiarCampos(rta.nroJug);
+          limpiarCampos(nroJug);
           console.log("contraseña incorrecta");
-          const p=document.getElementById("info"+rta.nroJug);
+          const p=document.getElementById("info"+nroJug);
           p.innerText="Contraseña incorrecta";
      }
 }
      else if(!rta.existe){
-          limpiarCampos(rta.nroJug);
+          limpiarCampos(nroJug);
      console.log("no existe ese usuario,crealo");
-     const p=document.getElementById("info"+rta.nroJug);
+     const p=document.getElementById("info"+nroJug);
           p.innerText=" No tenes usuario? Registrate!";
 }
 }

@@ -22,8 +22,8 @@ nombre.innerText=getCookie(num);
 
 function mostrarGanador(){
      const winner=getCookie("winner");
-     if(winner!=null){
-
+     console.log(winner);
+     if(winner!==null && winner!=="null"){
           document.getElementById("mensaje").innerHTML="WINNER <br>"+winner;
      }else{
           document.getElementById("mensaje").innerHTML="EMPATE";

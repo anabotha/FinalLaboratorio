@@ -134,8 +134,8 @@ if (esMayorDe15($fechaNac)) {
      $db->set_charset("utf8mb4");
 
      $insert = "INSERT INTO Usuarios (
-          nickname, fechaNacimiento, PartidasJugadas, PartidasGanadas, email
-     ) VALUES ('$nick', '$fechaNac', 0, 0, '$email');";
+          nickname, fechaNacimiento, PartidasGanadas, email,puntaje
+     ) VALUES ('$nick', '$fechaNac',0, '$email',0);";
 
      $db->query($insert);
 

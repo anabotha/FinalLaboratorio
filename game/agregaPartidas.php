@@ -13,6 +13,10 @@ $ganador = $datos->winner;
 $puntaje1 = $datos->puntajej1;
 $puntaje2 = $datos->puntajej2;
 $fecha = $datos->fecha;
+if (strcmp($p1, $p2) > 0) {
+    [$p1, $p2] = [$p2, $p1]; 
+    [$puntaje1, $puntaje2] = [$puntaje2, $puntaje1];
+}
 
 $db = new mysqli("localhost", "root", "", "juegodb");
 if ($db->connect_error) {
@@ -36,23 +40,20 @@ if ($resultado->num_rows > 0) {
 
      if ($ganador == $p1) $ganadasJ1++;
      if ($ganador == $p2) $ganadasJ2++;
-     if($ganador!=null){
+     if ($ganador === null || $ganador === "null") {
+    $ganador = $fila['ultimoGanador'];
+}
 
-          $update = "UPDATE partidas 
-                    SET ganadasComunJ1=?, ganadasComunJ2=?, partidasTotales=?, ultimaPartida=?, ultimoGanador=? 
-                    WHERE j1=? AND j2=?";
-          $stmt = $db->prepare($update);
-          $stmt->bind_param("iiissss", $ganadasJ1, $ganadasJ2, $partidasTotales, $fecha, $ganador, $p1, $p2);
-     }else{
-          $ganador=$fila['ultimoGanador'];
-          $update = "UPDATE partidas 
-                    SET ganadasComunJ1=?, ganadasComunJ2=?, partidasTotales=?, ultimaPartida=?, ultimoGanador=? 
-                    WHERE j1=? AND j2=?";
-          $stmt = $db->prepare($update);
-          $stmt->bind_param("iiissss", $ganadasJ1, $ganadasJ2, $partidasTotales, $fecha, $ganador, $p1, $p2);
-     }
-     $stmt->execute();
-} else {
+// Preparar UPDATE
+$update = "UPDATE partidas 
+           SET ganadasComunJ1 = ?, ganadasComunJ2 = ?, partidasTotales = ?, ultimaPartida = ?, ultimoGanador = ?
+           WHERE j1 = ? AND j2 = ?";
+           
+$stmt = $db->prepare($update);
+$stmt->bind_param("iiissss", $ganadasJ1, $ganadasJ2, $partidasTotales, $fecha, $ganador, $p1, $p2);
+$stmt->execute();
+
+}/* else {
      // Si no existe, insertar una nueva
      $ganadasJ1 = $ganador == $p1 ? 1 : 0;
      $ganadasJ2 = $ganador == $p2 ? 1 : 0;
@@ -62,7 +63,7 @@ if ($resultado->num_rows > 0) {
      $stmt = $db->prepare($insert);
      $stmt->bind_param("ssiiss", $p1, $p2, $ganadasJ1, $ganadasJ2, $fecha, $ganador);
      $stmt->execute();
-}
+}*/
 agregarWin($db,$datos);
 actualizarPuntaje($db,$p1,$puntaje1);
 actualizarPuntaje($db,$p2,$puntaje2);
