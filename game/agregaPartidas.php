@@ -63,11 +63,57 @@ if ($resultado->num_rows > 0) {
      $stmt->bind_param("ssiiss", $p1, $p2, $ganadasJ1, $ganadasJ2, $fecha, $ganador);
      $stmt->execute();
 }
+agregarWin($db,$datos);
+actualizarPuntaje($db,$p1,$puntaje1);
+actualizarPuntaje($db,$p2,$puntaje2);
 
 $stmt->close();
 $db->close();
 echo json_encode(["estado" => "ok", "mensaje" => "Partida registrada"]);
 }
 
+function agregarWin($db,$datos) {
+    $ganador = $datos->winner;
+    
+    // 1. Obtener PartidasGanadas del ganador
+    $query = "SELECT PartidasGanadas FROM usuarios WHERE nickname = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("s", $ganador);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-?>
+    if ($resultado->num_rows > 0) {
+        $row = $resultado->fetch_assoc();
+        $ganadasActuales = (int)$row['PartidasGanadas'];
+        $nuevasGanadas = $ganadasActuales + 1;
+
+        // 2. Actualizar PartidasGanadas
+        $update = "UPDATE usuarios SET PartidasGanadas = ? WHERE nickname = ?";
+        $stmtUpdate = $db->prepare($update);
+        $stmtUpdate->bind_param("is", $nuevasGanadas, $ganador);
+        $stmtUpdate->execute();
+        $stmtUpdate->close();
+    }
+
+}
+function actualizarPuntaje($db, $nickname, $puntajeGanado) {
+    $query = "SELECT Puntaje FROM usuarios WHERE nickname = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("s", $nickname);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
+        $row = $resultado->fetch_assoc();
+        $puntajeActual = (int)$row['Puntaje'];
+        $nuevoPuntaje = $puntajeActual + $puntajeGanado;
+
+        $update = "UPDATE usuarios SET Puntaje = ? WHERE nickname = ?";
+        $stmtUpdate = $db->prepare($update);
+        $stmtUpdate->bind_param("is", $nuevoPuntaje, $nickname);
+        $stmtUpdate->execute();
+        $stmtUpdate->close();
+    }
+
+    
+}

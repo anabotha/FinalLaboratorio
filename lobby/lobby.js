@@ -130,6 +130,9 @@ mostrarInfoJugador("jugador2", rta.j2, rta.ganadasIndivJ2);
      setBoton();
 
 }
+function conectoBd(){
+     
+}
 function setBoton(){
      let btn = document.getElementById("btn");
      btn.innerHTML="";
