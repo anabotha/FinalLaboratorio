@@ -56,16 +56,16 @@ function carga() {
                console.log(respuesta);
                gestionar(respuesta); 
                setLocal("partida",respuesta);
-
+                 setLocal("p1",respuesta.puntajej1);
+          setLocal("p2",respuesta.puntajej2);
           }
      };
      xhr.open("GET", "buscaPartidas.php", true);
      xhr.send();
 }
-     //window.location.href = "../turns/turno.php";
 function gestionar(rta){ //recibe el objeto con todas las cosas que me tocan imprimir.
-nick1=getCookie(1);
-nick2=getCookie(2);
+nick1=j1;
+nick2=j2;
 console.log(nick1);
 
 if (rta.j1==nick1) { //vuelve a ordenar los jugadores de acuerdo a como se loguearon.
@@ -96,19 +96,25 @@ let fechaFormateada = ultima.toLocaleDateString("es-AR", {
 console.log("ULTIMA PARTIDA: " + fechaFormateada);
 
 let ganador= rta.ultimoGanador;
+let p2 = document.createElement("p");
+if(ganador=="null" || ganador==null){
+     p2.innerText = "Ultima Partida: Empate" ;
+
+}else{
+
+     p2.innerText = "Ultimo Ganador: " + ganador;
+}
 const partidasJugadas=rta.partidasTotales;
 let div=document.getElementById("ultimaPartida");
 
      let h2 = document.createElement("h2");
      let p1 = document.createElement("p");
-     let p2 = document.createElement("p");
      let p3 = document.createElement("p");
 
      //let p2 = document.createElement("p");
      div.className="ultimaPartida";
-     h2.innerText = " INFO ULTIMA PARTIDA " ;
-     p1.innerText = "ULTIMA PARTIDA: " + fechaFormateada;
-     p2.innerText = "Ultimo Ganador: " + ganador;
+     h2.innerText = " ULTIMA PARTIDA " ;
+     p1.innerHTML = "ULTIMA PARTIDA:<br> " + fechaFormateada;
      p3.innerText = "Partidas totales jugadas: " + partidasJugadas;
      divTitulo.appendChild(h2);
      div.appendChild(p1);
@@ -124,14 +130,14 @@ function setVistaPrimeraPartida(rta){
      let h1= document.createElement("h1");
      h1.innerText="PRIMER ENFRENTAMIENTO";
      div.appendChild(h1);
-mostrarInfoJugador("jugador1", rta.j1, rta.ganadasIndivJ1);
-mostrarInfoJugador("jugador2", rta.j2, rta.ganadasIndivJ2);
+   
+
+mostrarInfoJugador("jugador1", rta.j1, rta.ganadasIndivJ1,rta.puntajej1);
+mostrarInfoJugador("jugador2", rta.j2, rta.ganadasIndivJ2,rta.puntajej2);
      setBoton();
 
 }
-function conectoBd(){
-     
-}
+
 function setBoton(){
      let btn = document.getElementById("btn");
      btn.innerHTML="";
@@ -141,19 +147,19 @@ function setBoton(){
      button.addEventListener("click",pasarATurnos);
 }
 
-function mostrarInfoJugador(idDiv, nombreJugador, partidasGanadas) {
+function mostrarInfoJugador(idDiv, nombreJugador, partidasGanadas,ptje) {
      let div = document.getElementById(idDiv);
      let h2 = document.createElement("h2");
      let p1 = document.createElement("p");
-     //let p2 = document.createElement("p");
+     let p2 = document.createElement("p");
      div.className="jugadores";
-     h2.innerText = "Info de: " + nombreJugador;
+     h2.innerHTML = "👑<br>Info de: " + nombreJugador;
      p1.innerText = "Partidas Ganadas: " + partidasGanadas;
-     //p2.innerText = "Partidas Jugadas: " + partidasJugadas;
+     p2.innerText="Puntaje: "+ptje;
 
      div.appendChild(h2);
      div.appendChild(p1);
-     //div.appendChild(p2);
+     div.appendChild(p2);
 }
 
 function pasarATurnos(){

@@ -105,10 +105,25 @@ function getLocal(key) {
      }
 }
 
+// function dirigir(){
+//      setCookie("settings", JSON.stringify(settings),1);
+//      //setLocal("settings", JSON.stringify(settings));
+// window.location.href = "../../game/game.php";
+// }
 function dirigir(){
-     setCookie("settings", JSON.stringify(settings),1);
+     const {cartas, tipo, tiempo} = settings;
+
+     const req = new XMLHttpRequest()
+     req.open('POST','../../game/game.php',true)
+     req.onreadystatechange = ()=>{
+          if(req.readyState ==4 && req.status == 200){
+               setTimeout(()=>{
+                    window.location.href = "../../game/game.php";
+               },500)
+          }
+     }
+     req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+     req.send(`carta=${cartas}&tipo=${tipo}&tiempo=${tiempo}`)
+     //setCookie("settings", JSON.stringify(settings),1);
      //setLocal("settings", JSON.stringify(settings));
-window.location.href = "../../game/game.php";
-
-
 }

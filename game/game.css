@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: fit-content;
 }
 
 h1 {
@@ -39,8 +40,10 @@ display: grid;
   grid-template-columns: repeat(8, 1fr) !important; /* 8 columnas */
   grid-template-rows: repeat(4, 1fr) !important;  /* 4 filas */
   gap: 10px;
-  width: 80vw;
-  height: 55vh;
+  /*width: 80vw;*/
+  height: 90vh;
+  width: fit-content !important;
+
 }
 .cell {
   display: flex;
@@ -86,6 +89,7 @@ display: grid;
   gap: 5px;
   /*padding: 20px;*/
   width: 90%;
+
   height: 100%;
   justify-items: center;
   margin:0,20px;
@@ -157,21 +161,19 @@ p {
       cursor: pointer;
 }
 .ranking {
-  display: flex;
-  margin-top:0px;
+  display: inline-flex; /* o block, si no querés que se alinee horizontalmente */
   flex-direction: column;
-  background-color: #223448;
-  padding: 10px;
+  margin: 8px auto; /* centra en la celda horizontalmente */
+  padding: 10px 15px;
   border-radius: 10px;
   width: fit-content;
   color: white;
-  /**/
-  margin: 8px 0;
-  font-weight: bold;
+  font-weight: bolder;
   font-size: 16px;
   text-align: center;
-  box-shadow: #214872;
+  box-shadow: 0 0 15px #214872;
 }
+
 
 .ranking-item {
   background-color: #2b3a50;
@@ -181,3 +183,7 @@ p {
   font-weight: bold;
 }
 
+.ranking:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #1f5c9a;
+}

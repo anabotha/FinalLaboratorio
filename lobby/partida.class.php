@@ -12,7 +12,8 @@ class Partida
      public $partidasTotales;
      public $ultimaPartida;
      public $ultimoGanador;
-
+     public $puntajej1;
+     public $puntajej2;
      // Getter
      public function getUltimoGanador() {
           return $this->ultimoGanador;
@@ -43,6 +44,9 @@ class Partida
           $this->primeroActual = null;
           $this->partidasTotales = 0;
           $this->ultimaPartida=null;
+          $this->puntajej1=0;
+          $this->puntajej2=0;
+
      }
 
      public function getJ1() { return $this->j1; }
@@ -63,6 +67,8 @@ class Partida
      public function setGanadasIndivJ2($wins) { $this->ganadasIndivJ2 = $wins; }
      public function setPrimeroActual($player) { $this->primeroActual = $player; }
      public function setpartidasTotales($jugadas) { $this->partidasTotales = $jugadas; }
+      public function setpuntaje1($ptje){$this->puntajej1=$ptje;}
+      public function setpuntaje2($ptje){$this->puntajej2=$ptje;}
 
      // Helper methods
      public function getTotalWinsJ1() {

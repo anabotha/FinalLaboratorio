@@ -1,8 +1,14 @@
 
-
+<?php
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
+     <script>
+  const j1='<?php echo $_SESSION['j1']?>';
+  const j2='<?php echo $_SESSION['j2']?>';
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Memory Game</title>
@@ -50,6 +56,9 @@
 
 <div class="cell"></div> <!-- fila 3 -->
 <div class="cell" id="info"> <a href="../login/login.php" class="btn">IR AL INICIO</a>
+<!-- <a href="../lobby/lobby.php?j1=<?php echo urlencode($_SESSION['j1']); ?>&j2=<?php echo urlencode($_SESSION['j2']); ?>" class="btn">REVANCHA</a> -->
+
+
 </div>
 <div class="cell"></div>
 </div>

@@ -50,7 +50,9 @@ p.partidasTotales,
 p.ultimaPartida, 
 p.ultimoGanador,
 u1.PartidasGanadas AS ganadasIndivJ1, 
-u2.PartidasGanadas AS ganadasIndivJ2
+u2.PartidasGanadas AS ganadasIndivJ2,
+u1.puntaje as puntaje1,
+u2.puntaje as puntaje2
 FROM partidas p
 JOIN usuarios u1 ON p.j1 = u1.nickname
 JOIN usuarios u2 ON p.j2 = u2.nickname
@@ -68,6 +70,9 @@ WHERE p.j1 = '$nick1' AND p.j2 = '$nick2'"; // Limitar a un resultado
                $partida->setPrimeroActual($cliente->ultimoGanador); // o lo que corresponda
                $partida->setGanadasIndivJ1($cliente->ganadasIndivJ1);
                $partida->setGanadasIndivJ2($cliente->ganadasIndivJ2);
+               $partida->setpuntaje1($cliente->puntaje1);
+               $partida->setpuntaje2($cliente->puntaje2);
+
                     if (!empty($cliente->ultimaPartida)) {
      $partida->setUltimaPartida(new DateTime($cliente->ultimaPartida));
 } 

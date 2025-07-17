@@ -1,12 +1,14 @@
-//si getCookie("razon")=='adivinadas' muestre los pordentajes.
 window.onload=function (e) {
      if (getCookie("razon")==="adivinadas" || getCookie("razon")==="intentos"){
           mostrarPorcentajes(1);
           mostrarPorcentajes(2);
+     }else{
+          mostrarPuntajes(1);
+          mostrarPuntajes(2);
+
      }
      mostrarGanador();
      //mostrarResultados();
-     deleteAllCookies();
 }
 
 function mostrarPorcentajes(num){
@@ -20,6 +22,18 @@ nombre.innerText=getCookie(num);
 
 }
 
+function mostrarPuntajes(num){
+     console.log(j1,j2,num);
+    const nombre = document.getElementById("jugador" + num);
+    const puntos = JSON.parse(getLocal("p" + num));
+    const puntosContainer = document.getElementById("porcentaje" + num);
+    
+    puntosContainer.innerHTML = "Puntaje de jugador <br>" + puntos;
+
+    // Mostrar j1 si num es 1, j2 si num es 2
+    nombre.innerText = num === 1 ? j1 : j2;
+
+}
 function mostrarGanador(){
      const winner=getCookie("winner");
      console.log(winner);
@@ -30,11 +44,7 @@ function mostrarGanador(){
 
      }
 }
-/*
-function mostrarResultados(){
-const aciertos=document.getElementById("aciertos"+num);
-const intentos=document.getElementById("intentos"+num);
-}*/
+
 //cookie time
 function setCookie(nombre, valor, dias) {
      const d = new Date();
@@ -59,14 +69,7 @@ function getCookie(nombre) { //
 function deleteCookie(nombre) {
      document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
 }
-function deleteAllCookies() {
-const cookies = document.cookie.split(";");
 
-for (let cookie of cookies) {
-     const nombre = cookie.split("=")[0].trim();
-     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-}
-}
 //local storage
 function setLocal(key, value) {
      try {

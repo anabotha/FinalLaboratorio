@@ -35,7 +35,7 @@
           <div class="option selected" onclick="selectOption(this, 'tiempo', '5')">5 min</div>
           <div class="option" onclick="selectOption(this, 'tiempo', '10')">10 min</div>
           <div class="option" onclick="selectOption(this, 'tiempo', '20')">20 min</div>
-          <div class="option" onclick="selectOption(this, 'tiempo', '1')">Sin límite</div>
+          <div class="option" onclick="selectOption(this, 'tiempo', '0')">Sin límite</div>
      </div>
      </div>
 

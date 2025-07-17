@@ -12,16 +12,15 @@ window.onload = function (e) {
           e.preventDefault();
           abandonoPartida(2);
      });
-     
+
 
 }
 
-function setIntentosMax(){
-     console.log(JSON.parse(getCookie("settings")).cartas);
-          switch (JSON.parse(getCookie("settings")).cartas) {
-               case "8":
-                    setLocal("intentosMax", 20);
-                    break;
+function setIntentosMax() {
+     switch (settings.cartas) {
+          case "8":
+               setLocal("intentosMax", 20);
+               break;
           case "16":
                setLocal("intentosMax", 40);
                break;
@@ -81,7 +80,6 @@ function buscaCartas() {
      let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
-               console.log(xhr.responseText);
 
                let respuesta = JSON.parse(xhr.responseText);
                empezarJuego(respuesta);
@@ -91,15 +89,15 @@ function buscaCartas() {
      xhr.send();
 }
 function agregaPartidaBd() {
-     let j1 = getCookie(1);
-     let j2 = getCookie(2);
+     let jug1 = j1;
+     let jug2 = j2;
      let winner = "";
 
      // Ordenar alfabéticamente o numéricamente para consistencia (si usás nombres, se ordenan alfabéticamente)
-     if (j1 > j2) {
-          const temp = j1;
-          j1 = j2;
-          j2 = temp;
+     if (jug1 > jug2) {
+          const temp = jug1;
+          jug1 = jug2;
+          jug2 = temp;
           score1 = getLocal("score2");
           score2 = getLocal("score1");
      } else {
@@ -109,8 +107,8 @@ function agregaPartidaBd() {
 
 
      const infoPartida = {
-          player1: j1,
-          player2: j2,
+          player1: jug1,
+          player2: jug2,
           winner: getCookie("winner"),
           puntajej1: score1,
           puntajej2: score2,
@@ -119,10 +117,9 @@ function agregaPartidaBd() {
      let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
-               console.log(xhr.responseText);
 
                let respuesta = JSON.parse(xhr.responseText);
-               irAResults(respuesta);
+               irAResults();
           }
      };
      xhr.open("GET", "agregaPartidas.php?resultado=" + encodeURIComponent(JSON.stringify(infoPartida)), true);
@@ -135,21 +132,18 @@ function empezarJuego(mazo) {
      deleteCookie("score1");
      deleteCookie("score2");
      deleteCookie("razon");
-     console.log("empezar juego js");
      terminoPorTiempo = false;
      reloj(() => {
-           terminoPorTiempo = true;
+          terminoPorTiempo = true;
           finJuego();
-          console.log("Se terminó el tiempo, se cierra el juego.");
           return true;
           //finJuego();
      });
      //logica de pares
-     let pares = parseInt(JSON.parse(getCookie("settings")).cartas);
+     let pares = parseInt(settings.cartas);
      pares = pares / 2;
      setLocal("pares", pares, 1);
      //
-     console.log(pares)
      mazo.forEach((carta, index) => {
           const container = document.createElement("button");
           container.id = index + "_" + carta.id;
@@ -180,15 +174,14 @@ function empezarJuego(mazo) {
 
           container.addEventListener("click", function (e) {
                e.preventDefault();
-               console.log(this);
                daVuelta(this);
           });
      });
 }
 
 function getNumeroJugador(nombre) {
-     const jugador1 = getCookie("1");
-     const jugador2 = getCookie("2");
+     const jugador1 = j1;
+     const jugador2 = j2;
 
      if (nombre === jugador1) return "1";
      if (nombre === jugador2) return "2";
@@ -196,15 +189,13 @@ function getNumeroJugador(nombre) {
 }
 
 function muestroTurno(jug) {
-     console.log("jug:", jug, "typeof:", typeof jug);
 
-     const p = document.getElementById("turno"+jug);
-     console.log(p, jug)
+     const p = document.getElementById("turno" + jug);
      if (p) p.innerText = "¡Es tu turno!";
-     p.style.visibility="visible";
+     p.style.visibility = "visible";
 
      const otro = document.getElementById("turno" + (jug === "1" ? "2" : "1"));
-     otro.style.visibility="hidden";
+     otro.style.visibility = "hidden";
      if (otro) otro.innerText = "";
 }
 
@@ -213,7 +204,6 @@ function daVuelta(button) {
      const cartaReal = button.getAttribute("data-carta");
      const id = button.getAttribute("data-id");
 
-     console.log("llega a daVuelta " + uid);
 
      const img = document.getElementById("img" + uid);
      img.src = cartaReal;
@@ -253,7 +243,6 @@ function daVuelta(button) {
           });
           habilitarBotonesNoAdivinados();
      } else {
-          console.log("error en el control de jugadas");
           setCookie("jugadasTurno", 0, 1);
      }
 }
@@ -263,7 +252,6 @@ function sacoValor() {
      for (let boton of botones) {
           if (!boton.classList.contains("adivinado")) {
                const img = document.getElementById("img" + boton.id);
-               console.log(boton.id);
                img.src = "";
           }
      }
@@ -290,7 +278,6 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
      const carta2 = document.getElementById(id2);
      const valor1 = id1.slice(-3);
      const valor2 = id2.slice(-3);
-     console.log(valor1, valor2, id1, id2);
 
      setTimeout(() => {
           let acerto = false;
@@ -308,39 +295,27 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
                setCookie("paresEncontrados", paresEncontrados, 1);
 
                if (paresEncontrados >= getLocal("pares") || terminoPorTiempo) {
-                    console.log("Fin del juego");
                     deleteCookie("pares");
                     deleteCookie("paresEncontrados");
                     finJuego();
                     return;
                }
           } else {
-               console.log(id1, id2);
                sacoValor();
 
           }
-
-          console.log("Comparando:", valor1, "vs", valor2, "→ Acertó:", acerto);
-          // Habilitar botones no adivinados
-          /* const botones = document.getElementsByClassName("btn-container");
-          for (let boton of botones) {
-               if (!boton.classList.contains("adivinado")) {
-                    boton.disabled = false;
-               }
-               }*/
-
-              // Llamar al callback con el resultado
-              if (callbackCambioTurno) callbackCambioTurno(!acerto);
-          }, 500);
-          habilitarBotonesNoAdivinados();
+          // Llamar al callback con el resultado
+          if (callbackCambioTurno) callbackCambioTurno(!acerto);
+     }, 500);
+     habilitarBotonesNoAdivinados();
 }
 
 // Informacion de jugadores
 function infoJugadores() {
      deleteCookie("pares");
      deleteCookie("paresEncontrados");
-     j1 = getCookie("1");
-     j2 = getCookie("2");
+     //j1 = getCookie("1");
+     //j2 = getCookie("2");
      inicia = getCookie("inicia");
      setCookie("turno", inicia, 1);
      setCookie("jugadasTurno", 0, 1);
@@ -368,14 +343,13 @@ function sumoIntentos(jugadorId) {
      let intentosElem = document.getElementById("intentos-" + jugadorId);
      let intentos = parseInt(intentosElem.textContent) || 0;
      intentosElem.textContent = intentos + 1;
-     console.log(getLocal("intentosMax"));
-     maximo=parseInt(getLocal("intentosMax"));
-     if ((intentos >=maximo) && maximo!=null) {
+     maximo = parseInt(getLocal("intentosMax"));
+     if ((intentos >= maximo) && maximo != null) {
           setCookie("razon", "intentos");
           intentosMaximos = true;
           finJuego();
-     } 
-     
+     }
+
 }
 
 function sumoAciertos(jugadorId) {
@@ -388,9 +362,8 @@ function abandonoPartida(jugador) {
      setCookie("razon", "abandono");
 
      abandono = true;
-     console.log("abandono" + jugador);
      const num = getNumeroJugador(jugador);
-     setLocal("score"+ num, 0);
+     setLocal("score" + num, 0);
      if (num == 1) {
           setLocal("score2", 2);
           setLocal("score1", 0);
@@ -405,13 +378,11 @@ function abandonoPartida(jugador) {
 }
 
 function finJuego() {
-     console.log(getCookie("razon"));
      if (!abandono) {
           ganador();
 
      }
-     console.log("termino por tiempo"+terminoPorTiempo);
-     if (!terminoPorTiempo) {//si termino porq se adivino todo detiene el reloj.
+     if (!terminoPorTiempo && settings.tiempo != "0") {//si termino porq se adivino todo detiene el reloj.
           detenerReloj();
      }
      tiempo = document.getElementById("cronometro");
@@ -422,45 +393,43 @@ function finJuego() {
 }
 
 function reloj(callbackFin) {
-     tiempo = JSON.parse(getCookie("settings"));
-     minutos = tiempo.tiempo;
-     //console.log(minutos+"min");
+     minutos = settings.tiempo;
+     const cronometro = document.getElementById("cronometro");
 
      if (minutos === "0") {
-          console.log("⏳ Tiempo ilimitado");
+          cronometro.textContent = "⏳ Tiempo ilimitado";
           return; // No iniciar reloj
      } else {
           minutos = parseInt(minutos);
      }
 
      let segundos = 0;
+     if (minutos != "0") {
+          relojIntervalo = setInterval(() => {
+               if (segundos === 0) {
+                    if (minutos === 0) {
+                         clearInterval(relojIntervalo);
+                         console.log("⏰ Tiempo finalizado");
+                         if (callbackFin) {
+                              terminoPorTiempo = true;
+                              finJuego(); // Llamar a la función cuando termina
+                              return;
+                         }
 
-     relojIntervalo = setInterval(() => {
-          if (segundos === 0) {
-               if (minutos === 0) {
-                    clearInterval(relojIntervalo);
-                    console.log("⏰ Tiempo finalizado");
-                    if (callbackFin){
-                         console.log('callbackFin')
-                         terminoPorTiempo = true;
-                          finJuego(); // Llamar a la función cuando termina
-                         return;
-               }
-
+                    } else {
+                         minutos--;
+                         segundos = 59;
+                    }
                } else {
-                    minutos--;
-                    segundos = 59;
+                    segundos--;
                }
-          } else {
-               segundos--;
-          }
 
-          //console.log(`${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`);
-          const cronometro = document.getElementById("cronometro");
-          if (cronometro) {
-               cronometro.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-          }
-     }, 1000);
+               if (cronometro && minutos != "0") {
+                    cronometro.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+               }
+          }, 1000);
+     }
+
 }
 
 function detenerReloj() {
@@ -473,96 +442,94 @@ function ganador() {
      const intentosj1 = parseInt(document.getElementById("intentos-1").textContent) || 0;
      const intentosj2 = parseInt(document.getElementById("intentos-2").textContent) || 0;
      const pares = parseInt(getLocal("pares")) || 4;
-     let porcentajesJ1=0;
-     let porcentajesJ2=0;
-console.log(aciertosj1, 1, pares);
-                    console.log(aciertosj2, 1, pares);
+     let porcentajesJ1 = 0;
+     let porcentajesJ2 = 0;
      document.querySelectorAll(".turno").forEach(el => el.textContent = "");
 
      if (!terminoPorTiempo) {
           if (!intentosMaximos) setCookie("razon", "adivinadas");
 
-               switch (true) {
-     case (aciertosj1 > aciertosj2): {
-          document.getElementById("cont-jugador1").className = "ganador";
-          setCookie("winner", getCookie(1));
-          setLocal("score1", 10);
-          setLocal("score2", 0);
-          
-          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, true);
-          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
-          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
-          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
-          break;
-     }
+          switch (true) {
+               case (aciertosj1 > aciertosj2): {
+                    document.getElementById("cont-jugador1").className = "ganador";
+                    setCookie("winner", getCookie(1));
+                    setLocal("score1", 10);
+                    setLocal("score2", 0);
 
-     case (aciertosj1 < aciertosj2): {
-          document.getElementById("cont-jugador2").className = "ganador";
-          setCookie("winner", getCookie(2));
-          if (intentosMaximos) {
-               setLocal("score1", 4);
-               setLocal("score2", 6);
-          } else {
-               setLocal("score1", 0);
-               setLocal("score2", 10);
+                    porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, true);
+                    porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+                    setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+                    setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+                    break;
+               }
+
+               case (aciertosj1 < aciertosj2): {
+                    document.getElementById("cont-jugador2").className = "ganador";
+                    setCookie("winner", getCookie(2));
+                    if (intentosMaximos) {
+                         setLocal("score1", 4);
+                         setLocal("score2", 6);
+                    } else {
+                         setLocal("score1", 0);
+                         setLocal("score2", 10);
+                    }
+
+                    porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+                    porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, true);
+                    setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+                    setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+                    break;
+               }
+
+               case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 < intentosj2): {
+                    setCookie("winner", getCookie(1));
+                    setLocal("score1", 6);
+                    setLocal("score2", 4);
+
+                    porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, true);
+                    porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+                    setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+                    setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+                    break;
+               }
+
+               case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 > intentosj2): {
+                    setCookie("winner", getCookie(2));
+                    setLocal("score1", 4);
+                    setLocal("score2", 6);
+
+                    porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+                    porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, true);
+                    setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+                    setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+                    break;
+               }
+
+               case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 === intentosj2): {
+                    setCookie("winner", null);
+                    setLocal("score1", 5);
+                    setLocal("score2", 5);
+
+                    porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+                    porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+                    setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+                    setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+                    break;
+               }
+
+               case (aciertosj1 === aciertosj2 && intentosMaximos): {
+                    setCookie("winner", null);
+                    setLocal("score1", 3);
+                    setLocal("score2", 3);
+
+                    porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
+                    porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
+                    setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
+                    setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
+                    break;
+               }
           }
-
-          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
-          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, true);
-          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
-          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
-          break;
-     }
-
-     case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 < intentosj2): {
-          setCookie("winner", getCookie(1));
-          setLocal("score1", 6);
-          setLocal("score2", 4);
-
-          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, true);
-          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
-          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
-          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
-          break;
-     }
-
-     case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 > intentosj2): {
-          setCookie("winner", getCookie(2));
-          setLocal("score1", 4);
-          setLocal("score2", 6);
-
-          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
-          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, true);
-          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
-          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
-          break;
-     }
-
-     case (aciertosj1 === aciertosj2 && !intentosMaximos && intentosj1 === intentosj2): {
-          setCookie("winner", null);
-          setLocal("score1", 5);
-          setLocal("score2", 5);
-
-          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
-          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
-          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
-          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
-          break;
-     }
-
-     case (aciertosj1 === aciertosj2 && intentosMaximos): {
-          setCookie("winner", null);
-          setLocal("score1", 3);
-          setLocal("score2", 3);
-
-          porcentajesJ1 = calcularPorcentajes(aciertosj1, 1, pares, false);
-          porcentajesJ2 = calcularPorcentajes(aciertosj2, 2, pares, false);
-          setLocal("porcentajesJ1", JSON.stringify(porcentajesJ1));
-          setLocal("porcentajesJ2", JSON.stringify(porcentajesJ2));
-          break;
-     }
-     }
-}else {
+     } else {
           // Se quedaron sin tiempo
           setCookie("winner", null);
           setCookie("razon", "tiempo");
@@ -570,15 +537,15 @@ console.log(aciertosj1, 1, pares);
           setLocal("score2", 0);
 
      }
-     const usuario1={
-          nombre:getCookie(1),
-          ptje:getLocal("score1"),
+     const usuario1 = {
+          nombre: j1,
+          ptje: getLocal("score1"),
           porcentaje: porcentajesJ1.porcentaje ?? 0
      }
-     const usuario2={
-          nombre:getCookie(2),
-          ptje:getLocal("score2"),
-          porcentaje:porcentajesJ2.porcentaje ?? 0
+     const usuario2 = {
+          nombre: j2,
+          ptje: getLocal("score2"),
+          porcentaje: porcentajesJ2.porcentaje ?? 0
      }
      mandarARanking(usuario1);
      mandarARanking(usuario2);
@@ -615,8 +582,7 @@ function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
 
           default:
                mensaje = `Resultado no definido.`;
-               console.log(mensaje);
-               
+
      }
 
      return {
@@ -627,32 +593,25 @@ function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
 }
 
 function mandarARanking(usuario) {
-    let xhr = new XMLHttpRequest();
+     let xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            try {
-                const respuesta = JSON.parse(xhr.responseText);
-                console.log("✅ Respuesta del servidor:", respuesta);
-                 irAResults(respuesta);
-            } catch (e) {
-                console.error("❌ Error al parsear JSON:", xhr.responseText);
-            }
-        }
-    };
+     xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+               try {
+                    const respuesta = JSON.parse(xhr.responseText);
+                    irAResults();
+               } catch (e) {
+               }
+          }
+     };
 
-    const url = "rankingUsuario.php?usuario=" + encodeURIComponent(JSON.stringify(usuario));
-     console.log(url);
+     const url = "rankingUsuario.php?usuario=" + encodeURIComponent(JSON.stringify(usuario));
 
-    xhr.open("GET", url, true);
-    xhr.send();
+     xhr.open("GET", url, true);
+     xhr.send();
 }
 
-
-function mostrarRanking(){
-
-}
-function irAResults(rta) {
+function irAResults() {
      window.location.href = "../results/results.php";
 
 }

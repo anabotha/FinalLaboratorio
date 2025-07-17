@@ -1,18 +1,23 @@
 <?php
-if(getCookiePHP("settings")){
-     $settings=getCookiePHP("settings");
-     $config = json_decode($_COOKIE['settings'], true); // true = array asociativo
-     buscoCartas($config);
+header('Content-Type: application/json');
+
+session_start();
+if(isset($_SESSION['cartas'],$_SESSION['tipo'],$_SESSION['tiempo'])){
+     $cartas = $_SESSION['cartas'];
+     $tipo=$_SESSION['tipo'];
+  $tiempo=$_SESSION['tiempo'];
+  
+     buscoCartas($cartas,$tipo,$tiempo);
 }
 
 function getCookiePHP($nombre) {
      return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
 }
 
-function buscoCartas($config){
-     $cartas = $config['cartas'];
-     $tipo = $config['tipo'];
-     $tiempo = $config['tiempo'];
+function buscoCartas($cartas,$tipo,$tiempo){
+     $cartas = $cartas;
+     $tipo = $tipo;
+     $tiempo = $tiempo;
      $limit=intval($cartas)/2;
 
      //conexion a bd

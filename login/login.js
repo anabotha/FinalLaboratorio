@@ -4,7 +4,7 @@
 //devuelve los usuarios.
 //variable de control,que cuando los dos esten iniciados pase a la siguiente vista.
 
-// tu código aquí
+let jugadores=["",""];
 window.onload = function () {
      console.log("getters");
      deleteAllCookies();
@@ -80,6 +80,7 @@ function finLogueo(){
      j2=getCookie('2');
      console.log(j1,j2);
 if(j1&&j2){
+     
 //pasar a siguiente vista
 /*
 deleteCookie('jugador1');
@@ -97,6 +98,10 @@ mensaje2.style.display='none';
      const body = document.getElementById("body");
      body.appendChild(btnLobby);
      btnLobby.addEventListener("click",irTurnos);//direcciona
+     setTimeout(() => {
+ irTurnos();
+}, 1000); 
+
 }
 }
 
@@ -114,7 +119,13 @@ const p=document.getElementById("info"+nroJug);
      if(rta.contra){
           const p=document.getElementById("info"+nroJug);
           p.innerText="";
-          setCookie(nroJug,rta.nickname,1);
+          //setCookie(nroJug,rta.nickname,1);
+          if(nroJug==1){
+               index=0;
+          }else{
+               index=1;
+          }
+          jugadores[index]=rta.nickname;
           const ingreso=document.getElementById("ingresoData"+nroJug);
           ingreso.style.display ='none'; 
           const mensaje=document.getElementById("logueado"+nroJug);
@@ -137,7 +148,23 @@ const p=document.getElementById("info"+nroJug);
 
 function irTurnos(){//direcciona a la siguiente vista
      //window.location.href = "../lobby/lobby.php";
-window.location.href = "../lobby/lobby.php?refrescar=" + new Date().getTime();
+//window.location.href = "../lobby/lobby.php?refrescar=" + new Date().getTime();
+
+     const req = new XMLHttpRequest()
+     req.open('POST','../lobby/lobby.php',true)
+     req.onreadystatechange = ()=>{
+          if(req.readyState ==4 && req.status == 200){
+               setTimeout(()=>{
+                    window.location.href = "../lobby/lobby.php";
+               },500)
+          }
+     }
+     req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+     console.log("Array de iraturnos"+jugadores[0]+" "+jugadores[1]);
+     req.send(`1=${jugadores[0]}&2=${jugadores[1]}`)
+     //etCookie("settings", JSON.stringify(settings),1);
+     //setLocal("settings", JSON.stringify(settings));
+
 }
 
 function limpiarCampos(jugador) {

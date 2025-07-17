@@ -11,6 +11,10 @@ flex-direction: column;
 }
 
 .login-box {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;;
 background-color: #1b263b;
 border-radius: 10px;
 padding:0 40px 40px 40px;

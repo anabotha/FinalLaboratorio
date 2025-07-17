@@ -1,10 +1,31 @@
 
 <?php
+session_start(); 
 include 'ranking.php';
+if(isset($_POST['carta'],$_POST['tipo'],$_POST['tiempo'])){
+  $_SESSION['tipo']=$_POST['tipo'];
+  $_SESSION['tiempo']=$_POST['tiempo'];
+  $_SESSION['cartas']=$_POST['carta'];
+  
+header('Location:./');
+exit();
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <script>
+  const settings={
+    cartas:'<?php echo $_SESSION['cartas']?>',
+    tipo:'<?php echo $_SESSION['tipo'] ?>',
+    tiempo:'<?php echo $_SESSION['tiempo']?>'
+  }
+    const j1='<?php echo $_SESSION['j1']?>';
+  const j2='<?php echo $_SESSION['j2']?>';
+</script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Memory Game</title>

@@ -1,6 +1,20 @@
+<?php
+session_start(); 
+if( isset($_POST['1'],$_POST['2'])){
+  $_SESSION['j1']=$_POST['1'];
+  $_SESSION['j2']=$_POST['2'];  
+header('Location:./');
+exit();
+}
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
+<script>
+  const j1='<?php echo $_SESSION['j1']?>';
+  const j2='<?php echo $_SESSION['j2']?>';
+</script>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Document</title>
@@ -8,19 +22,7 @@
 <link rel="stylesheet" href="./lobby.css">
 </head>
 <body>
-     <?php/*
-function getCookiePHP($nombre) {
-     return isset($_COOKIE[$nombre]) ? $_COOKIE[$nombre] : null;
-}
-$info = getCookiePHP("partida");
-//echo $info;
-if ($info) {
-     $partida = json_decode($info);
-     //echo $partida;
-     if ($partida) {*/
 
-
-     ?>
      <h2></h2>
      <div id="titulo" class="titulo"></div>
 
@@ -31,15 +33,5 @@ if ($info) {
 </div>
      <div id="btn" class="btn"></div>
 
-
-<?php
-//echo $partida->J1;
-/*}else{
-echo"no anda el json";
-}
-}else{
-echo"de q cookie me habals flaca";
-}*/
-?>
 </body>
 </html>

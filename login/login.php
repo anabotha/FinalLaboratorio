@@ -39,7 +39,7 @@
           <input type="password" id="password2" name="password2" placeholder="Contraseña" required>
           <button id="inicio2" type="button">ENTRAR AL JUEGO</button>
      </form>
-     <a href="register.php">¿No tenés cuenta? Registrate</a>
+     <a href="./register/register.php">¿No tenés cuenta? Registrate</a>
 </div>
 <p name="info" id="info2" class="info" ></p>
 <p class="logueado2" id="logueado2" > ✅ Ya casi estamos! Espera que tu compañero ingrese</p>
