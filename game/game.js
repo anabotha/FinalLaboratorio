@@ -138,9 +138,10 @@ function empezarJuego(mazo) {
      console.log("empezar juego js");
      terminoPorTiempo = false;
      reloj(() => {
-          terminoPorTiempo = true;
+           terminoPorTiempo = true;
           finJuego();
           console.log("Se terminó el tiempo, se cierra el juego.");
+          return true;
           //finJuego();
      });
      //logica de pares
@@ -439,8 +440,12 @@ function reloj(callbackFin) {
                if (minutos === 0) {
                     clearInterval(relojIntervalo);
                     console.log("⏰ Tiempo finalizado");
-                    if (callbackFin) finJuego(); // Llamar a la función cuando termina
-                    return terminoPorTiempo = true;
+                    if (callbackFin){
+                         console.log('callbackFin')
+                         terminoPorTiempo = true;
+                          finJuego(); // Llamar a la función cuando termina
+                         return;
+               }
 
                } else {
                     minutos--;
