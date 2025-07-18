@@ -3,7 +3,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
+     <title>Memory Game</title>
      <script src="register.js" defer></script>
           <link rel="stylesheet" href="./register.css">
 

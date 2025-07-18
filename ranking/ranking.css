@@ -1,4 +1,4 @@
-/* --- Reset básico --- */
+
 * {
 box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ align-items: center;
 backdrop-filter: blur(5px);
 }
 
-/* --- Header del título --- */
+
 h1 {
 margin-top: 5vh;
 font-size: 2.8rem;
@@ -24,24 +24,121 @@ text-shadow:
 0 0 10px rgb(1, 19, 19);
 }
 
-table{
-}
-tr{
-padding: 10vh;
-}
-
-td{
-padding: 5vh;
-
-}
-tr:nth-child(even) {
-background-color: #102030; 
-backdrop-filter: blur(5px);
+/* aspecto general de la tabla */
+.ranking-table {
+    width: 80%; 
+    max-width: 800px; 
+    margin: 30px auto;
+    border-collapse: separate; 
+    border-spacing: 0;
+    background: linear-gradient(145deg, #1b263b, #0d1b2a); 
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(65, 90, 119, 0.3);
+    overflow: hidden; 
 }
 
-tr:nth-child(odd) {
-background-color: #091522; 
-backdrop-filter: blur(5px);
+.ranking-table th, .ranking-table td {
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(65, 90, 119, 0.4); 
+    border-right: 1px solid rgba(65, 90, 119, 0.2); 
+}
+
+.ranking-table th {
+    background: #243447;
+    color: #1e90ff; 
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.ranking-table th:first-child { border-top-left-radius: 15px; }
+.ranking-table th:last-child { border-top-right-radius: 15px; border-right: none; }
+.ranking-table td:last-child { border-right: none; }
+
+
+
+.ranking-table tbody tr {
+    background-color: #1b263b; 
+    transition: all 0.3s ease-in-out; 
+}
+
+.ranking-table tbody tr:nth-child(odd) {
+    background-color: rgba(27, 38, 59, 0.8); 
+}
+
+.ranking-table tbody tr:hover {
+    background-color: #243447; 
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.2);
+}
+
+.ranking-table .rank-1-row {
+    background: linear-gradient(90deg, #2a3d54, #1b283d); 
+    color: gold; 
+    font-weight: bold;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); /
+}
+
+.ranking-table .rank-2-row {
+    background: linear-gradient(90deg, #25364b, #182335);
+    color: silver;
+}
+
+.ranking-table .rank-3-row {
+    background: linear-gradient(90deg, #203142, #15202e);
+    color: #cd7f32; 
+}
+
+/*efectos segun posicion en el ranking */
+.position-cell {
+    font-weight: bold;
+    color: #9eb4d1; 
+    transition: font-size 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.position-cell.rank-1-pos {
+    font-size: 1.4rem; 
+    color: gold; /* oro 1er lugar */
+}
+
+.position-cell.rank-2-pos {
+    font-size: 1.6rem; 
+    color: silver; /* plateado 2do lugar */
+}
+
+.position-cell.rank-3-pos {
+    font-size: 1.8rem; 
+    color: #cd7f32; /* bronce 3er lugar */
+}
+
+.position-cell.rank-4-pos {
+    font-size: 2.0rem;
+    color: #9eb4d1;
+}
+.position-cell.rank-5-pos {
+    font-size: 2.2rem;
+    color: #9eb4d1;
+}
+
+/* Responsive adjustments for the table */
+@media (max-width: 600px) {
+    .ranking-table {
+        width: 95%;
+        font-size: 0.9em;
+    }
+    .ranking-table th, .ranking-table td {
+        padding: 10px 10px;
+    }
+    .position-cell.rank-1-pos { font-size: 1.2rem; }
+    .position-cell.rank-2-pos { font-size: 1.4rem; }
+    .position-cell.rank-3-pos { font-size: 1.6rem; }
+    .position-cell.rank-4-pos { font-size: 1.8rem; }
+    .position-cell.rank-5-pos { font-size: 2.0rem; }
 }
 
 
