@@ -98,11 +98,11 @@ console.log("ULTIMA PARTIDA: " + fechaFormateada);
 let ganador= rta.ultimoGanador;
 let p2 = document.createElement("p");
 if(ganador=="null" || ganador==null){
-     p2.innerText = "Ultima Partida: Empate" ;
+     p2.innerHTML = "<strong>Ultima Partida: </strong><br>Empate" ;
 
 }else{
 
-     p2.innerText = "Ultimo Ganador: " + ganador;
+     p2.innerHTML = "<strong>Ultimo Ganador:</strong> <br> 👑 " + ganador+" 👑";
 }
 const partidasJugadas=rta.partidasTotales;
 let div=document.getElementById("ultimaPartida");
@@ -113,9 +113,9 @@ let div=document.getElementById("ultimaPartida");
 
      //let p2 = document.createElement("p");
      div.className="ultimaPartida";
-     h2.innerText = " ULTIMA PARTIDA " ;
-     p1.innerHTML = "ULTIMA PARTIDA:<br> " + fechaFormateada;
-     p3.innerText = "Partidas totales jugadas: " + partidasJugadas;
+     h2.innerHTML = "⚔️ <strong>ULTIMO DUELO</strong> ⚔️" ;
+     p1.innerHTML = "<strong>Jugado el:</strong><br> " + fechaFormateada;
+     p3.innerHTML = "<strong>Partidas totales jugadas:</strong><br> " + partidasJugadas;
      divTitulo.appendChild(h2);
      div.appendChild(p1);
      div.appendChild(p2);

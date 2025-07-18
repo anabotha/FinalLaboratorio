@@ -177,3 +177,6 @@ if (usuario) usuario.value = "";
 if (password) password.value = "";
 if (info) info.textContent = "";
 }
+function irARanking(){
+     window.location.href="../ranking/ranking.php"
+}

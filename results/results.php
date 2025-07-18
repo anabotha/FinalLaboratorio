@@ -25,7 +25,7 @@ session_start();
 
 <div class="cell" id="cont-jugador1">
      <h1 id="ganador1"></h1>
-     <h2 id="jugador1"></h2>
+     <h2 id="jugador1"> </h2>
      <div class="mensaje"><p> <span id="mensaje1"></span></p></div>
      <div class="porcentaje" ><p id="porcentaje1"></p></div>
      <div class="aciertos" ><p id="aciertos1"></p></div>
@@ -44,7 +44,7 @@ session_start();
 <div class="cell" id="cont-jugador2">
      <h1 id="ganador2"></h1>
 
-     <h2 id="jugador2"></h2>
+     <h2 id="jugador2"> </h2>
      <div class="mensaje"><p> <span id="mensaje2"></span></p></div>
      <div class="porcentaje"><p id="porcentaje2"></p></div>
      <div class="aciertos" ><p id="aciertos1"></p></div>

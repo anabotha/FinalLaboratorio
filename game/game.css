@@ -10,6 +10,39 @@ body {
   height: fit-content;
 }
 
+.header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height:10vh;
+      width: 100%;
+    }
+
+    .header > div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .left {
+      text-align: left;
+      
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    .iconos{
+  width: 60px;
+    height: 40px;
+}
+.iconos:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+
+}
+/**/
 h1 {
   color: #8cbebe;
   text-shadow: 0 0 10px #318d8d;
@@ -24,6 +57,8 @@ h1 {
   gap: 20px;
   width: 90vw;
   height: 75vh;
+  width: fit-content !important;
+
 }
 
 .grid-4x4 {
@@ -187,3 +222,4 @@ p {
   transform: scale(1.05);
   box-shadow: 0 0 20px #1f5c9a;
 }
+

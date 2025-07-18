@@ -6,10 +6,17 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
+     <title>Memory Game</title>
      <link rel="stylesheet" href="./login.css">
 </head>
 <body id="body">
+      <div class="header">
+    <div class="left"></div>
+    <div><h1>MEMORY GAME</h1></div>
+    <div class="right"> <button onclick="irARanking()" style="border: none; background: none;">
+  <img src="../docs\iconos\star" title="Ranking" class="iconos">
+</button></div>
+  </div>
      <section class="logins">
           <div class="login-box">
      <div class="crown">👑</div>

@@ -32,8 +32,20 @@ exit();
     <link rel="stylesheet" href="./game.css" />
 </head>
 <body>
-  <h1>MEMORY GAME</h1>
+  <div class="header">
+    <div class="left"></div>
+    <div><h1>MEMORY GAME</h1></div>
+    <div class="right"> <button onclick="cerrarSesion()" style="border: none; background: none;">
+  <img src="../docs\iconos\quit" title="Cerrar Sesion" class="iconos">
+</button>
+
+</div>
+  </div>
+
+
   
+
+
   <div class="grid-3x3">
     <div class="cell"></div> <!-- fila 1 -->
     <div class="cell"><div class="tiempo" id="cronometro"></div></div>

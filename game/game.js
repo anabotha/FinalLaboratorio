@@ -615,3 +615,6 @@ function irAResults() {
      window.location.href = "../results/results.php";
 
 }
+function cerrarSesion(){
+     window.location.href = "../login/login.php";
+}

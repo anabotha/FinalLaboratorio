@@ -36,9 +36,10 @@ function mostrarPuntajes(num){
 }
 function mostrarGanador(){
      const winner=getCookie("winner");
-     console.log(winner);
+     const num=getNumeroJugador(winner);
      if(winner!==null && winner!=="null"){
-          document.getElementById("mensaje").innerHTML="WINNER <br>"+winner;
+          document.getElementById("ganador"+num).innerHTML="👑";
+          document.getElementById("mensaje").innerHTML=" 👑<br>WINNER <br>"+winner;
      }else{
           document.getElementById("mensaje").innerHTML="EMPATE";
 
@@ -87,4 +88,10 @@ function getLocal(key) {
           console.error("Error al leer de localStorage:", e);
           return null;
      }
+}
+
+function getNumeroJugador(nombre) {
+     if (nombre === j1) return "1";
+     if (nombre === j2) return "2";
+
 }
