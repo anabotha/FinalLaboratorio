@@ -33,7 +33,7 @@ function setIntentosMax() {
      }
 
 }
-//cookie time
+//cookies
 function setCookie(nombre, valor, dias) {
      const d = new Date();
      d.setTime(d.getTime() + (dias * 24 * 60 * 60 * 1000)); // días → ms
@@ -126,7 +126,25 @@ function agregaPartidaBd() {
 
      xhr.send();
 }
+function mandarARanking(usuario) {
+     let xhr = new XMLHttpRequest();
 
+     xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+               try {
+                    const respuesta = JSON.parse(xhr.responseText);
+                    irAResults();
+               } catch (e) {
+               }
+          }
+     };
+
+     const url = "rankingUsuario.php?usuario=" + encodeURIComponent(JSON.stringify(usuario));
+
+     xhr.open("GET", url, true);
+     xhr.send();
+}
+//inicio de logica
 function empezarJuego(mazo) {
      deleteCookie("winner");
      deleteCookie("score1");
@@ -179,32 +197,56 @@ function empezarJuego(mazo) {
      });
 }
 
-function getNumeroJugador(nombre) {
-     const jugador1 = j1;
-     const jugador2 = j2;
-
-     if (nombre === jugador1) return "1";
-     if (nombre === jugador2) return "2";
-
+function sacoValor() {
+     const botones = document.getElementsByClassName("btn-container");
+     for (let boton of botones) {
+          if (!boton.classList.contains("adivinado")) {
+               const img = document.getElementById("img" + boton.id);
+               img.src = "";
+          }
+     }
 }
 
-function muestroTurno(jug) {
+function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
+     sumoIntentos(jugador);
+     const carta1 = document.getElementById(id1);
+     const carta2 = document.getElementById(id2);
+     const valor1 = id1.slice(-3);
+     const valor2 = id2.slice(-3);
 
-     const p = document.getElementById("turno" + jug);
-     if (p) p.innerText = "¡Es tu turno!";
-     p.style.visibility = "visible";
+     setTimeout(() => {
+          let acerto = false;
+          if (valor1 === valor2) {
+               acerto = true;
+               carta1.disabled = true;
+               carta2.disabled = true;
+               carta1.classList.add("adivinado");
+               carta2.classList.add("adivinado");
+               sumoAciertos(jugador);
+               // Lógica de pares
+               let paresEncontrados = parseInt(getCookie("paresEncontrados") || 0) + 1;
+               setCookie("paresEncontrados", paresEncontrados, 1);
 
-     const otro = document.getElementById("turno" + (jug === "1" ? "2" : "1"));
-     otro.style.visibility = "hidden";
-     if (otro) otro.innerText = "";
+               if (paresEncontrados >= getLocal("pares") || terminoPorTiempo) {
+                    deleteCookie("pares");
+                    deleteCookie("paresEncontrados");
+                    finJuego();
+                    return;
+               }
+          } else {
+               sacoValor();
+
+          }
+          // Llamar al callback con el resultado
+          if (callbackCambioTurno) callbackCambioTurno(!acerto);
+          habilitarBotonesNoAdivinados();
+     }, 500);
 }
 
 function daVuelta(button) {
      const uid = button.id;
      const cartaReal = button.getAttribute("data-carta");
      const id = button.getAttribute("data-id");
-
-
      const img = document.getElementById("img" + uid);
      img.src = cartaReal;
      button.disabled = true;
@@ -239,53 +281,27 @@ function daVuelta(button) {
           setCookie("jugadasTurno", 0, 1);
      }
 }
+//ayudas
+function getNumeroJugador(nombre) {
+     const jugador1 = j1;
+     const jugador2 = j2;
 
-function sacoValor() {
-     const botones = document.getElementsByClassName("btn-container");
-     for (let boton of botones) {
-          if (!boton.classList.contains("adivinado")) {
-               const img = document.getElementById("img" + boton.id);
-               img.src = "";
-          }
-     }
+     if (nombre === jugador1) return "1";
+     if (nombre === jugador2) return "2";
+
 }
-function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
-     sumoIntentos(jugador);
-     const carta1 = document.getElementById(id1);
-     const carta2 = document.getElementById(id2);
-     const valor1 = id1.slice(-3);
-     const valor2 = id2.slice(-3);
 
-     setTimeout(() => {
-          let acerto = false;
-          if (valor1 === valor2) {
-               acerto = true;
-               carta1.disabled = true;
-               carta2.disabled = true;
-               carta1.classList.add("adivinado");
-               carta2.classList.add("adivinado");
-               sumoAciertos(jugador);
-               // Lógica de pares
+function muestroTurno(jug) {
 
+     const p = document.getElementById("turno" + jug);
+     if (p) p.innerText = "¡Es tu turno!";
+     p.style.visibility = "visible";
 
-               let paresEncontrados = parseInt(getCookie("paresEncontrados") || 0) + 1;
-               setCookie("paresEncontrados", paresEncontrados, 1);
-
-               if (paresEncontrados >= getLocal("pares") || terminoPorTiempo) {
-                    deleteCookie("pares");
-                    deleteCookie("paresEncontrados");
-                    finJuego();
-                    return;
-               }
-          } else {
-               sacoValor();
-
-          }
-          // Llamar al callback con el resultado
-          if (callbackCambioTurno) callbackCambioTurno(!acerto);
-          habilitarBotonesNoAdivinados();
-     }, 500);
+     const otro = document.getElementById("turno" + (jug === "1" ? "2" : "1"));
+     otro.style.visibility = "hidden";
+     if (otro) otro.innerText = "";
 }
+
 function bloquearBotones() {
      const botones = document.getElementsByClassName("btn-container");
      for (let boton of botones) {
@@ -300,56 +316,6 @@ function habilitarBotonesNoAdivinados() {
                boton.disabled = false;
           }
      }
-}
-
-
-
-// Informacion de jugadores
-function infoJugadores() {
-     deleteCookie("pares");
-     deleteCookie("paresEncontrados");
-     //j1 = getCookie("1");
-     //j2 = getCookie("2");
-     inicia = getCookie("inicia");
-     setCookie("turno", inicia, 1);
-     setCookie("jugadasTurno", 0, 1);
-     imprimoJugador(j1, 1);
-     imprimoJugador(j2, 2);
-     const jug = getNumeroJugador(inicia);
-     muestroTurno(jug);
-}
-
-function imprimoJugador(j, id) {
-     // Crear y agregar el nombre del jugador
-     let h2 = document.getElementById("jugador" + id);
-     h2.textContent = j;
-
-     // setea el contador de intentos
-     let intentos = document.getElementById("intentos-" + id);
-     intentos.textContent = 0;
-
-     // setea el contador de aciertos
-     let aciertos = document.getElementById("aciertos-" + id);
-     aciertos.textContent = 0;
-}
-
-function sumoIntentos(jugadorId) {
-     let intentosElem = document.getElementById("intentos-" + jugadorId);
-     let intentos = parseInt(intentosElem.textContent) || 0;
-     intentosElem.textContent = intentos + 1;
-     maximo = parseInt(getLocal("intentosMax"));
-     if ((intentos >= maximo) && maximo != null) {
-          setCookie("razon", "intentos");
-          intentosMaximos = true;
-          finJuego();
-     }
-
-}
-
-function sumoAciertos(jugadorId) {
-     let aciertosElem = document.getElementById("aciertos-" + jugadorId);
-     let aciertos = parseInt(aciertosElem.textContent, 10) || 0;
-     aciertosElem.textContent = aciertos + 1;
 }
 
 function abandonoPartida(num) {
@@ -380,56 +346,11 @@ function finJuego() {
      tiempo = document.getElementById("cronometro");
      setLocal("tiempo", tiempo);
      agregaPartidaBd();
-     setLocal("aciertos1",document.getElementById("aciertos-1").innerText);
-     setLocal("aciertos2",document.getElementById("aciertos-2").innerText);
+     setLocal("aciertos1", document.getElementById("aciertos-1").innerText);
+     setLocal("aciertos2", document.getElementById("aciertos-2").innerText);
      //cargar partida
      //mostrar resto de info
 }
-
-function reloj(callbackFin) {
-     minutos = settings.tiempo;
-     const cronometro = document.getElementById("cronometro");
-
-     if (minutos === "0") {
-          cronometro.textContent = "⏳ Tiempo ilimitado";
-          return; // No iniciar reloj
-     } else {
-          minutos = parseInt(minutos);
-     }
-
-     let segundos = 0;
-     if (minutos != "0") {
-          relojIntervalo = setInterval(() => {
-               if (segundos === 0) {
-                    if (minutos === 0) {
-                         clearInterval(relojIntervalo);
-                         console.log("⏰ Tiempo finalizado");
-                         if (callbackFin) {
-                              terminoPorTiempo = true;
-                              finJuego(); // Llamar a la función cuando termina
-                              return;
-                         }
-
-                    } else {
-                         minutos--;
-                         segundos = 59;
-                    }
-               } else {
-                    segundos--;
-               }
-
-               if (cronometro && minutos != "0") {
-                    cronometro.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-               }
-          }, 1000);
-     }
-
-}
-
-function detenerReloj() {
-     clearInterval(relojIntervalo); // Detiene el reloj
-}
-
 function ganador() {
      const aciertosj1 = parseInt(document.getElementById("aciertos-1").textContent) || 0;
      const aciertosj2 = parseInt(document.getElementById("aciertos-2").textContent) || 0;
@@ -545,6 +466,98 @@ function ganador() {
      mandarARanking(usuario2);
 }
 
+// Informacion de jugadores
+function infoJugadores() {
+     deleteCookie("pares");
+     deleteCookie("paresEncontrados");
+     //j1 = getCookie("1");
+     //j2 = getCookie("2");
+     inicia = getCookie("inicia");
+     setCookie("turno", inicia, 1);
+     setCookie("jugadasTurno", 0, 1);
+     imprimoJugador(j1, 1);
+     imprimoJugador(j2, 2);
+     const jug = getNumeroJugador(inicia);
+     muestroTurno(jug);
+}
+
+function imprimoJugador(j, id) {
+     // Crear y agregar el nombre del jugador
+     let h2 = document.getElementById("jugador" + id);
+     h2.textContent = j;
+
+     // setea el contador de intentos
+     let intentos = document.getElementById("intentos-" + id);
+     intentos.textContent = 0;
+
+     // setea el contador de aciertos
+     let aciertos = document.getElementById("aciertos-" + id);
+     aciertos.textContent = 0;
+}
+
+function sumoIntentos(jugadorId) {
+     let intentosElem = document.getElementById("intentos-" + jugadorId);
+     let intentos = parseInt(intentosElem.textContent) || 0;
+     intentosElem.textContent = intentos + 1;
+     maximo = parseInt(getLocal("intentosMax"));
+     if ((intentos >= maximo) && maximo != null) {
+          setCookie("razon", "intentos");
+          intentosMaximos = true;
+          finJuego();
+     }
+
+}
+
+function sumoAciertos(jugadorId) {
+     let aciertosElem = document.getElementById("aciertos-" + jugadorId);
+     let aciertos = parseInt(aciertosElem.textContent, 10) || 0;
+     aciertosElem.textContent = aciertos + 1;
+}
+
+function reloj(callbackFin) {
+     minutos = settings.tiempo;
+     const cronometro = document.getElementById("cronometro");
+
+     if (minutos === "0") {
+          cronometro.textContent = "⏳ Tiempo ilimitado";
+          return; // No iniciar reloj
+     } else {
+          minutos = parseInt(minutos);
+     }
+
+     let segundos = 0;
+     if (minutos != "0") {
+          relojIntervalo = setInterval(() => {
+               if (segundos === 0) {
+                    if (minutos === 0) {
+                         clearInterval(relojIntervalo);
+                         console.log("⏰ Tiempo finalizado");
+                         if (callbackFin) {
+                              terminoPorTiempo = true;
+                              finJuego(); // Llamar a la función cuando termina
+                              return;
+                         }
+
+                    } else {
+                         minutos--;
+                         segundos = 59;
+                    }
+               } else {
+                    segundos--;
+               }
+
+               if (cronometro && minutos != "0") {
+                    cronometro.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+               }
+          }, 1000);
+     }
+
+}
+
+function detenerReloj() {
+     clearInterval(relojIntervalo); // Detiene el reloj
+}
+
 function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
      const porcentaje = (puntajeJugador / pares) * 100;
      let mensaje = "";
@@ -585,29 +598,12 @@ function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
 
 }
 
-function mandarARanking(usuario) {
-     let xhr = new XMLHttpRequest();
 
-     xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-               try {
-                    const respuesta = JSON.parse(xhr.responseText);
-                    irAResults();
-               } catch (e) {
-               }
-          }
-     };
-
-     const url = "rankingUsuario.php?usuario=" + encodeURIComponent(JSON.stringify(usuario));
-
-     xhr.open("GET", url, true);
-     xhr.send();
-}
-
+//rutas
 function irAResults() {
      window.location.href = "../results/results.php";
 
 }
-function cerrarSesion(){
+function cerrarSesion() {
      window.location.href = "../login/login.php";
 }

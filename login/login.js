@@ -1,8 +1,3 @@
-//aca manda a buscar los usuarios x
-//chequea que el 2do usuario no es el primero x
-// aca manda a crear los usuarios x
-//devuelve los usuarios.
-//variable de control,que cuando los dos esten iniciados pase a la siguiente vista.
 
 let jugadores=["",""];
 window.onload = function () {
@@ -11,8 +6,6 @@ window.onload = function () {
      document.getElementById("inicio1").addEventListener("click", function (e) {
           e.preventDefault();
           buscaNombre(document.getElementById("usuario1").value,1,document.getElementById("password1").value);
-
-          //no compara la contraseña aun
      });
      document.getElementById("inicio2").addEventListener("click", function (e) {
           e.preventDefault();
@@ -20,8 +13,6 @@ window.onload = function () {
 
      });
 }
-
-
 
 function buscaNombre(usuario, jugador,contraseña) {
      console.log(usuario, jugador);
@@ -71,21 +62,13 @@ function getCookie(nombre) { //
      return null;
 }
 
-function deleteCookie(nombre) { 
-     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-}
 
 function finLogueo(){
      j1=getCookie('1');
      j2=getCookie('2');
      console.log(j1,j2);
 if(j1&&j2){
-     
-//pasar a siguiente vista
-/*
-deleteCookie('jugador1');
-deleteCookie('jugador2');*/
-console.log("llego a fin logueo");
+
 const mensaje=document.getElementById("logueado1");
 mensaje.style.display='none';
 const mensaje2=document.getElementById("logueado2");
@@ -99,7 +82,7 @@ mensaje2.style.display='none';
      body.appendChild(btnLobby);
      btnLobby.addEventListener("click",irTurnos);//direcciona
      setTimeout(() => {
- irTurnos();
+irTurnos();
 }, 1000); 
 
 }
@@ -108,10 +91,7 @@ mensaje2.style.display='none';
 function gestionarRtas(rta){
      let nroJug = rta.nroJug; 
      if(rta.existe && rta.enUso){
-     //nroJug = (nroJug === "1") ? "2" : "1";
-     console.log("no podes jugar contra vos mismo");
 limpiarCampos(nroJug);
-console.log(nroJug);
 const p=document.getElementById("info"+nroJug);
           p.innerText="no podes jugar contra vos mismo";
 
@@ -133,14 +113,12 @@ const p=document.getElementById("info"+nroJug);
           finLogueo();
      }else{
           limpiarCampos(nroJug);
-          console.log("contraseña incorrecta");
           const p=document.getElementById("info"+nroJug);
           p.innerText="Contraseña incorrecta";
      }
 }
      else if(!rta.existe){
           limpiarCampos(nroJug);
-     console.log("no existe ese usuario,crealo");
      const p=document.getElementById("info"+nroJug);
           p.innerText=" No tenes usuario? Registrate!";
 }

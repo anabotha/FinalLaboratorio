@@ -54,15 +54,15 @@ function mostrarGanador(){
 
      }
 }
+function getNumeroJugador(nombre) {
+     const jugador1 = j1;
+     const jugador2 = j2;
 
-//cookie time
-function setCookie(nombre, valor, dias) {
-     const d = new Date();
-     d.setTime(d.getTime() + (dias * 24 * 60 * 60 * 1000)); // días → ms
-     const expiracion = "expires=" + d.toUTCString();
-     document.cookie = `${nombre}=${valor}; ${expiracion}; path=/`;
+     if (nombre === jugador1) return "1";
+     if (nombre === jugador2) return "2";
+
 }
-
+//cookies
 function getCookie(nombre) { //
      const nombreEQ = nombre + "=";
      const cookies = document.cookie.split(";");
@@ -75,20 +75,7 @@ function getCookie(nombre) { //
      }
      return null;
 }
-
-function deleteCookie(nombre) {
-     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-}
-
 //local storage
-function setLocal(key, value) {
-     try {
-          localStorage.setItem(key, JSON.stringify(value));
-     } catch (e) {
-          console.error("Error al guardar en localStorage:", e);
-     }
-}
-
 function getLocal(key) {
      try {
           const item = localStorage.getItem(key);
@@ -99,11 +86,6 @@ function getLocal(key) {
      }
 }
 
-function getNumeroJugador(nombre) {
-     if (nombre === j1) return "1";
-     if (nombre === j2) return "2";
-
-}
 function irARanking(){
      window.location.href="../ranking/ranking.php"
 }

@@ -59,16 +59,6 @@ function setLocal(key, value) {
      }
 }
 
-function getLocal(key) {
-     try {
-          const item = localStorage.getItem(key);
-          return item ? JSON.parse(item) : null;
-     } catch (e) {
-          console.error("Error al leer de localStorage:", e);
-          return null;
-     }
-}
-
 function pasarALobby(){
      console.log("turnos");
      window.location.href = "../lobby/settings/settings.php";
