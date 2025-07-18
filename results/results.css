@@ -45,11 +45,18 @@ background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 
   cursor: pointer;
 
 }
-h1 {
-  font-size: 2.5rem;
+.titulo {
   margin: 20px 0 10px;
   color: #ffffff;
   font-weight: bold;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 40px;
+      font-weight: bold;
+      background: linear-gradient(360deg, #42d392, #647eff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
 }
 
 /* ==== BOTÓN GENERAL ==== */

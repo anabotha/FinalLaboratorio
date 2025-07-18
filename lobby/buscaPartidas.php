@@ -108,11 +108,11 @@ if ($resJ2 && $resJ2->num_rows > 0) {
 }
 $pJ2 = $db->query("SELECT puntaje FROM usuarios WHERE nickname = '$nick2'");
 if ($pJ2 && $pJ2->num_rows > 0) {
-     $puntajeJ2 = $pJ2->fetch_object()->partidasGanadas;
+     $puntajeJ2 = $pJ2->fetch_object()->puntaje;
 }
 $pJ1 = $db->query("SELECT puntaje FROM usuarios WHERE nickname = '$nick1'");
 if ($pJ1 && $pJ1->num_rows > 0) {
-     $puntajeJ1 = $pJ1->fetch_object()->partidasGanadas;
+     $puntajeJ1 = $pJ1->fetch_object()->puntaje;
 }
 
 // Inicializar el objeto Partida

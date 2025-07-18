@@ -11,10 +11,15 @@ margin: 0;
 flex-direction: column;
 }
 h1 {
-  font-size: 2.5rem;
   margin: 20px 0 10px;
   color: #ffffff;
   font-weight: bold;
+  font-size: 50px;
+      font-weight: bold;
+      background: linear-gradient(360deg, #42d392, #647eff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
 }
 
 .header {

@@ -18,7 +18,7 @@ session_start();
 <body>
 <div class="header">
     <div class="left"></div>
-    <div><h1>MEMORY GAME</h1></div>
+    <div><h1 class="titulo">MEMORY GAME</h1></div>
     <div class="right"> <button onclick="irARanking()" style="border: none; background: none;">
   <img src="../docs\iconos\star" title="Ranking" class="iconos">
 </button></div>

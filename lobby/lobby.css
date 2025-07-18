@@ -51,11 +51,15 @@ font-weight: bolder;
 }
 
 .titulo {
-  font-family: Arial, sans-serif;
-  font-size: 28px;
+  margin: 20px 0 10px;
+  color: #ffffff;
   font-weight: bold;
-  color: whitesmoke;
-  margin-bottom: 30px;
+  font-size: 40px;
+      font-weight: bold;
+      background: linear-gradient(360deg, #42d392, #647eff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
 }
 
 .ultimaPartida p {
