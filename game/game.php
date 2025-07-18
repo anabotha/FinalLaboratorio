@@ -42,10 +42,6 @@ exit();
 </div>
   </div>
 
-
-  
-
-
   <div class="grid-3x3">
     <div class="cell"></div> <!-- fila 1 -->
     <div class="cell"><div class="tiempo" id="cronometro"></div></div>
@@ -75,46 +71,66 @@ exit();
     </div>
 
     <div class="cell"><div class="ranking">
-        Ranking:
-      <table>
-        <thead>
-  <th>Puntos</th>
-  <th>Porcentaje</th>
-
-</thead>
-        <?php 
-        $ranking = getRanking(getCookiePHP(1));
-        
-        foreach ($ranking as $fila): ?>
-    <tr> 
-        <td> <?= $fila['puntaje'] ?></td>
-        <td><?= htmlspecialchars($fila['porcentaje']) ?></td>
-        
-    </tr>
-    <?php endforeach; ?>
-  </table> </div></div> <!-- fila 3 -->
-    <div class="cell" id="info"></div>
-    <div class="cell"><div class="ranking">
   Ranking:
-      <table>
-<thead>
-  <th>Puntos</th>
-  <th>Porcentaje</th>
-
-</thead>
-  <?php 
+  <table>
+    <?php 
+    $ranking = getRanking(getCookiePHP(1));
+    if (!empty($ranking)) { ?>
+      <thead>
+        <tr>
+          <th>Puntos</th>
+          <th>Porcentaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($ranking as $fila): ?>
+          <tr>
+            <td><?= htmlspecialchars($fila['puntaje']) ?></td>
+            <td><?= htmlspecialchars($fila['porcentaje']) ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    <?php } else { ?>
+      <tbody>
+        <tr>
+          <td colspan="2">No hay datos de ranking aún</td>
+        </tr>
+      </tbody>
+    <?php } ?>
+  </table>
+</div>
+</div> <!-- fila 3 -->
+    <div class="cell" id="info"></div>
+    <div class="ranking">
+  Ranking:
+  <table>
+    <?php 
     $ranking = getRanking(getCookiePHP(2));
-    foreach ($ranking as $fila): 
-  ?>
-  <tr>
-      <td><?= $fila['puntaje'] ?> </td>
-        <td> <?= htmlspecialchars($fila['porcentaje']) ?></td>
-    </tr>
-
-    
-  <?php endforeach; ?>
-</table>
-</div></div>
+    if (!empty($ranking)) { ?>
+      <thead>
+        <tr>
+          <th>Puntos</th>
+          <th>Porcentaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($ranking as $fila): ?>
+          <tr>
+            <td><?= htmlspecialchars($fila['puntaje']) ?></td>
+            <td><?= htmlspecialchars($fila['porcentaje']) ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    <?php } else { ?>
+      <tbody>
+        <tr>
+          <td colspan="2">No hay datos de ranking aún</td>
+        </tr>
+      </tbody>
+    <?php } ?>
+  </table>
+</div>
+</div>
   </div>
     <script src="./game.js" defer></script>
 

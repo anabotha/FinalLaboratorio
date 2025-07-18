@@ -1,26 +1,90 @@
+/* ==== ESTILOS GENERALES ==== */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: radial-gradient(ellipse at center, #0d1b2a, #1b263b);
+    background: #152e4a;
+background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
   color: white;
   text-align: center;
 }
 
+.header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      margin-bottom:20px;
+      width: 100%;
+      height: 10vh;
+      margin:0px;
+      position: fixed;
+    }
+
+    .header > div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .left {
+      text-align: left;
+      
+    }
+
+    .right {
+      text-align: right;
+     
+      
+    }
+    .iconos{
+  width: 80px;
+    height: 50px;
+}
+.iconos:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+
+}
 h1 {
   font-size: 2.5rem;
-  margin: 20px 0;
-  color: #fff;
+  margin: 20px 0 10px;
+  color: #ffffff;
+  font-weight: bold;
 }
 
+/* ==== BOTÓN GENERAL ==== */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #0a345e;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: rgb(11, 60, 109)55;;
+  transform: scale(1.05);
+}
+
+/* ==== GRID GENERAL ==== */
 .grid-3x3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   max-width: 1200px;
-  margin: auto;
-  padding: 40px 20px;
+  margin: 0 auto;
+  padding: 15vh 8vh 40px 8vh;
+
 }
 
+/* ==== CELDAS DE GRID ==== */
 .cell {
   display: flex;
   flex-direction: column;
@@ -28,69 +92,61 @@ h1 {
   justify-content: center;
 }
 
-/* Estilos para los contenedores de jugadores */
-#cont-jugador1, #cont-jugador2 {
-  background: #1b263b;
-  border: 2px solid #415a77;
-  border-radius: 20px;
+/* ==== ICONOS ==== */
+.iconos {
+  width: 80px;
+  height: 50px;
+}
+
+.iconos:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* ==== CONTENEDORES DE JUGADORES ==== */
+#cont-jugador1,
+#cont-jugador2 {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 0 20px rgba(65, 90, 119, 0.2);
-  transition: transform 0.3s;
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.4);
+  transition: transform 0.3s ease;
 }
 
-#cont-jugador1:hover, #cont-jugador2:hover {
-  transform: scale(1.03);
+#cont-jugador1:hover,
+#cont-jugador2:hover {
+  transform: scale(1.02);
 }
 
-#ganador1, #ganador2 {
+#ganador1,
+#ganador2 {
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-#jugador1, #jugador2 {
+#jugador1,
+#jugador2 {
   font-size: 1.8rem;
   font-weight: bold;
   margin: 5px 0;
 }
 
-.mensaje p, .porcentaje p, .ranking p {
-  margin: 8px 0;
-  font-size: 1rem;
-  color: #9eb4d1;
-}
-
-.porcentaje p {
-  font-size: 1.2rem;
-  color: #1e90ff;
-  font-weight: bolder;
-}
-
-.ranking p {
-  font-size: 1rem;
-  color: gold;
-}
-
+/* ==== GAME CONTAINER (TABLERO) ==== */
 #game-container {
-  background-color: #243447;
-  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
   padding: 40px;
-  box-shadow: inset 0 0 10px rgba(30, 144, 255, 0.2);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
 }
 
-/* Reloj o cronómetro */
-.tiempo {
-  font-size: 1.5rem;
-  color: #1e90ff;
-  font-weight: bold;
-}
-
+/* ==== MENSAJE EN EL JUEGO ==== */
 #game-container .mensaje {
-  background: rgba(30, 144, 255, 0.1);
   border: 2px solid #1e90ff55;
   padding: 20px 30px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 #mensaje {
@@ -100,27 +156,57 @@ h1 {
   text-shadow: 0 0 10px #1e90ff66;
 }
 
-/* Responsive */
+/* ==== TEXTO INTERNO DE CONTENEDORES ==== */
+.mensaje p,
+.porcentaje p,
+.ranking p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #cbd5e1;
+}
+
+.porcentaje p {
+  font-size: 1.2rem;
+  color: #2f7fcf;
+  font-weight: bold;
+}
+
+.aciertos{
+  font-size: 1.2rem;
+  color: #3066a0;
+  font-weight: bold;
+}
+.ranking p {
+  font-size: 1rem;
+  color: gold;
+}
+
+/* ==== RELOJ O CRONÓMETRO ==== */
+.tiempo {
+  font-size: 1.5rem;
+  color: #1e90ff;
+  font-weight: bold;
+}
+
+/* ==== INPUTS GENERAL ==== */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  color: #1f2937;
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+/* ==== RESPONSIVE ==== */
 @media (max-width: 768px) {
   .grid-3x3 {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 15px;
+    padding: 20px;
   }
-}
-.btn {
-width: 100%;
-padding: 10px;
-background-color: #1e90ff;
-border: none;
-border-radius: 5px;
-font-weight: bold;
-color: white;
-cursor: pointer;
-font-size: 16px;
-margin-top:25px;
-}
-.btn:hover {
-  background-color:#243447;
-    transform: scale(1.08);
-  transition: transform 0.2s ease, background-color 0.2s ease;
 }

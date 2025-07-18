@@ -8,9 +8,13 @@
      <script src="./settings.js" defer></script>
 </head>
 <body>
-     <h2>CONFIGURACIÓN DE PARTIDA</h2>
-     <p>Personalizá tu experiencia de juego</p>
-
+     
+     
+<div class="header">
+    <div class="left"></div>
+    <div><h2>CONFIGURACIÓN DE PARTIDA</h2><p>Personalizá tu experiencia de juego</p></div>
+    <div class="right"></div>
+  </div>
      <div class="config-container">
      <!-- CANTIDAD -->
      <div class="config-box" id="cartas-box">

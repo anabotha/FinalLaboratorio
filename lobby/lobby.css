@@ -19,7 +19,8 @@ gap:20px;
 .jugadores{
 display: flex;
 flex-direction: column;
-background-color: #1b263b;
+background: #152e4a;
+background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
 border-radius: 10px;
 padding: 40px;
 width: 320px;
@@ -31,7 +32,8 @@ box-shadow: 0 0 20px #415a77;
 .ultimaPartida {
   display: flex;
   flex-direction: column;
-  background-color: #1b263b;
+  background: #152e4a;
+background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
   border-radius: 20px;
   padding: 50px 30px;
   width: 420px;
@@ -65,7 +67,7 @@ font-weight: bolder;
 button {
   width: 100%;
   padding: 14px;
-  background-color: #1e90ff;
+  background-color:#1C4773;
   border: none;
   border-radius: 10px;
   font-weight: bold;
@@ -77,5 +79,5 @@ button {
 }
 
 button:hover {
-  background-color: #0072e3;
+  background-color:#184572;
 }

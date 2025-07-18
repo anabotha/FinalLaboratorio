@@ -1,5 +1,6 @@
 body {
-background-color: #0d1b2a;
+background: #152e4a;
+background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
 color: white;
 font-family: Arial, sans-serif;
 display: flex;
@@ -8,6 +9,12 @@ justify-content: center;
 height: 100vh;
 margin: 0;
 flex-direction: column;
+}
+h1 {
+  font-size: 2.5rem;
+  margin: 20px 0 10px;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .header {

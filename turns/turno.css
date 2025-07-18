@@ -1,7 +1,9 @@
   body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+background: #152e4a;
+background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
+ 
       color: white;
       text-align: center;
       padding: 30px;
@@ -25,7 +27,9 @@
     }
 
     .jugador-box {
-      background-color: #243447;
+      background: #152e4a;
+background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
+ 
       border-radius: 12px;
       padding: 20px;
       width: 250px;

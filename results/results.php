@@ -16,8 +16,13 @@ session_start();
 <script src="results.js" defer></script>
 </head>
 <body>
-<h1>MEMORY GAME</h1>
-
+<div class="header">
+    <div class="left"></div>
+    <div><h1>MEMORY GAME</h1></div>
+    <div class="right"> <button onclick="irARanking()" style="border: none; background: none;">
+  <img src="../docs\iconos\star" title="Ranking" class="iconos">
+</button></div>
+  </div>
 <div class="grid-3x3">
 <div class="cell"></div> <!-- fila 1 -->
 <div class="cell"><div class="tiempo" id="cronometro"></div></div>
@@ -47,7 +52,7 @@ session_start();
      <h2 id="jugador2"> </h2>
      <div class="mensaje"><p> <span id="mensaje2"></span></p></div>
      <div class="porcentaje"><p id="porcentaje2"></p></div>
-     <div class="aciertos" ><p id="aciertos1"></p></div>
+     <div class="aciertos" ><p id="aciertos2"></p></div>
      <div class="intentos" ><p id="intentos1"></p></div>
 
      <div class="ranking" ><p id="ranking2"></p></div>

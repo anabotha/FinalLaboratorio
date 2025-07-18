@@ -358,11 +358,9 @@ function sumoAciertos(jugadorId) {
      aciertosElem.textContent = aciertos + 1;
 }
 
-function abandonoPartida(jugador) {
+function abandonoPartida(num) {
      setCookie("razon", "abandono");
-
      abandono = true;
-     const num = getNumeroJugador(jugador);
      setLocal("score" + num, 0);
      if (num == 1) {
           setLocal("score2", 2);
@@ -388,6 +386,8 @@ function finJuego() {
      tiempo = document.getElementById("cronometro");
      setLocal("tiempo", tiempo);
      agregaPartidaBd();
+     setLocal("aciertos1",document.getElementById("aciertos-1").innerText);
+     setLocal("aciertos2",document.getElementById("aciertos-2").innerText);
      //cargar partida
      //mostrar resto de info
 }

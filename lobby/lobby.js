@@ -131,7 +131,7 @@ function setVistaPrimeraPartida(rta){
      h1.innerText="PRIMER ENFRENTAMIENTO";
      div.appendChild(h1);
    
-
+console.log(rta.puntajej1);
 mostrarInfoJugador("jugador1", rta.j1, rta.ganadasIndivJ1,rta.puntajej1);
 mostrarInfoJugador("jugador2", rta.j2, rta.ganadasIndivJ2,rta.puntajej2);
      setBoton();

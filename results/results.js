@@ -7,6 +7,9 @@ window.onload=function (e) {
           mostrarPuntajes(2);
 
      }
+     if(getCookie("razon")!=="tiempo"){// si termino debido al tiempo, sus aciertos son indisintos porque suman 0 ptos.
+          mostrarAciertos();
+     }
      mostrarGanador();
      //mostrarResultados();
 }
@@ -19,16 +22,22 @@ const mensaje=document.getElementById("mensaje"+num);
 porc.innerText=resultado.porcentaje;
 mensaje.innerText=resultado.mensaje;
 nombre.innerText=getCookie(num);
-
 }
 
+function mostrarAciertos(){
+     const aciertos1=document.getElementById("aciertos1");
+     const aciertos2=document.getElementById("aciertos2");
+aciertos1.innerText="Tuviste: " +getLocal("aciertos1")+" aciertos";
+aciertos2.innerText="Tuviste: " +getLocal("aciertos2")+" aciertos";
+}
 function mostrarPuntajes(num){
      console.log(j1,j2,num);
     const nombre = document.getElementById("jugador" + num);
     const puntos = JSON.parse(getLocal("p" + num));
+    const score=JSON.parse(getLocal("score"+num));
+    const puntajeActual=parseInt(puntos)+parseInt(score);
     const puntosContainer = document.getElementById("porcentaje" + num);
-    
-    puntosContainer.innerHTML = "Puntaje de jugador <br>" + puntos;
+    puntosContainer.innerHTML = "+ "+score+" puntos!"+"<br> <br> Puntaje de jugador: <br>" + puntajeActual+" puntos.";
 
     // Mostrar j1 si num es 1, j2 si num es 2
     nombre.innerText = num === 1 ? j1 : j2;
@@ -94,4 +103,7 @@ function getNumeroJugador(nombre) {
      if (nombre === j1) return "1";
      if (nombre === j2) return "2";
 
+}
+function irARanking(){
+     window.location.href="../ranking/ranking.php"
 }

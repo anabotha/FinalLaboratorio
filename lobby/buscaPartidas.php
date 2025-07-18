@@ -94,6 +94,8 @@ $db->query($update);
 // Obtener ganadas individuales desde la tabla usuarios
 $ganadasJ1 = 0;
 $ganadasJ2 = 0;
+$puntajej1=0;
+$puntajej2=0;
 
 $resJ1 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$nick1'");
 if ($resJ1 && $resJ1->num_rows > 0) {
@@ -103,6 +105,14 @@ if ($resJ1 && $resJ1->num_rows > 0) {
 $resJ2 = $db->query("SELECT partidasGanadas FROM usuarios WHERE nickname = '$nick2'");
 if ($resJ2 && $resJ2->num_rows > 0) {
      $ganadasJ2 = $resJ2->fetch_object()->partidasGanadas;
+}
+$pJ2 = $db->query("SELECT puntaje FROM usuarios WHERE nickname = '$nick2'");
+if ($pJ2 && $pJ2->num_rows > 0) {
+     $puntajeJ2 = $pJ2->fetch_object()->partidasGanadas;
+}
+$pJ1 = $db->query("SELECT puntaje FROM usuarios WHERE nickname = '$nick1'");
+if ($pJ1 && $pJ1->num_rows > 0) {
+     $puntajeJ1 = $pJ1->fetch_object()->partidasGanadas;
 }
 
 // Inicializar el objeto Partida
@@ -116,6 +126,8 @@ $partida->setGanadasIndivJ2($ganadasJ2);
 $partida->setpartidasTotales(0);
 //$partida->setUltimaPartida(null);
 $partida->setUltimoGanador(null);
+$partida->setpuntaje1($pJ1);
+$partida->setpuntaje2($pJ2);
 }
      $myJson=json_encode($partida);//si creo una  partida class armo eso y la mando
      setCookiePHP("partida",$myJson,1);
