@@ -209,12 +209,6 @@ function daVuelta(button) {
      img.src = cartaReal;
      button.disabled = true;
 
-     // Borrar cookies temporales
-     /*deleteCookie("inicia");
-     deleteCookie("segundo");
-     deleteCookie("partida");*/
-
-
      // Control de jugadas
      const jugadasTurno = getCookie("jugadasTurno") || "0";
 
@@ -241,7 +235,6 @@ function daVuelta(button) {
                deleteCookie("1stPick");
                deleteCookie("2ndPick");
           });
-          habilitarBotonesNoAdivinados();
      } else {
           setCookie("jugadasTurno", 0, 1);
      }
@@ -256,22 +249,6 @@ function sacoValor() {
           }
      }
 }
-function bloquearBotones() {
-     const botones = document.getElementsByClassName("btn-container");
-     for (let boton of botones) {
-          boton.disabled = true;
-     }
-}
-
-function habilitarBotonesNoAdivinados() {
-     const botones = document.getElementsByClassName("btn-container");
-     for (let boton of botones) {
-          if (!boton.classList.contains("adivinado")) {
-               boton.disabled = false;
-          }
-     }
-}
-
 function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
      sumoIntentos(jugador);
      const carta1 = document.getElementById(id1);
@@ -306,9 +283,26 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
           }
           // Llamar al callback con el resultado
           if (callbackCambioTurno) callbackCambioTurno(!acerto);
+          habilitarBotonesNoAdivinados();
      }, 500);
-     habilitarBotonesNoAdivinados();
 }
+function bloquearBotones() {
+     const botones = document.getElementsByClassName("btn-container");
+     for (let boton of botones) {
+          boton.disabled = true;
+     }
+}
+
+function habilitarBotonesNoAdivinados() {
+     const botones = document.getElementsByClassName("btn-container");
+     for (let boton of botones) {
+          if (!boton.classList.contains("adivinado")) {
+               boton.disabled = false;
+          }
+     }
+}
+
+
 
 // Informacion de jugadores
 function infoJugadores() {
@@ -550,7 +544,6 @@ function ganador() {
      mandarARanking(usuario1);
      mandarARanking(usuario2);
 }
-
 
 function calcularPorcentajes(puntajeJugador, numeroJugador, pares, gano) {
      const porcentaje = (puntajeJugador / pares) * 100;
