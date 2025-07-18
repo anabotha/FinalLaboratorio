@@ -1,6 +1,8 @@
 body {
 display: flex;
-background-color: #0d1b2a;
+background: #152e4a;
+background: radial-gradient(circle, rgb(9, 22, 37) 0%, rgba(13, 27, 42, 1) 35%, rgba(15, 51, 87, 1) 100%);
+ 
 color: white;
 font-family: Arial, sans-serif;
 align-items: center;

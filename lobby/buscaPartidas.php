@@ -126,8 +126,8 @@ $partida->setGanadasIndivJ2($ganadasJ2);
 $partida->setpartidasTotales(0);
 //$partida->setUltimaPartida(null);
 $partida->setUltimoGanador(null);
-$partida->setpuntaje1($pJ1);
-$partida->setpuntaje2($pJ2);
+$partida->setpuntaje1($puntajeJ1);
+$partida->setpuntaje2($puntajeJ2);
 }
      $myJson=json_encode($partida);//si creo una  partida class armo eso y la mando
      setCookiePHP("partida",$myJson,1);
