@@ -8,6 +8,8 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Memory Game</title>
      <link rel="stylesheet" href="./login.css">
+         <script src="../utils/cookies.js" defer></script>
+    <script src="../utils/storage.js" defer></script>
 </head>
 
 <body id="body">

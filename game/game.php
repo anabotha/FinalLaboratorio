@@ -30,6 +30,11 @@ exit();
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Memory Game</title>
     <link rel="stylesheet" href="./game.css" />
+    <script src="./game.js" defer></script>
+    <script src="../utils/cookies.js" defer></script>
+    <script src="../utils/storage.js" defer></script>
+
+
 </head>
 <body>
   <div class="header">
@@ -132,7 +137,6 @@ exit();
 </div>
 </div>
   </div>
-    <script src="./game.js" defer></script>
 
 </body>
 </html>

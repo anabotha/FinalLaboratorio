@@ -33,48 +33,7 @@ function setIntentosMax() {
      }
 
 }
-//cookies
-function setCookie(nombre, valor, dias) {
-     const d = new Date();
-     d.setTime(d.getTime() + (dias * 24 * 60 * 60 * 1000)); // días → ms
-     const expiracion = "expires=" + d.toUTCString();
-     document.cookie = `${nombre}=${valor}; ${expiracion}; path=/`;
-}
 
-function getCookie(nombre) { //
-     const nombreEQ = nombre + "=";
-     const cookies = document.cookie.split(";");
-
-     for (let i = 0; i < cookies.length; i++) {
-          let c = cookies[i].trim();
-          if (c.indexOf(nombreEQ) === 0) {
-               return c.substring(nombreEQ.length);
-          }
-     }
-     return null;
-}
-
-function deleteCookie(nombre) {
-     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-}
-//local storage
-function setLocal(key, value) {
-     try {
-          localStorage.setItem(key, JSON.stringify(value));
-     } catch (e) {
-          console.error("Error al guardar en localStorage:", e);
-     }
-}
-
-function getLocal(key) {
-     try {
-          const item = localStorage.getItem(key);
-          return item ? JSON.parse(item) : null;
-     } catch (e) {
-          console.error("Error al leer de localStorage:", e);
-          return null;
-     }
-}
 // trabajo en la bd
 function buscaCartas() {
      let xhr = new XMLHttpRequest();
@@ -211,9 +170,10 @@ function comparoCartas(id1, id2, jugador, callbackCambioTurno) {
      sumoIntentos(jugador);
      const carta1 = document.getElementById(id1);
      const carta2 = document.getElementById(id2);
-     const valor1 = id1.slice(-3);
-     const valor2 = id2.slice(-3);
+     const valor1 = id1.split("_")[1];
+     const valor2 = id2.split("_")[1];
 
+console.log(valor1,valor2);
      setTimeout(() => {
           let acerto = false;
           if (valor1 === valor2) {

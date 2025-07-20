@@ -20,6 +20,8 @@ exit();
      <title>Memory Game</title>
 <script src="lobby.js" defer></script>
 <link rel="stylesheet" href="./lobby.css">
+    <script src="../utils/cookies.js" defer></script>
+    <script src="../utils/storage.js" defer></script>
 </head>
 <body>
 
