@@ -2,11 +2,11 @@ window.onload=function (e) {
      if (getCookie("razon")==="adivinadas" || getCookie("razon")==="intentos"){
           mostrarPorcentajes(1);
           mostrarPorcentajes(2);
-     }else{
+     }
           mostrarPuntajes(1);
           mostrarPuntajes(2);
 
-     }
+     
      if(getCookie("razon")!=="tiempo"){// si termino debido al tiempo, sus aciertos son indisintos porque suman 0 ptos.
           mostrarAciertos();
      }
@@ -19,7 +19,7 @@ const nombre=document.getElementById("jugador"+num);
 const resultado=JSON.parse(getLocal("porcentajesJ"+num));
 const porc=document.getElementById("porcentaje"+num);
 const mensaje=document.getElementById("mensaje"+num);
-porc.innerText=resultado.porcentaje;
+porc.innerText=resultado.porcentaje+"%";
 mensaje.innerText=resultado.mensaje;
 nombre.innerText=getCookie(num);
 }
@@ -36,9 +36,11 @@ function mostrarPuntajes(num){
     const puntos = JSON.parse(getLocal("p" + num));
     const score=JSON.parse(getLocal("score"+num));
     const puntajeActual=parseInt(puntos)+parseInt(score);
-    const puntosContainer = document.getElementById("porcentaje" + num);
-    puntosContainer.innerHTML = "+ "+score+" puntos!"+"<br> <br> Puntaje de jugador: <br>" + puntajeActual+" puntos.";
+    const puntosContainer = document.getElementById("puntaje" + num);
+    const mjeContainer = document.getElementById("mje" + num);
 
+    puntosContainer.innerHTML = "+ "+score+" puntos!";
+mjeContainer.innerHTML="<br> Puntaje de jugador: <br>" + puntajeActual+" puntos."
     // Mostrar j1 si num es 1, j2 si num es 2
     nombre.innerText = num === 1 ? j1 : j2;
 

@@ -35,3 +35,11 @@
 17- armado de tabla de cartas.
 
 18- Conexion a la tabla de cartas para mostrar durante el juego
+
+19- Vista Final/ resultados
+
+20 - Logica de finalizacion de juego
+
+21- Armado de tabla rankings y conexiones.
+
+22-Armado de vista Ranking

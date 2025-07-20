@@ -13,7 +13,12 @@
 <div class="header">
     <div class="left"></div>
     <div><h2>CONFIGURACIÓN DE PARTIDA</h2><p>Personalizá tu experiencia de juego</p></div>
-    <div class="right"></div>
+    <div class="right">
+<button onclick="cerrarSesion()" style="border: none; background: none;">
+  <img src="../../docs\iconos\quit" title="Cerrar Sesion" class="iconos">
+</button>
+
+    </div>
   </div>
      <div class="config-container">
      <!-- CANTIDAD -->

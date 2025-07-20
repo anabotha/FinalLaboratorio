@@ -54,7 +54,6 @@ INSERT INTO `cartas` (`id`, `tipo`, `carta`) VALUES
 (250, 'argentina', '../cartasArgentina/postalAvestruz'),
 (251, 'argentina', '../cartasArgentina/worldcup'),
 (252, 'avion', '../cartasaviones/bombardier.jpg'),
-
 (249, 'argentina', '../cartasArgentina/postal'),
 (248, 'argentina', '../cartasArgentina/pajaro'),
 (247, 'argentina', '../cartasArgentina/mate'),

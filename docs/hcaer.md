@@ -16,9 +16,9 @@
 
 [x] direccionamiento de sttings a juego
 
-[] cambiar talb apartida +1 en ganadasjx,jugadastotales,  cambiar ultimoganador.
+[x] cambiar talb apartida +1 en ganadasjx,jugadastotales,  cambiar ultimoganador.
 
-[]armar vista final.
+[x]armar vista final.
 
-[] armar ranking para cuando este jugando.
+[x] armar ranking para cuando este jugando.
 

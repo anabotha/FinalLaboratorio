@@ -102,7 +102,7 @@ function gestionar(rta) { //recibe el objeto con todas las cosas que me tocan im
      function setVistaPrimeraPartida(rta) {
           console.log("primera vista");
           let div = document.getElementById("titulo");
-          let h1 = document.createElement("h1");
+          let h1 = document.createElement("h2");
           h1.innerText = "PRIMER ENFRENTAMIENTO";
           div.appendChild(h1);
 

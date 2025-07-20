@@ -50,7 +50,7 @@ function selectOption(element, categoria, texto) {
 
      settings[categoria] = texto;
 }
-
+//rutas
 function dirigir() {
      const { cartas, tipo, tiempo } = settings;
 
@@ -65,4 +65,7 @@ function dirigir() {
      }
      req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
      req.send(`carta=${cartas}&tipo=${tipo}&tiempo=${tiempo}`)
+}
+function cerrarSesion() {
+     window.location.href = "../../login/login.php";
 }

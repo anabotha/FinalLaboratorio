@@ -27,6 +27,7 @@ echo "</thead>";
 echo "<tbody>"; 
 
 $pos = 1;
+
 while ($fila = $resultado->fetch_assoc()) {
 $rowClass = '';
 $positionCellClass = ''; 

@@ -87,7 +87,7 @@ background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 15vh 8vh 40px 8vh;
+  padding: 15dvh 8vh 40px 8vh;
 
 }
 
@@ -166,18 +166,25 @@ background: radial-gradient(circle, rgba(21, 46, 74, 1) 0%, rgba(13, 27, 42, 1) 
 /* ==== TEXTO INTERNO DE CONTENEDORES ==== */
 .mensaje p,
 .porcentaje p,
-.ranking p {
+.ranking p,
+.puntaje,
+.mje {
   margin: 8px 0;
   font-size: 1rem;
   color: #cbd5e1;
 }
 
-.porcentaje p {
+.porcentaje p{
   font-size: 1.2rem;
   color: #2f7fcf;
   font-weight: bold;
 }
-
+.puntaje,.mje {
+  font-size: 1.3rem;
+  color:white;
+  font-weight: bold;
+  box-shadow: inset;
+}
 .aciertos{
   font-size: 1.2rem;
   color: #3066a0;

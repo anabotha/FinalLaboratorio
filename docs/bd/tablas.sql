@@ -43,7 +43,7 @@ CREATE TABLE ranking (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(idUsuario)
 );
 
-// BASE DE DATOS datosJuegoDb
+-- BASE DE DATOS datosJuegoDb
 -- Usar la base de datos correspondiente
 USE datosjuegodb;
 

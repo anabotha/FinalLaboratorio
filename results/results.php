@@ -31,8 +31,9 @@ session_start();
 <div class="cell" id="cont-jugador1">
      <h1 id="ganador1"></h1>
      <h2 id="jugador1"> </h2>
-     <div class="mensaje"><p> <span id="mensaje1"></span></p></div>
+     <div class="puntaje" ><p id="puntaje1"></p></div>
      <div class="porcentaje" ><p id="porcentaje1"></p></div>
+     <div class="mensaje"><p> <span id="mensaje1"></span></p></div>
      <div class="aciertos" ><p id="aciertos1"></p></div>
      <div class="intentos" ><p id="intentos1"></p></div>
 
@@ -50,8 +51,10 @@ session_start();
      <h1 id="ganador2"></h1>
 
      <h2 id="jugador2"> </h2>
-     <div class="mensaje"><p> <span id="mensaje2"></span></p></div>
+     <div class="puntaje" ><p id="puntaje2"></p></div>
+
      <div class="porcentaje"><p id="porcentaje2"></p></div>
+     <div class="mensaje"><p> <span id="mensaje2"></span></p></div>
      <div class="aciertos" ><p id="aciertos2"></p></div>
      <div class="intentos" ><p id="intentos1"></p></div>
 
@@ -59,13 +62,21 @@ session_start();
 
 </div>
 
-<div class="cell"></div> <!-- fila 3 -->
+<div class="cell">
+     <div class="mje" ><p id="mje1"></p></div>
+
+
+</div> <!-- fila 3 -->
 <div class="cell" id="info"> <a href="../login/login.php" class="btn">IR AL INICIO</a>
-<!-- <a href="../lobby/lobby.php?j1=<?php echo urlencode($_SESSION['j1']); ?>&j2=<?php echo urlencode($_SESSION['j2']); ?>" class="btn">REVANCHA</a> -->
+<a href="../turns/turno.php" class="btn">REVANCHA</a>
 
 
 </div>
-<div class="cell"></div>
+<div class="cell">
+
+     <div class="mje" ><p id="mje2"></p></div>
+
+</div>
 </div>
 </body>
 </html>
