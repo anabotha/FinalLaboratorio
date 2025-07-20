@@ -1,4 +1,4 @@
-//base de datos JuegoDb
+--base de datos JuegoDb
 -- Crear la base de datos
 CREATE DATABASE IF NOT EXISTS juegodb;
 USE juegodb;
