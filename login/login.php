@@ -27,8 +27,8 @@
      <div class="ingresoData1" id="ingresoData1">
      <p>¿Listo para dominar?</p>
      <form action="juego.php" method="post">
-          <input type="text" id="usuario1" name="usuario1" placeholder="Nombre de usuario" required>
-          <input type="password" id="password1"name="password1" placeholder="Contraseña" required>
+          <input type="text" minlength="5" maxlength="15" id="usuario1" name="usuario1" placeholder="Nombre de usuario" required>
+          <input type="password" minlength="5" maxlength="15"id="password1"name="password1" placeholder="Contraseña" required>
           <button id="inicio1" type="button">ENTRAR AL JUEGO</button>
      </form>
      <a href="./register/register.php">¿No tenés cuenta? Registrate</a>
@@ -46,7 +46,7 @@
           <p>¿Listo para dominar?</p>
      <form action="login.php" method="post">
           <input type="text" id="usuario2"name="usuario2" placeholder="Nombre de usuario" required>
-          <input type="password" id="password2" name="password2" placeholder="Contraseña" required>
+          <input type="password" minlength="5" maxlength="15" id="password2" name="password2" placeholder="Contraseña" required>
           <button id="inicio2" type="button">ENTRAR AL JUEGO</button>
      </form>
      <a href="./register/register.php">¿No tenés cuenta? Registrate</a>
