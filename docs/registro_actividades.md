@@ -25,7 +25,7 @@
 
 13 - armado de vista lobby
 
-14- Armado de Logica de Turnos
+14- Armado de Logica de Turnos.intentos y aciertos
 
 
 15- Armado de vista de turnos e info de jugadores
@@ -43,3 +43,9 @@
 21- Armado de tabla rankings y conexiones.
 
 22-Armado de vista Ranking
+
+23- Arreglo de vista de resultados
+
+24- Armado de scripts de bd
+
+25- Creacion de bd de ranking y conexiones

@@ -45,6 +45,8 @@ CREATE TABLE ranking (
 
 -- BASE DE DATOS datosJuegoDb
 -- Usar la base de datos correspondiente
+CREATE DATABASE IF NOT EXISTS datosjuegodb;
+USE datosjuegodb;
 USE datosjuegodb;
 
 -- Crear tabla: contraseñas

@@ -29,6 +29,17 @@ font-size: 16px;
      width: 320px;
      text-align: center;
      box-shadow: 0 0 20px #415a77;
+     margin-top: 10vh
+}
+form{
+     display: flex;
+flex-direction: column;
+text-align: start;
+}
+
+label{
+     font-size: small;
+
 }
 .register-box h2 {
      margin-bottom: 10px;
@@ -70,5 +81,6 @@ text-decoration: underline;
      font-size: 18px;
      color:greenyellow;
 }
+
 
 
